@@ -9,6 +9,7 @@ place to look to describe the experimental setup.
 """
 
 import os
+import subprocess
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -48,6 +49,10 @@ NODE_B_REASONING_EFFORT = "low"   # verification is structured classification,
 # NOTE: GPT-5.6 requires the Responses API (client.responses.create),
 # NOT the legacy chat.completions endpoint. The latter returns a 401.
 
+# Prompts are parameters which affect results more than almost anything
+# else here. Update this whenever ANY prompt text changes — otherwise two runs
+# with different prompts look identical in the results files.
+PROMPT_VERSION = "v1"
 
 # ---------------------------------------------------------------------------
 # Embeddings
@@ -73,8 +78,9 @@ EMBEDDING_DIM = 384               # verified in smoke test
 # were tuned — and keep the pilot results.
 # ---------------------------------------------------------------------------
 
-CHUNK_SIZE = 512                  # tokens per chunk
-CHUNK_OVERLAP = 64                # ~12.5% — enough to avoid splitting a claim
+CHUNK_SIZE = 256                  # WORD-PIECE-TOKENS (not characters) capped by all-MiniLM-L6-v2's max_seq_length (verified 256). 
+                                  # Long chunks are slightly truncated by the embedder — no error, no warning. 
+CHUNK_OVERLAP = 32                # ~12.5% — enough to avoid splitting a claim
                                   # across a boundary
 RETRIEVAL_K = 5                   # chunks retrieved per query
 
@@ -118,7 +124,7 @@ REQUEST_TIMEOUT = 60              # seconds
 # ---------------------------------------------------------------------------
 
 ALPHA = 0.05                      # significance level
-CONFIDENCE_LEVEL = 0.95           # for Wilson intervals on SCR / FNR / FPR
+CONFIDENCE_LEVEL = 1 - ALPHA      # 0.95 for Wilson intervals on SCR / FNR / FPR
 
 RANDOM_SEED = 42                  # for any sampling; record it
 
@@ -147,6 +153,11 @@ def run_metadata() -> dict:
 
     return {
         "timestamp_utc": datetime.now(timezone.utc).isoformat(),
+        "git_commit": subprocess.run(
+            ["git", "rev-parse", "HEAD"],
+            capture_output=True, text=True
+        ).stdout.strip(),
+        "prompt_version": PROMPT_VERSION,
         "node_a_model": NODE_A_MODEL,
         "node_a_temperature": NODE_A_TEMPERATURE,
         "node_b_model": NODE_B_MODEL,
