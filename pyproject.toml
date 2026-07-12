@@ -5,11 +5,14 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12,<3.13"
 dependencies = [
+    "anthropic>=0.116.0",
     "chromadb>=1.5.9",
     "datasets>=5.0.0",
     "fastapi>=0.139.0",
     "google-genai>=2.11.0",
+    "langchain-anthropic>=1.4.8",
     "langchain-community<0.4",
+    "langchain-huggingface>=1.2.2",
     "matplotlib>=3.11.0",
     "numpy>=2.5.1",
     "openai>=2.45.0",
