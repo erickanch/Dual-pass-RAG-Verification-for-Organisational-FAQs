@@ -101,9 +101,9 @@ CONFIG_DUAL_NODE = "dual_node"    # retrieve -> generate -> verify -> (rewrite)
 
 # The rewrite loop: if Node B rejects one or more atomic claims, Node A is
 # asked to regenerate. This cap prevents unbounded loops (and unbounded cost).
-MAX_REWRITE_ATTEMPTS = 1          # TODO: justify in methodology. 1 = single
-                                  # corrective pass. Raising this changes both
-                                  # cost and the interpretation of your metrics.
+MAX_REWRITE_ATTEMPTS = 3          # Specified in the proposal. Up to three corrective passes.
+                                  # If temporarily lowered for cheap debugging, RESTORE
+                                  # TO 3 before any run whose results you will report.
 
 
 # ---------------------------------------------------------------------------
