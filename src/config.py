@@ -20,8 +20,9 @@ load_dotenv()
 
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")
 
-if not GOOGLE_API_KEY or not OPENAI_API_KEY:
+if not GOOGLE_API_KEY or not OPENAI_API_KEY or not ANTHROPIC_API_KEY:
     raise RuntimeError("Missing API key(s). Check your .env file.")
 
 
@@ -48,6 +49,16 @@ NODE_B_REASONING_EFFORT = "low"   # verification is structured classification,
 
 # NOTE: GPT-5.6 requires the Responses API (client.responses.create),
 # NOT the legacy chat.completions endpoint. The latter returns a 401.
+
+# Judge — Ragas automated faithfulness/relevance scoring (Phase 6 only)
+# THIRD vendor, independent of Node A (Google) and Node B (OpenAI), so the
+# automated metric does not share blind spots with the systems under test.
+# Used only to score returned answers offline; never in the live pipeline.
+JUDGE_MODEL = "claude-sonnet-4-5-20250929"   # Claude Sonnet 4.5 pinned dated snapshot; ID from Anthropic
+                                             # third vendor (Anthropic);
+                                             # independent on Node A (Goolge) and Node B (OpenAI);
+                                             # with Ragas 0.3.9 via LangchainLLMWrapper
+JUDGE_TEMPERATURE = 0.0                      # scoring, not creativity — same rationale as Node A
 
 # Prompts are parameters which affect results more than almost anything
 # else here. Update this whenever ANY prompt text changes — otherwise two runs
