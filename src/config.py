@@ -15,6 +15,7 @@ TERMINOLOGY MAPPING (Code vs Document):
 import os
 import subprocess
 from dotenv import load_dotenv
+from datetime import datetime, timezone
 
 # Config is read-once. Other modules import from here, never read .env directly.
 load_dotenv()
@@ -55,7 +56,7 @@ NODE_B_REASONING_EFFORT = "low"   # verification is structured classification,
 # NOTE: GPT-5.6 requires the Responses API (client.responses.create),
 # NOT the legacy chat.completions endpoint. The latter returns a 401.
 
-# Judge — Ragas automated faithfulness/relevance scoring (Phase 6 only)
+# Judge — Ragas automated faithfulness/relevance scoring
 # THIRD vendor, independent of Node A (Google) and Node B (OpenAI), so the
 # automated metric does not share blind spots with the systems under test.
 # Used only to score returned answers offline; never in the live pipeline.
@@ -81,13 +82,14 @@ _vendor_a = _get_vendor(NODE_A_MODEL)
 _vendor_b = _get_vendor(NODE_B_MODEL)
 _vendor_judge = _get_vendor(JUDGE_MODEL)
 
-# Ensure 
+# Ensure the vendor model is available
 if "unknown" in (_vendor_a, _vendor_b, _vendor_judge):
     raise ValueError(
         f"Unrecognised model ID (A={_vendor_a}, B={_vendor_b}, judge={_vendor_judge}). "
         "Extend _get_vendor() before running."
     )
 
+# Ensure the vendor for the judge is different from Nodes A and B
 if _vendor_judge in (_vendor_a, _vendor_b):
     raise ValueError(
         f"Methodology violation: Judge vendor ({_vendor_judge}) must be strictly "
@@ -156,6 +158,7 @@ ARM_SAME_VENDOR = "same_vendor"
 ARM_CROSS_VENDOR = "cross_vendor"
 VALID_ARMS = (ARM_BASELINE, ARM_SAME_VENDOR, ARM_CROSS_VENDOR)
 
+
 # The rewrite loop: if Node B rejects one or more atomic claims, Node A is
 # asked to regenerate. This cap prevents unbounded loops (and unbounded cost).
 MAX_REWRITE_ATTEMPTS = 3          # Specified in the proposal. Up to three corrective passes.
@@ -175,6 +178,21 @@ MAX_RETRIES = 5
 RETRY_BASE_DELAY = 2.0            # seconds; exponential backoff
 REQUEST_TIMEOUT = 60              # seconds
 
+
+# ---------------------------------------------------------------------------
+# Per-query log contract (populated by the controller at runtime — NOT config)
+#
+# Fields the controller must write for every query:
+#   query_id, arm, t_retrieval_s, t_generation_s, t_verification_s (list,
+#   one per verify round), t_rewrite_s (list), t_total_s, attempts,
+#   outcome (passed_first | fixed_by_rewrite | fallback),
+#   tokens_prompt, tokens_completion, retrieved_chunk_ids (list)
+#
+# Timer: time.perf_counter() — monotonic, per the proposal's latency protocol.
+# Bump this version if fields are ever added/changed mid-project, so every
+# results file declares which schema it follows.
+# ---------------------------------------------------------------------------
+LOG_SCHEMA_VERSION = "v1"
 
 # ---------------------------------------------------------------------------
 # Statistics
@@ -206,8 +224,6 @@ RESULTS_DIR = "./experiments/results"
 
 def run_metadata() -> dict:
     """Snapshot of every parameter affecting a run. Store with the results."""
-    from datetime import datetime, timezone
-
     return {
         "timestamp_utc": datetime.now(timezone.utc).isoformat(),
         "git_commit": subprocess.run(
@@ -215,6 +231,7 @@ def run_metadata() -> dict:
             capture_output=True, text=True
         ).stdout.strip(),
         "prompt_version": PROMPT_VERSION,
+        "log_schema_version": LOG_SCHEMA_VERSION,
         "node_a_model": NODE_A_MODEL,
         "node_a_temperature": NODE_A_TEMPERATURE,
         "node_b_model": NODE_B_MODEL,
@@ -225,4 +242,23 @@ def run_metadata() -> dict:
         "retrieval_k": RETRIEVAL_K,
         "max_rewrite_attempts": MAX_REWRITE_ATTEMPTS,
         "random_seed": RANDOM_SEED,
+    }
+
+def scoring_metadata(scored_results_file: str) -> dict:
+    """Judge-run record — written by the Ragas scoring script AT SCORING TIME,
+    into its own output file. Separate from run_metadata() because scoring
+    happens offline, possibly days after generation, possibly re-run with a
+    different judge. Links back to the results file it scored."""
+    # ragas imported locally so config.py stays importable without it
+    # (the live pipeline must not depend on the offline scoring library).
+    import ragas
+    return {
+        "timestamp_utc": datetime.now(timezone.utc).isoformat(),
+        "scored_results_file": scored_results_file,
+        "judge_model": JUDGE_MODEL,
+        "judge_temperature": JUDGE_TEMPERATURE,
+        "ragas_version": ragas.__version__,
+        "embedding_model": EMBEDDING_MODEL,
+        "git_commit": subprocess.run(["git", "rev-parse", "HEAD"],
+                                     capture_output=True, text=True).stdout.strip(),
     }
