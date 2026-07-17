@@ -6,12 +6,17 @@ No magic numbers anywhere else in the codebase.
 
 When writing the methodology chapter, this file should be the only
 place to look to describe the experimental setup.
+
+TERMINOLOGY MAPPING (Code vs Document):
+- "same_vendor" /"cross_vendor" arms in code = "Same-Vendor /Cross-Vendor dual-pass" in the proposal.
+- "rewrite_attempts" in code = "rewrite loop" in the proposal.
 """
 
 import os
 import subprocess
 from dotenv import load_dotenv
 
+# Config is read-once. Other modules import from here, never read .env directly.
 load_dotenv()
 
 # ---------------------------------------------------------------------------
@@ -56,9 +61,38 @@ NODE_B_REASONING_EFFORT = "low"   # verification is structured classification,
 # Used only to score returned answers offline; never in the live pipeline.
 JUDGE_MODEL = "claude-sonnet-4-5-20250929"   # Claude Sonnet 4.5 pinned dated snapshot; ID from Anthropic
                                              # third vendor (Anthropic);
-                                             # independent on Node A (Goolge) and Node B (OpenAI);
+                                             # independent on Node A (Google) and Node B (OpenAI);
                                              # with Ragas 0.3.9 via LangchainLLMWrapper
 JUDGE_TEMPERATURE = 0.0                      # scoring, not creativity — same rationale as Node A
+
+# ---------------------------------------------------------------------------
+# Methodology Enforcement: Cross-Vendor Independence
+# ---------------------------------------------------------------------------
+def _get_vendor(model_id: str) -> str:
+    """Infers vendor from model ID string for methodology checks."""
+    if not model_id: return "none"
+    mid = model_id.lower()
+    if "gemini" in mid: return "google"
+    if "gpt" in mid: return "openai"
+    if "claude" in mid: return "anthropic"
+    return "unknown"
+
+_vendor_a = _get_vendor(NODE_A_MODEL)
+_vendor_b = _get_vendor(NODE_B_MODEL)
+_vendor_judge = _get_vendor(JUDGE_MODEL)
+
+# Ensure 
+if "unknown" in (_vendor_a, _vendor_b, _vendor_judge):
+    raise ValueError(
+        f"Unrecognised model ID (A={_vendor_a}, B={_vendor_b}, judge={_vendor_judge}). "
+        "Extend _get_vendor() before running."
+    )
+
+if _vendor_judge in (_vendor_a, _vendor_b):
+    raise ValueError(
+        f"Methodology violation: Judge vendor ({_vendor_judge}) must be strictly "
+        f"independent from Node A ({_vendor_a}) and Node B ({_vendor_b})."
+    )
 
 # Prompts are parameters which affect results more than almost anything
 # else here. Update this whenever ANY prompt text changes — otherwise two runs
@@ -72,7 +106,7 @@ PROMPT_VERSION = "v1"
 # mid-project, which would make indexes built at different times incomparable.
 # A frozen local model removes that risk entirely.
 #
-# Embeddings are held constant across BOTH experimental arms, so retrieval
+# Embeddings are held constant across all three experimental arms, so retrieval
 # quality is not a confound in the baseline vs dual-node comparison.
 # ---------------------------------------------------------------------------
 
@@ -90,7 +124,7 @@ EMBEDDING_DIM = 384               # verified in smoke test
 # ---------------------------------------------------------------------------
 
 CHUNK_SIZE = 256                  # WORD-PIECE-TOKENS (not characters) capped by all-MiniLM-L6-v2's max_seq_length (verified 256). 
-                                  # Long chunks are slightly truncated by the embedder — no error, no warning. 
+                                  # Long chunks are silently truncated by the embedder — no error, no warning. 
 CHUNK_OVERLAP = 32                # ~12.5% — enough to avoid splitting a claim
                                   # across a boundary
 RETRIEVAL_K = 5                   # chunks retrieved per query
@@ -100,15 +134,27 @@ CHROMA_COLLECTION = "msc_corpus"
 
 
 # ---------------------------------------------------------------------------
-# Experimental configurations
+# Experimental configurations - THREE arms as per the proposal (Appendix C)
 #
-# Exactly two arms. Everything except the verification pass is held identical
-# between them — same corpus, same index, same retrieval, same Node A model,
-# same temperature. The ONLY difference is whether Node B runs.
+#   baseline      : retrieve -> generate. No verification.
+#   same_vendor   : Node B = the IDENTICAL model as Node A (proposal:
+#                   same vendor, family, version and tier — NOT merely a
+#                   different model from the same vendor). Tests information
+#                   asymmetry alone (RQ3). Ragas-scored only.
+#   cross_vendor  : Node B from a different vendor. Primary configuration
+#                   (RQ1/RQ2). Ragas + full human labelling.
+#
+# Everything else is held identical across all three arms.
+# same corpus, same index, same retrieval, same Node A model,
+# same temperature. 
+# Note: As Node A may equal Node B for same_vendor, the vendor guard only 
+# checks the JUDGE against the nodes.
 # ---------------------------------------------------------------------------
 
-CONFIG_BASELINE = "baseline"      # retrieve -> generate. No verification.
-CONFIG_DUAL_NODE = "dual_node"    # retrieve -> generate -> verify -> (rewrite)
+ARM_BASELINE = "baseline"
+ARM_SAME_VENDOR = "same_vendor"
+ARM_CROSS_VENDOR = "cross_vendor"
+VALID_ARMS = (ARM_BASELINE, ARM_SAME_VENDOR, ARM_CROSS_VENDOR)
 
 # The rewrite loop: if Node B rejects one or more atomic claims, Node A is
 # asked to regenerate. This cap prevents unbounded loops (and unbounded cost).
