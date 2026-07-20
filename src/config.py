@@ -201,7 +201,10 @@ LOG_SCHEMA_VERSION = "v1"
 ALPHA = 0.05                      # significance level
 CONFIDENCE_LEVEL = 1 - ALPHA      # 0.95 for Wilson intervals on SCR / FNR / FPR
 
-RANDOM_SEED = 42                  # for any sampling; record it
+RANDOM_SEED = 42                  # Used ONLY for: (1) seeded shuffle of the blind-labelling
+                                  # presentation order, (2) the second-reviewer 15-20% sample
+                                  # draw. Does NOT affect API calls — provider determinism
+                                  # comes from temperature, not this seed.
 
 
 # ---------------------------------------------------------------------------
