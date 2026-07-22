@@ -163,6 +163,15 @@ PROJECT_STRUCTURE says *where*, this file says *why*.
     `uv export --format requirements-txt > requirements.txt`. Do not edit it
     by hand.
 
+## 21.7.2026
+
+**Node A generation failure**
+
+API failure after retries → no draft exists → skip Node B and the
+rewrite loop entirely → return the fallback message. Logged as
+`generation_failed` (not `fallback`) and excluded from labelling, since
+there is no answer to judge.
+
 ---
 
 ## OPEN ITEMS (running list — move up with a date when settled)
@@ -179,3 +188,9 @@ PROJECT_STRUCTURE says *where*, this file says *why*.
         dashboard before/after) — replaces the smoke-test-derived estimate.
 *   [ ] Week 14: `uv export` requirements.txt; README final pass; regenerate
         PROJECT_STRUCTURE markers.
+*   [ ] Verify Luna + reasoning_effort=low supports schema-enforced
+        structured output (one-liner, messy multi-claim test answer) —
+        FIRST Node B session, before controller integration.
+*   [ ] Verify Gemini `response_schema` structured output for the
+        same-vendor arm's Node B (one-liner).
+
