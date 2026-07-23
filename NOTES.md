@@ -172,6 +172,12 @@ rewrite loop entirely → return the fallback message. Logged as
 `generation_failed` (not `fallback`) and excluded from labelling, since
 there is no answer to judge.
 
+## 22.7.2026
+Five-label draft retracted: "Wrongly Withheld Answer" required the labeller
+to know the answer was blocked, breaking blinding. Fixed operationally —
+labeller judges the withheld DRAFT, not the fallback message. Controller
+must log withheld drafts.
+
 ---
 
 ## OPEN ITEMS (running list — move up with a date when settled)

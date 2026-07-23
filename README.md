@@ -32,6 +32,7 @@ ANTHROPIC_API_KEY=...
 Verify the environment:
 
 ```bash
+uv run pytest                            # unit tests — free, fast, no API keys
 uv run python tests/smoke_test.py        # full-stack import/connectivity check
 uv run python tests/test_ragas.py        # three-vendor Ragas end-to-end proof
 ```
@@ -51,7 +52,7 @@ Both should finish without errors (smoke test ends with "ALL SYSTEMS GO").
 ## Reproducibility
 
 - Exact dependency graph pinned in `uv.lock` (Ragas 0.3.9,
-  langchain-community &lt; 0.4 — see NOTES.md for why).
+  langchain-community <0.4 — see NOTES.md for why).
 - All experimental parameters live in `src/config.py` — single source of
   truth, no magic numbers elsewhere.
 - Every experimental run records `run_metadata()` (models, parameters, git
@@ -59,3 +60,5 @@ Both should finish without errors (smoke test ends with "ALL SYSTEMS GO").
 - Results are timestamped and never overwritten.
 - `requirements.txt` (pip-installable export) is generated at packaging time
   via `uv export --format requirements-txt` — `uv.lock` remains canonical.
+- Metrics and statistical tests are unit-tested against hand-computed
+  expected values (`tests/test_metrics.py`), independent of any pipeline data.

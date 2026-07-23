@@ -16,6 +16,7 @@ import os
 import subprocess
 from dotenv import load_dotenv
 from datetime import datetime, timezone
+from src.constants import ALPHA, CONFIDENCE_LEVEL, RANDOM_SEED  # noqa: F401
 
 # Config is read-once. Other modules import from here, never read .env directly.
 load_dotenv()
@@ -185,7 +186,12 @@ REQUEST_TIMEOUT = 60              # seconds
 # Fields the controller must write for every query:
 #   query_id, arm, t_retrieval_s, t_generation_s, t_verification_s (list,
 #   one per verify round), t_rewrite_s (list), t_total_s, attempts,
-#   outcome (passed_first | fixed_by_rewrite | fallback),
+#   outcome — one of src.constants.VALID_OUTCOMES (five; verifier_malformed
+#             and generation_failed are infrastructure failures, excluded
+#             from the confusion matrix and reported as counts),
+#   withheld_draft — the answer generated but NOT displayed, on blocked
+#             answers; labelling judges this, not the fallback message
+#             (Labelling Guide v3),
 #   tokens_prompt, tokens_completion, retrieved_chunk_ids (list)
 #
 # Timer: time.perf_counter() — monotonic, per the proposal's latency protocol.
@@ -195,16 +201,12 @@ REQUEST_TIMEOUT = 60              # seconds
 LOG_SCHEMA_VERSION = "v1"
 
 # ---------------------------------------------------------------------------
-# Statistics
+# Statistics — defined in src/constants.py so analysis code and unit tests
+# can import them without triggering this module's API-key check.
+# Re-exported here so `from src.config import ALPHA` still works.
 # ---------------------------------------------------------------------------
 
-ALPHA = 0.05                      # significance level
-CONFIDENCE_LEVEL = 1 - ALPHA      # 0.95 for Wilson intervals on SCR / FNR / FPR
 
-RANDOM_SEED = 42                  # Used ONLY for: (1) seeded shuffle of the blind-labelling
-                                  # presentation order, (2) the second-reviewer 15-20% sample
-                                  # draw. Does NOT affect API calls — provider determinism
-                                  # comes from temperature, not this seed.
 
 
 # ---------------------------------------------------------------------------
