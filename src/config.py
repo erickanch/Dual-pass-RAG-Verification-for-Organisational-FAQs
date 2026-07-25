@@ -134,7 +134,7 @@ RETRIEVAL_K = 5                   # chunks retrieved per query
 
 CHROMA_PATH = "./chroma_db"
 CHROMA_COLLECTION = "msc_corpus"
-
+SIMILARITY_METRIC = "cosine"      # Distance metric explicitly set for ChromaDB
 
 # ---------------------------------------------------------------------------
 # Experimental configurations - THREE arms as per the proposal (Appendix C)
