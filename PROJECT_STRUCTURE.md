@@ -30,12 +30,11 @@ msc-rag/
 │   │                         #    tests can import it without API keys.
 │   │                         #    config.py re-exports from here.
 │   ├── config.py             # DONE Single source of truth for parameters.
-│   ├── arms.py               # TODO ARM SELECTION. Reads ACTIVE_ARM, derives node_b_model
-│   │                         #    + node_b_enabled per arm. Per-arm guards
-│   │                         #    (cross_vendor => distinct vendors;
-│   │                         #     same_vendor => Node B IS the Node A model — a
-│   │                         #     reference, not a copied string).
-│   │                         #    (May instead live inside config.py as ARMS_CONFIG.)
+│   │                         #    Includes ARM SELECTION: ACTIVE_ARM (from .env)
+│   │                         #    resolves NODE_B_ENABLED + ACTIVE_NODE_B_MODEL
+│   │                         #    per arm. same_vendor sets Node B = NODE_A_MODEL
+│   │                         #    by reference (not a copied string); cross_vendor
+│   │                         #    guard requires distinct vendors.
 │   ├── prompts.py            # TODO VERSIONED PROMPTS. Node A gen, Node B verify,
 │   │                         #    rewrite prompt, fallback message. Tied to PROMPT_VERSION.
 │   ├── retrieval.py          # DONE INGESTION + RETRIEVAL. Chunk corpus -> embed
@@ -170,7 +169,7 @@ Each fact lives in exactly ONE of the three.
 
 1. **corpus + questions.json**  <- blocks everything (do first)
 2. **retrieval.py** + provisional index
-3. **arms.py, prompts.py, node_a.py, node_b.py, controller.py** (the pipeline)
+3. **prompts.py, node_a.py, node_b.py, controller.py** (the pipeline)
 4. **pilot.py** -> settle verifier tier / k / chunk size -> RE-EMBED if changed
 5. **run_experiment.py** -> full runs, all three arms
 6. **ragas_eval.py, labelling.py** (measurement: metrics.py & stats.py done)
