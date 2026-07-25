@@ -186,6 +186,8 @@ from the answer as metadata or be withheld. The focus of the project is
 about single-pass or dual-pass (with verifier) instead of complicated retrieval.
 Ultimately, the synthetic FAQs are part of the experimental design.
 
+---
+
 ## OPEN ITEMS (running list — move up with a date when settled)
 
 *   [ ] ARMS_CONFIG mechanism (`ACTIVE_ARM` selection + per-arm guards) — next
