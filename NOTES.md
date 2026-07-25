@@ -178,7 +178,13 @@ to know the answer was blocked, breaking blinding. Fixed operationally —
 labeller judges the withheld DRAFT, not the fallback message. Controller
 must log withheld drafts.
 
----
+## 25.7.2026
+One md file for each FAQ. Both question and answer would be retrieved.
+Question should not be situational or contain incorrect information or
+contradict the answer. To keep it simple, the question will not be separated
+from the answer as metadata or be withheld. The focus of the project is
+about single-pass or dual-pass (with verifier) instead of complicated retrieval.
+Ultimately, the synthetic FAQs are part of the experimental design.
 
 ## OPEN ITEMS (running list — move up with a date when settled)
 
