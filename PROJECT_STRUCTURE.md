@@ -103,17 +103,16 @@ msc-rag/
 │   │                         #    computes Cohen's kappa on the 2nd-reviewer sample.
 │   └── figures.py            # TODO matplotlib figures for the report.
 │
-├── tests/                    # ── DIAGNOSTICS (keep, don't delete) ───────────
+├── tests/                    # ── TESTS AND DIAGNOSTICS ──────────────────────
 │   ├── test_metrics.py       # DONE UNIT TESTS. Synthetic data, hand-verified
 │   │                         #    expected values. Free, fast, no API keys.
 │   │                         #    This is what bare `pytest` runs.
 │   ├── smoke_test.py         # DONE Full-stack import/connectivity check.
 │   │                         #    use live APIs (costs money).
-│   │                         #    BUILT — currently in repo root; git mv here.
 │   │                         #    Run explicitly: uv run python tests/smoke_test.py
 │   └── test_ragas.py         # DONE Three-vendor Ragas end-to-end proof.
 │   │                         #    use live APIs (costs money).
-│                             #    BUILT — currently in repo root; git mv here.
+│   │                         #    Run explicitly: uv run python tests/test_ragas.py
 │
 └── notebooks/                # Scratch exploration ONLY. Never the source of truth.
                               # Nothing that produces a reported number lives here.
