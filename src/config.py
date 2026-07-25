@@ -200,13 +200,8 @@ REQUEST_TIMEOUT = 60              # seconds
 # ---------------------------------------------------------------------------
 LOG_SCHEMA_VERSION = "v1"
 
-# ---------------------------------------------------------------------------
-# Statistics — defined in src/constants.py so analysis code and unit tests
-# can import them without triggering this module's API-key check.
-# Re-exported here so `from src.config import ALPHA` still works.
-# ---------------------------------------------------------------------------
-
-
+# Statistics constants (ALPHA, CONFIDENCE_LEVEL, RANDOM_SEED) are imported
+# from src.constants at the top of this file — see the import there.
 
 
 # ---------------------------------------------------------------------------
