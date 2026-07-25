@@ -159,6 +159,47 @@ ARM_SAME_VENDOR = "same_vendor"
 ARM_CROSS_VENDOR = "cross_vendor"
 VALID_ARMS = (ARM_BASELINE, ARM_SAME_VENDOR, ARM_CROSS_VENDOR)
 
+# --- Arm selection ---------------------------------------------------------
+#
+# ACTIVE_ARM chooses which configuration is live for a run. Set it in .env
+# (ACTIVE_ARM=cross_vendor) so a run's arm is recorded outside the code, or
+# leave it to default. run_experiment.py reads the DERIVED values below —
+# never NODE_B_MODEL directly — so the same runner serves all three arms.
+
+ACTIVE_ARM = os.getenv("ACTIVE_ARM", ARM_CROSS_VENDOR)
+
+if ACTIVE_ARM not in VALID_ARMS:
+    raise ValueError(
+        f"ACTIVE_ARM={ACTIVE_ARM!r} is not a valid arm. "
+        f"Expected one of {VALID_ARMS}."
+    )
+
+# Resolve Node B per arm. Downstream reads NODE_B_ENABLED and
+# ACTIVE_NODE_B_MODEL — the single point where "which arm" becomes "which
+# Node B". same_vendor assigns by REFERENCE to NODE_A_MODEL (identity
+# guaranteed by construction, never a copied string).
+if ACTIVE_ARM == ARM_BASELINE:
+    NODE_B_ENABLED = False
+    ACTIVE_NODE_B_MODEL = None
+elif ACTIVE_ARM == ARM_SAME_VENDOR:
+    NODE_B_ENABLED = True
+    ACTIVE_NODE_B_MODEL = NODE_A_MODEL          # reference, not a copy
+else:  # ARM_CROSS_VENDOR
+    NODE_B_ENABLED = True
+    ACTIVE_NODE_B_MODEL = NODE_B_MODEL
+
+# cross_vendor guard — load-bearing: NODE_B_MODEL is independent and could
+# share Node A's vendor if misconfigured. (same_vendor needs none — identity
+# is guaranteed by the reference above. baseline has no Node B. The
+# judge-independence guard above still applies in every arm.)
+if ACTIVE_ARM == ARM_CROSS_VENDOR:
+    if _get_vendor(NODE_A_MODEL) == _get_vendor(ACTIVE_NODE_B_MODEL):
+        raise ValueError(
+            f"cross_vendor arm requires DISTINCT vendors, but Node A "
+            f"({NODE_A_MODEL}) and Node B ({ACTIVE_NODE_B_MODEL}) are both "
+            f"{_get_vendor(NODE_A_MODEL)}."
+        )
+
 
 # The rewrite loop: if Node B rejects one or more atomic claims, Node A is
 # asked to regenerate. This cap prevents unbounded loops (and unbounded cost).
@@ -232,6 +273,9 @@ def run_metadata() -> dict:
         ).stdout.strip(),
         "prompt_version": PROMPT_VERSION,
         "log_schema_version": LOG_SCHEMA_VERSION,
+        "active_arm": ACTIVE_ARM,
+        "node_b_enabled": NODE_B_ENABLED,
+        "active_node_b_model": ACTIVE_NODE_B_MODEL,
         "node_a_model": NODE_A_MODEL,
         "node_a_temperature": NODE_A_TEMPERATURE,
         "node_b_model": NODE_B_MODEL,
