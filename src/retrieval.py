@@ -129,23 +129,17 @@ def _effective_chunk_size(model: SentenceTransformer) -> int:
     return CHUNK_SIZE
 
 
-def chunk_text(text: str, model: SentenceTransformer) -> list[str]:
+def chunk_text(text: str, model: SentenceTransformer, size: int) -> list[str]:
     """
     Token-window chunking with overlap, measured in the embedder's word-piece
-    tokens. Returns a list of chunk strings.
-
-    Decoding tokens back to text is not perfectly lossless (spacing around
-    punctuation can shift). That is acceptable — what matters is that the
-    stored text and the embedded text are the SAME string, which they are,
-    because the embedding is computed from this returned text.
+    tokens. 'size' is the effective budget. Computed once by the caller.
     """
     tok = model.tokenizer
-    size = _effective_chunk_size(model)
     stride = size - CHUNK_OVERLAP
     if stride <= 0:
         raise ValueError(
             f"CHUNK_OVERLAP ({CHUNK_OVERLAP}) must be smaller than the "
-            f"effective chunk size ({size}); otherwise the window never advances")
+            f"effective chunk size ({size})")
 
     ids = tok.encode(text, add_special_tokens=False)
 
@@ -224,8 +218,10 @@ def ingest(force: bool = False) -> dict:
     print(f"Fingerprint: {fingerprint}")
 
     model = SentenceTransformer(EMBEDDING_MODEL)
+    effective_size = _effective_chunk_size(model)
     print(f"max_seq_length: {model.max_seq_length}  "
-          f"(CHUNK_SIZE={CHUNK_SIZE}, CHUNK_OVERLAP={CHUNK_OVERLAP})")
+          f"(CHUNK_SIZE={CHUNK_SIZE}, CHUNK_OVERLAP={CHUNK_OVERLAP}, "
+          f"effective={effective_size})")
 
     client = chromadb.PersistentClient(path=CHROMA_PATH)
 
@@ -253,7 +249,7 @@ def ingest(force: bool = False) -> dict:
     ids, docs, metas, per_faq = [], [], [], {}
 
     for faq_id, text in corpus:
-        chunks = chunk_text(text, model)
+        chunks = chunk_text(text, model, effective_size)
         _assert_no_truncation(chunks, model, faq_id)
         per_faq[faq_id] = len(chunks)
         for i, c in enumerate(chunks):

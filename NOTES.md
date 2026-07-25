@@ -180,11 +180,22 @@ must log withheld drafts.
 
 ## 25.7.2026
 One md file for each FAQ. Both question and answer would be retrieved.
-Question should not be situational or contain incorrect information or
+Questions are confirmed not situational or contain incorrect information or
 contradict the answer. To keep it simple, the question will not be separated
 from the answer as metadata or be withheld. The focus of the project is
 about single-pass or dual-pass (with verifier) instead of complicated retrieval.
 Ultimately, the synthetic FAQs are part of the experimental design.
+
+**Retrieval Ingestion & Token Limits**
+*   **Token Budget:** The pipeline correctly identified `all-MiniLM-L6-v2`'s
+    strict 256-token limit. With 2 reserved special tokens, the effective content
+    budget is 254 word-piece tokens. The safety guard successfully clamped the
+    `CHUNK_SIZE` to 254 to prevent silent truncation.
+*   **Chunk Mapping:** Verified that the "1 FAQ = 1 chunk" across all 24 entries.
+    Each retrieved chunk is therefore exactly one complete FAQ, so top-k retrieval
+    returns k distinct FAQs rather than fragments of one — retrieval depth k maps
+    cleanly to "number of FAQs considered." (k itself is still to be set by the
+    recall pilot.)
 
 ---
 
