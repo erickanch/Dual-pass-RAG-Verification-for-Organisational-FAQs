@@ -67,7 +67,7 @@ msc-rag/
 │                             #    depends on the web server.
 │
 ├── data/                     # ── INPUTS ─────────────────────────────────────
-│   ├── corpus/               # TODO 24 synthetic FAQ source documents.
+│   ├── corpus/               # DONE 24 synthetic FAQ source documents.
 │   └── questions.json        # TODO 108 queries (47 in-domain / 40 adversarial /
 │                             #    21 OOD). Each: {id, text, category
 │                             #    (in_domain|out_of_domain|adversarial),
@@ -107,11 +107,11 @@ msc-rag/
 │   ├── test_metrics.py       # DONE UNIT TESTS. Synthetic data, hand-verified
 │   │                         #    expected values. Free, fast, no API keys.
 │   │                         #    This is what bare `pytest` runs.
-│   ├── smoke_test.py         # MOVE Full-stack import/connectivity check.
+│   ├── smoke_test.py         # DONE Full-stack import/connectivity check.
 │   │                         #    use live APIs (costs money).
 │   │                         #    BUILT — currently in repo root; git mv here.
 │   │                         #    Run explicitly: uv run python tests/smoke_test.py
-│   └── test_ragas.py         # MOVE Three-vendor Ragas end-to-end proof.
+│   └── test_ragas.py         # DONE Three-vendor Ragas end-to-end proof.
 │   │                         #    use live APIs (costs money).
 │                             #    BUILT — currently in repo root; git mv here.
 │
