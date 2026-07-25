@@ -197,6 +197,15 @@ Ultimately, the synthetic FAQs are part of the experimental design.
     cleanly to "number of FAQs considered." (k itself is still to be set by the
     recall pilot.)
 
+** Retrieval recall pilot test**
+Recall@k on all 47 in-domain queries (no LLM, no cost): 100% at k=3/5/8/10
+after correcting one target_faq typo (IN-38 → faq_23) that the check caught.
+RETRIEVAL_K set to 5: recall is perfect even at k=3, but the internal-transfer
+trio (faq_21/22/23, near-identical sequential steps) fills the top-3 with
+competing chunks — k=3 has zero margin on that cluster. k=5 clears every case
+with headroom at negligible context cost. Numbering verified coherent: no
+target_faq mismatch across corpus / CORPUS_DESIGN / query set.
+
 ---
 
 ## OPEN ITEMS (running list — move up with a date when settled)

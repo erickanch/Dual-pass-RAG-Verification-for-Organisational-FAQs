@@ -1,0 +1,762 @@
+{
+  "version": "v1",
+  "total_queries": 108,
+  "queries": [
+    {
+      "id": "IN-01",
+      "text": "What is the annual leave entitlement for a full-time employee?",
+      "category": "in_domain",
+      "target_faq": ["faq_01"],
+      "underspecified": false
+    },
+    {
+      "id": "IN-02",
+      "text": "How many days off do permanent full-time staff get a year?",
+      "category": "in_domain",
+      "target_faq": ["faq_01"],
+      "underspecified": false
+    },
+    {
+      "id": "IN-03",
+      "text": "As a part-time worker, how much annual leave am I entitled to?",
+      "category": "in_domain",
+      "target_faq": ["faq_02"],
+      "underspecified": false
+    },
+    {
+      "id": "IN-04",
+      "text": "Do part-time employees get the same 24 days of leave as full-time?",
+      "category": "in_domain",
+      "target_faq": ["faq_01", "faq_02"],
+      "underspecified": false
+    },
+    {
+      "id": "IN-05",
+      "text": "How much annual leave do I get?",
+      "category": "in_domain",
+      "target_faq": ["faq_01", "faq_02"],
+      "underspecified": true
+    },
+    {
+      "id": "IN-06",
+      "text": "What is the company's maternity leave policy?",
+      "category": "in_domain",
+      "target_faq": ["faq_03"],
+      "underspecified": false
+    },
+    {
+      "id": "IN-07",
+      "text": "How many weeks of fully paid maternity leave do we offer?",
+      "category": "in_domain",
+      "target_faq": ["faq_03"],
+      "underspecified": false
+    },
+    {
+      "id": "IN-08",
+      "text": "How is paid sick leave accrued?",
+      "category": "in_domain",
+      "target_faq": ["faq_04"],
+      "underspecified": false
+    },
+    {
+      "id": "IN-09",
+      "text": "What is the maximum cap for sick leave days I can save up?",
+      "category": "in_domain",
+      "target_faq": ["faq_04"],
+      "underspecified": false
+    },
+    {
+      "id": "IN-10",
+      "text": "Do I earn 2 days of sick leave every month?",
+      "category": "in_domain",
+      "target_faq": ["faq_04"],
+      "underspecified": false
+    },
+    {
+      "id": "IN-11",
+      "text": "Who is eligible to apply for a sabbatical?",
+      "category": "in_domain",
+      "target_faq": ["faq_05"],
+      "underspecified": false
+    },
+    {
+      "id": "IN-12",
+      "text": "How long does a sabbatical last?",
+      "category": "in_domain",
+      "target_faq": ["faq_06"],
+      "underspecified": false
+    },
+    {
+      "id": "IN-13",
+      "text": "Is a sabbatical fully paid?",
+      "category": "in_domain",
+      "target_faq": ["faq_06"],
+      "underspecified": false
+    },
+    {
+      "id": "IN-14",
+      "text": "I have been here 5 years. What are the rules and pay for taking a sabbatical?",
+      "category": "in_domain",
+      "target_faq": ["faq_05", "faq_06"],
+      "underspecified": false
+    },
+    {
+      "id": "IN-15",
+      "text": "How many days of compassionate leave are provided?",
+      "category": "in_domain",
+      "target_faq": ["faq_07"],
+      "underspecified": false
+    },
+    {
+      "id": "IN-16",
+      "text": "If an immediate family member passes away, is the leave paid?",
+      "category": "in_domain",
+      "target_faq": ["faq_07"],
+      "underspecified": false
+    },
+    {
+      "id": "IN-17",
+      "text": "What is the required response time for replying to general customer emails?",
+      "category": "in_domain",
+      "target_faq": ["faq_11"],
+      "underspecified": false
+    },
+    {
+      "id": "IN-18",
+      "text": "Do I have 24 hours to reply to a general customer enquiry?",
+      "category": "in_domain",
+      "target_faq": ["faq_11"],
+      "underspecified": false
+    },
+    {
+      "id": "IN-19",
+      "text": "What is the standard response time for an escalated complaint?",
+      "category": "in_domain",
+      "target_faq": ["faq_12"],
+      "underspecified": false
+    },
+    {
+      "id": "IN-20",
+      "text": "How fast must we provide a resolution plan for a Tier 1 escalation?",
+      "category": "in_domain",
+      "target_faq": ["faq_12"],
+      "underspecified": false
+    },
+    {
+      "id": "IN-21",
+      "text": "I have a customer email and an escalated complaint. What are the response deadlines for each of them?",
+      "category": "in_domain",
+      "target_faq": ["faq_11", "faq_12"],
+      "underspecified": false
+    },
+    {
+      "id": "IN-22",
+      "text": "How long does the company have to fulfil a data access request?",
+      "category": "in_domain",
+      "target_faq": ["faq_13"],
+      "underspecified": false
+    },
+    {
+      "id": "IN-23",
+      "text": "Do we have 30 days to process a Data Subject Access Request?",
+      "category": "in_domain",
+      "target_faq": ["faq_13"],
+      "underspecified": false
+    },
+    {
+      "id": "IN-24",
+      "text": "What is the Service Level Agreement for IT to deploy requested hardware?",
+      "category": "in_domain",
+      "target_faq": ["faq_14"],
+      "underspecified": false
+    },
+    {
+      "id": "IN-25",
+      "text": "How many business days does it take to get a new laptop after approval?",
+      "category": "in_domain",
+      "target_faq": ["faq_14"],
+      "underspecified": false
+    },
+    {
+      "id": "IN-26",
+      "text": "How long does it take for IT to grant software license access?",
+      "category": "in_domain",
+      "target_faq": ["faq_15"],
+      "underspecified": false
+    },
+    {
+      "id": "IN-27",
+      "text": "I need hardware and software. How long will IT take for both?",
+      "category": "in_domain",
+      "target_faq": ["faq_14", "faq_15"],
+      "underspecified": false
+    },
+    {
+      "id": "IN-28",
+      "text": "What is the required response time for a Level 1 Emergency Server Outage?",
+      "category": "in_domain",
+      "target_faq": ["faq_16"],
+      "underspecified": false
+    },
+    {
+      "id": "IN-29",
+      "text": "Does the engineering team have an hour to acknowledge a Level 1 outage?",
+      "category": "in_domain",
+      "target_faq": ["faq_16"],
+      "underspecified": false
+    },
+    {
+      "id": "IN-30",
+      "text": "How do I submit a local travel expense?",
+      "category": "in_domain",
+      "target_faq": ["faq_18"],
+      "underspecified": false
+    },
+    {
+      "id": "IN-31",
+      "text": "What is the deadline to submit local travel expenses via the HR app?",
+      "category": "in_domain",
+      "target_faq": ["faq_18"],
+      "underspecified": false
+    },
+    {
+      "id": "IN-32",
+      "text": "How do I submit an international travel expense?",
+      "category": "in_domain",
+      "target_faq": ["faq_19"],
+      "underspecified": false
+    },
+    {
+      "id": "IN-33",
+      "text": "Can I use the HR app for an international expense?",
+      "category": "in_domain",
+      "target_faq": ["faq_18", "faq_19"],
+      "underspecified": false
+    },
+    {
+      "id": "IN-34",
+      "text": "What is the required notice period if I resign during my probation?",
+      "category": "in_domain",
+      "target_faq": ["faq_20"],
+      "underspecified": false
+    },
+    {
+      "id": "IN-35",
+      "text": "Do I only need to give 7 days' notice during the probationary period?",
+      "category": "in_domain",
+      "target_faq": ["faq_20"],
+      "underspecified": false
+    },
+    {
+      "id": "IN-36",
+      "text": "What is the first step to apply for an internal department transfer?",
+      "category": "in_domain",
+      "target_faq": ["faq_21"],
+      "underspecified": false
+    },
+    {
+      "id": "IN-37",
+      "text": "What form is required for an internal transfer?",
+      "category": "in_domain",
+      "target_faq": ["faq_22"],
+      "underspecified": false
+    },
+    {
+      "id": "IN-38",
+      "text": "Who conducts the interview for an internal transfer?",
+      "category": "in_domain",
+      "target_faq": ["faq_23"],
+      "underspecified": false
+    },
+    {
+      "id": "IN-39",
+      "text": "Walk me through the entire internal transfer process step-by-step.",
+      "category": "in_domain",
+      "target_faq": ["faq_21", "faq_22", "faq_23"],
+      "underspecified": false
+    },
+    {
+      "id": "IN-40",
+      "text": "What is the financial approval limit for a Department Manager?",
+      "category": "in_domain",
+      "target_faq": ["faq_24"],
+      "underspecified": false
+    },
+    {
+      "id": "IN-41",
+      "text": "How many paid public holidays do employees receive each year?",
+      "category": "in_domain",
+      "target_faq": ["faq_08"],
+      "underspecified": false
+    },
+    {
+      "id": "IN-42",
+      "text": "Do we get the standard 15 statutory holidays in Hong Kong?",
+      "category": "in_domain",
+      "target_faq": ["faq_08"],
+      "underspecified": false
+    },
+    {
+      "id": "IN-43",
+      "text": "What is the company's marriage leave policy?",
+      "category": "in_domain",
+      "target_faq": ["faq_09"],
+      "underspecified": false
+    },
+    {
+      "id": "IN-44",
+      "text": "Can I take marriage leave in my first year of employment?",
+      "category": "in_domain",
+      "target_faq": ["faq_09"],
+      "underspecified": false
+    },
+    {
+      "id": "IN-45",
+      "text": "Is study or examination leave provided, and who qualifies?",
+      "category": "in_domain",
+      "target_faq": ["faq_10"],
+      "underspecified": false
+    },
+    {
+      "id": "IN-46",
+      "text": "What is the response time for a formal customer complaint?",
+      "category": "in_domain",
+      "target_faq": ["faq_11", "faq_12", "faq_17"],
+      "underspecified": true
+    },
+    {
+      "id": "IN-47",
+      "text": "What are the timelines for handling a formal customer complaint?",
+      "category": "in_domain",
+      "target_faq": ["faq_17"],
+      "underspecified": false
+    },
+    {
+      "id": "ADV-01",
+      "text": "What is the paternity leave entitlement?",
+      "category": "adversarial",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "ADV-02",
+      "text": "Can I carry over my unused annual leave to next year?",
+      "category": "adversarial",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "ADV-03",
+      "text": "Is there bereavement leave for grandparents?",
+      "category": "adversarial",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "ADV-04",
+      "text": "Do I get paid time off for jury duty?",
+      "category": "adversarial",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "ADV-05",
+      "text": "Can I take a half-day of sick leave?",
+      "category": "adversarial",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "ADV-06",
+      "text": "Do I need a medical certificate for sick leave?",
+      "category": "adversarial",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "ADV-07",
+      "text": "Can unused public holidays be exchanged for pay?",
+      "category": "adversarial",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "ADV-08",
+      "text": "What happens if a sabbatical request is denied?",
+      "category": "adversarial",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "ADV-09",
+      "text": "How do I apply for a sabbatical?",
+      "category": "adversarial",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "ADV-10",
+      "text": "Can I cash out my unused sick leave when I resign?",
+      "category": "adversarial",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "ADV-11",
+      "text": "What is the maximum allowed response time for a Tier 3 complaint?",
+      "category": "adversarial",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "ADV-12",
+      "text": "When calculating the customer response deadline, do working hours include weekends?",
+      "category": "adversarial",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "ADV-13",
+      "text": "What is the penalty for missing the 12-hour deadline for a customer email?",
+      "category": "adversarial",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "ADV-14",
+      "text": "Does the 14-day timeline apply to data request from former employees?",
+      "category": "adversarial",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "ADV-15",
+      "text": "Is there a fee charged for a data request?",
+      "category": "adversarial",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "ADV-16",
+      "text": "How long does it take IT to fix a broken laptop?",
+      "category": "adversarial",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "ADV-17",
+      "text": "Can I request a Mac instead of a Windows PC from IT?",
+      "category": "adversarial",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "ADV-18",
+      "text": "Who handles Level 2 or Level 3 server outages?",
+      "category": "adversarial",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "ADV-19",
+      "text": "Is the IT helpdesk open on weekends?",
+      "category": "adversarial",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "ADV-20",
+      "text": "How fast must HR reply to internal employee emails?",
+      "category": "adversarial",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "ADV-21",
+      "text": "What is the per-meal limit for local expenses?",
+      "category": "adversarial",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "ADV-22",
+      "text": "Can I use a corporate credit card for international travel?",
+      "category": "adversarial",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "ADV-23",
+      "text": "Do I need to keep boarding passes for international expenses?",
+      "category": "adversarial",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "ADV-24",
+      "text": "What happens if I lose my physical receipt for an international trip?",
+      "category": "adversarial",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "ADV-25",
+      "text": "Can my probation period be extended beyond 3 months?",
+      "category": "adversarial",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "ADV-26",
+      "text": "What is the notice period after I have passed probation?",
+      "category": "adversarial",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "ADV-27",
+      "text": "Can I bypass my Line Manager for a transfer if we don't get along?",
+      "category": "adversarial",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "ADV-28",
+      "text": "Is there a salary increase associated with an internal transfer?",
+      "category": "adversarial",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "ADV-29",
+      "text": "Does an internal transfer reset my sick leave accrual?",
+      "category": "adversarial",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "ADV-30",
+      "text": "Can a Department Manager approve a software subscription?",
+      "category": "adversarial",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "ADV-31",
+      "text": "Who signs off on purchases above HKD 10,000?",
+      "category": "adversarial",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "ADV-32",
+      "text": "Are interns eligible for the 24 days of annual leave?",
+      "category": "adversarial",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "ADV-33",
+      "text": "How do I log my leave in the HR system?",
+      "category": "adversarial",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "ADV-34",
+      "text": "What is the current version of the HR app we use?",
+      "category": "adversarial",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "ADV-35",
+      "text": "Where is the HR intranet portal located?",
+      "category": "adversarial",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "ADV-36",
+      "text": "Can I take a sabbatical to work for a competitor?",
+      "category": "adversarial",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "ADV-37",
+      "text": "Do I need to bring anything to the internal transfer interview?",
+      "category": "adversarial",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "ADV-38",
+      "text": "Is compassionate leave granted for the death of a pet?",
+      "category": "adversarial",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "ADV-39",
+      "text": "What happens if I submit my local travel expense on day 15?",
+      "category": "adversarial",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "ADV-40",
+      "text": "How are expenses in foreign currency converted for reimbursement?",
+      "category": "adversarial",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "OOD-01",
+      "text": "What are the company's revenue targets?",
+      "category": "out_of_domain",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "OOD-02",
+      "text": "Can you write a letter for resignation?",
+      "category": "out_of_domain",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "OOD-03",
+      "text": "Explain the process of photosynthesis.",
+      "category": "out_of_domain",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "OOD-04",
+      "text": "How do I troubleshoot my home Wi-Fi router?",
+      "category": "out_of_domain",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "OOD-05",
+      "text": "What is the capital of France?",
+      "category": "out_of_domain",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "OOD-06",
+      "text": "Can you translate \"customer service\" into Japanese?",
+      "category": "out_of_domain",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "OOD-07",
+      "text": "Write a polite email declining a vendor's proposal.",
+      "category": "out_of_domain",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "OOD-08",
+      "text": "What were the main causes of the 2008 financial crisis?",
+      "category": "out_of_domain",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "OOD-09",
+      "text": "How do I bake a chocolate cake?",
+      "category": "out_of_domain",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "OOD-10",
+      "text": "Give me a 4-day workout routine for building muscle.",
+      "category": "out_of_domain",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "OOD-11",
+      "text": "What is the weather forecast for London tomorrow?",
+      "category": "out_of_domain",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "OOD-12",
+      "text": "Who won the World Cup in 2022?",
+      "category": "out_of_domain",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "OOD-13",
+      "text": "Summarize the plot of the movie Inception.",
+      "category": "out_of_domain",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "OOD-14",
+      "text": "What are the best practices for SEO marketing?",
+      "category": "out_of_domain",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "OOD-15",
+      "text": "How much does a flight from New York to Tokyo cost?",
+      "category": "out_of_domain",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "OOD-16",
+      "text": "Can you solve this math equation: 245 * 18?",
+      "category": "out_of_domain",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "OOD-17",
+      "text": "Provide a list of the top 10 restaurants in Hong Kong.",
+      "category": "out_of_domain",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "OOD-18",
+      "text": "What is the difference between a virus and bacteria?",
+      "category": "out_of_domain",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "OOD-19",
+      "text": "How do I change the oil in a Toyota Camry?",
+      "category": "out_of_domain",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "OOD-20",
+      "text": "Tell me a joke about corporate management.",
+      "category": "out_of_domain",
+      "target_faq": null,
+      "underspecified": false
+    },
+    {
+      "id": "OOD-21",
+      "text": "Who is the current CEO of the company?",
+      "category": "out_of_domain",
+      "target_faq": null,
+      "underspecified": false
+    }
+  ]
+}

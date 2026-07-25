@@ -38,7 +38,7 @@ msc-rag/
 │   │                         #    (May instead live inside config.py as ARMS_CONFIG.)
 │   ├── prompts.py            # TODO VERSIONED PROMPTS. Node A gen, Node B verify,
 │   │                         #    rewrite prompt, fallback message. Tied to PROMPT_VERSION.
-│   ├── retrieval.py          # TODO INGESTION + RETRIEVAL. Chunk corpus -> embed
+│   ├── retrieval.py          # DONE INGESTION + RETRIEVAL. Chunk corpus -> embed
 │   │                         #    (all-MiniLM) -> ChromaDB. Query-time top-k.
 │   │                         #    Stores a config-hash with the index; refuses to
 │   │                         #    run on a stale index (chunk/embed settings changed).
@@ -68,10 +68,10 @@ msc-rag/
 │
 ├── data/                     # ── INPUTS ─────────────────────────────────────
 │   ├── corpus/               # DONE 24 synthetic FAQ source documents.
-│   └── questions.json        # TODO 108 queries (47 in-domain / 40 adversarial /
+│   └── questions.json        # DONE 108 queries (47 in-domain / 40 adversarial /
 │                             #    21 OOD). Each: {id, text, category
 │                             #    (in_domain|out_of_domain|adversarial),
-│                             #    target_faq (in-domain only)}.
+│                             #    target_faq, underspecified}.
 │
 ├── experiments/              # ── RUNNING THE SYSTEM ─────────────────────────
 │   ├── run_experiment.py     # TODO ONE parameterised runner. Reads ACTIVE_ARM from
