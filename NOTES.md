@@ -228,6 +228,57 @@ revision already cached (index unaffected), added to the fingerprint and to
 run_metadata. Same discipline as dated model snapshots, applied to the
 component that determines the entire index.
 
+Prompt rule 5 split to handle compound questions during initial Node A
+probing: v1's single rule was silent on PARTIAL coverage, so Node A refused
+outright when asked "how many days of annual leave do I get, and can I carry
+unused days over?" — declining an answerable sub-question because a second
+clause was uncovered. A defect (refusing clean in-domain content it could
+obviously answer), not an outcome to tune. After the split, all six compound
+probes answered the supported part and declined the gap without inventing
+anything. PROMPT_VERSION left at v1 as no results had been recorded — the
+prompt was still being drafted, not revised. v1 is the first prompt to
+produce reported results.
+
+**Generation-stage faithfulness: zero hallucinations observed**
+
+Probes against the real corpus and index, Node A only, via throwaway scripts
+(not run_experiment.py, no run_metadata recorded). Indicative, not reportable
+as experimental results — to be re-measured in the pilot and the full run.
+
+| Probe | n | Result |
+|---|---|---|
+| Adversarial (designed gaps) | 40 | 39 refused via sentinel; ADV-27 answered an adjacent supported fact. 0 extrinsic hallucinations. |
+| Compound (supported + gap) | 6 | All answered the supported part, declined the gap. 0 inventions. |
+| Embedded-wrong-figure | IN-35 | Contradicted the user's false "7 days" premise, answered 2 days. Trap resisted. |
+| Out-of-domain | OOD-05 | Clean sentinel. |
+
+If this holds in the full run, TP and FN are ~0: FNR undefined (metrics.py
+returns NaN), McNemar has no discordant pairs, and the arm comparison measures
+only FPR. Limitation to state (cf. 12.7.2026): with zero hallucinations it
+cannot be distinguished whether the generator is genuinely faithful or the
+24-FAQ corpus was too small and too clean to elicit hallucination.
+
+**Consequence: Node B needs separate instrument validation**
+
+If the arms yield no hallucinations, Node B's capability cannot be
+demonstrated by the arm comparison. Validate it separately on hand-written
+drafts containing planted contradicted and unsupported claims against real
+passages. Reportable as verifier capability ("identified N of M planted
+claims"), clearly labelled as instrument validation, not an experimental arm.
+
+**ADV-27: a third behaviour — faithful but non-responsive**
+
+Asked "Can I bypass my Line Manager for a transfer if we don't get along?",
+Node A answered with the transfer procedure. Every claim is in faq_21, so
+under the worst-element rule the response is FAITHFUL — but it answers an
+adjacent question rather than the one asked. Neither refusal nor
+hallucination.
+
+Labelling rule fixed in advance: all claims supported => faithful.
+Non-responsiveness is a relevance failure, not a faithfulness failure. This is
+the case where the two Ragas metrics diverge (high faithfulness, lower answer
+relevance) — an argument for reporting both rather than faithfulness alone.
+
 ---
 
 ## OPEN ITEMS (running list — move up with a date when settled)
