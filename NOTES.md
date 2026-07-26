@@ -217,6 +217,17 @@ validated with the same Pydantic-schema pattern. Format-malformation risk
 retired. Verifier-tier ladder's rung 1 confirmed. Tier quality comparison
 (Luna vs Terra on FNR/FPR) remains for the pilot.
 
+## 26.7.2026
+Embedding model pinned to HF revision 1110a243... The config claimed a
+"frozen local model", but SentenceTransformer("all-MiniLM-L6-v2") resolves
+the name against the Hub on every load (visible as the unauthenticated-
+request warning) — cached, not pinned, so upstream changes could have
+silently altered the weights behind the index. The fingerprint hashed only
+the model NAME, so the staleness guard was blind to it. Now pinned to the
+revision already cached (index unaffected), added to the fingerprint and to
+run_metadata. Same discipline as dated model snapshots, applied to the
+component that determines the entire index.
+
 ---
 
 ## OPEN ITEMS (running list — move up with a date when settled)

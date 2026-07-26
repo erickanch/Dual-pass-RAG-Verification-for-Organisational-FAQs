@@ -114,6 +114,14 @@ PROMPT_VERSION = "v1"
 # ---------------------------------------------------------------------------
 
 EMBEDDING_MODEL = "all-MiniLM-L6-v2"
+EMBEDDING_REVISION = "1110a243fdf4706b3f48f1d95db1a4f5529b4d41"
+                                  # HF commit SHA — pinned for the same reason
+                                  # model IDs are pinned: the bare name resolves
+                                  # against the Hub on every load, so upstream
+                                  # could silently change the weights that built
+                                  # the index. This is the revision already in
+                                  # the local cache, so the existing embeddings
+                                  # remain valid.
 EMBEDDING_DIM = 384               # verified in smoke test
 
 
@@ -281,6 +289,7 @@ def run_metadata() -> dict:
         "node_b_model": NODE_B_MODEL,
         "node_b_reasoning_effort": NODE_B_REASONING_EFFORT,
         "embedding_model": EMBEDDING_MODEL,
+        "embedding_revision": EMBEDDING_REVISION,
         "chunk_size": CHUNK_SIZE,
         "chunk_overlap": CHUNK_OVERLAP,
         "retrieval_k": RETRIEVAL_K,

@@ -52,6 +52,7 @@ from src.config import (
     CORPUS_DIR,
     EMBEDDING_DIM,
     EMBEDDING_MODEL,
+    EMBEDDING_REVISION,
     QUESTIONS_FILE,
     RETRIEVAL_K,
     SIMILARITY_METRIC,
@@ -190,6 +191,7 @@ def config_fingerprint(corpus: list[tuple[str, str]]) -> str:
     """
     h = hashlib.sha256()
     h.update(EMBEDDING_MODEL.encode())
+    h.update(EMBEDDING_REVISION.encode())
     h.update(str(CHUNK_SIZE).encode())
     h.update(str(CHUNK_OVERLAP).encode())
     h.update(SIMILARITY_METRIC.encode())
@@ -217,7 +219,7 @@ def ingest(force: bool = False) -> dict:
     print(f"Embedding model: {EMBEDDING_MODEL}")
     print(f"Fingerprint: {fingerprint}")
 
-    model = SentenceTransformer(EMBEDDING_MODEL)
+    model = SentenceTransformer(EMBEDDING_MODEL, revision=EMBEDDING_REVISION)
     effective_size = _effective_chunk_size(model)
     print(f"max_seq_length: {model.max_seq_length}  "
           f"(CHUNK_SIZE={CHUNK_SIZE}, CHUNK_OVERLAP={CHUNK_OVERLAP}, "
@@ -328,7 +330,7 @@ def _get_collection():
 def _get_model() -> SentenceTransformer:
     global _model
     if _model is None:
-        _model = SentenceTransformer(EMBEDDING_MODEL)
+        _model = SentenceTransformer(EMBEDDING_MODEL, revision=EMBEDDING_REVISION)
     return _model
 
 
