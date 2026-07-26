@@ -279,6 +279,31 @@ Non-responsiveness is a relevance failure, not a faithfulness failure. This is
 the case where the two Ragas metrics diverge (high faithfulness, lower answer
 relevance) — an argument for reporting both rather than faithfulness alone.
 
+**Node A as baseline**
+
+The prompt was developed to make Node A a responsive, grounded assistant — not
+to approximate a naive commercial deployment. The strict early variant was
+faithful but unresponsive (refused answerable sub-questions; answered adjacent
+facts rather than the question asked). Rule 2 corrected that within an explicit
+no-invention boundary.
+
+The baseline arm therefore represents a well-configured single-pass RAG system.
+This is the DEMANDING comparison, not a fallback: a verifier that adds nothing
+over competent prompting has no deployment case, so beating a naive baseline
+would prove little. An upload-and-chat deployment configured in minutes has no
+comparable specification and, being subject to undisclosed model and platform
+updates (cf. 17.7.2026), is not a stable baseline to measure against.
+
+**Bounded inference is where Node B earns its place**
+
+Entailment — applying a stated requirement to the question asked — is a
+judgement at the margin, and a generator making it in one pass MAY occasionally
+over-read, stating a route or exception the passages do not support.
+Verification is therefore not merely an error-catcher for a careless generator:
+it is what permits Node A's helpfulness to be set higher than a single-pass
+deployment could safely allow. The trade-off is measurable here — answer
+relevance against FNR/FPR across arms.
+
 ---
 
 ## OPEN ITEMS (running list — move up with a date when settled)

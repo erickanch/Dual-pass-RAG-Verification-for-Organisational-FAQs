@@ -1,0 +1,611 @@
+{
+  "PROBE — not an experimental run": "Node A only, no verifier. Produced by a throwaway script, NOT run_experiment.py. Indicative only; not reportable as results.",
+  "timestamp_utc": "2026-07-26T15:13:23.594075+00:00",
+  "prompt_version": "v1",
+  "node_a_model": "gemini-3.5-flash",
+  "git_commit": "3bc93cab2b0efd45f02111d9065b61339b3b4131",
+  "refused": 29,
+  "total": 40,
+  "records": [
+    {
+      "id": "ADV-01",
+      "query": "What is the paternity leave entitlement?",
+      "retrieved": [
+        "faq_03",
+        "faq_10",
+        "faq_01",
+        "faq_02",
+        "faq_09"
+      ],
+      "refused": true,
+      "answer": "INSUFFICIENT_CONTEXT",
+      "tokens_prompt": 748,
+      "tokens_completion": 6
+    },
+    {
+      "id": "ADV-02",
+      "query": "Can I carry over my unused annual leave to next year?",
+      "retrieved": [
+        "faq_01",
+        "faq_02",
+        "faq_04",
+        "faq_10",
+        "faq_03"
+      ],
+      "refused": true,
+      "answer": "INSUFFICIENT_CONTEXT",
+      "tokens_prompt": 732,
+      "tokens_completion": 5
+    },
+    {
+      "id": "ADV-03",
+      "query": "Is there bereavement leave for grandparents?",
+      "retrieved": [
+        "faq_07",
+        "faq_03",
+        "faq_09",
+        "faq_05",
+        "faq_02"
+      ],
+      "refused": false,
+      "answer": "Employees are granted 5 consecutive working days of fully paid compassionate leave for the loss of an immediate family member. I do not have information on whether grandparents count as immediate family.",
+      "tokens_prompt": 736,
+      "tokens_completion": 35
+    },
+    {
+      "id": "ADV-04",
+      "query": "Do I get paid time off for jury duty?",
+      "retrieved": [
+        "faq_10",
+        "faq_06",
+        "faq_07",
+        "faq_04",
+        "faq_02"
+      ],
+      "refused": true,
+      "answer": "INSUFFICIENT_CONTEXT",
+      "tokens_prompt": 742,
+      "tokens_completion": 6
+    },
+    {
+      "id": "ADV-05",
+      "query": "Can I take a half-day of sick leave?",
+      "retrieved": [
+        "faq_04",
+        "faq_07",
+        "faq_10",
+        "faq_02",
+        "faq_01"
+      ],
+      "refused": true,
+      "answer": "INSUFFICIENT_CONTEXT",
+      "tokens_prompt": 738,
+      "tokens_completion": 6
+    },
+    {
+      "id": "ADV-06",
+      "query": "Do I need a medical certificate for sick leave?",
+      "retrieved": [
+        "faq_04",
+        "faq_10",
+        "faq_07",
+        "faq_09",
+        "faq_05"
+      ],
+      "refused": true,
+      "answer": "INSUFFICIENT_CONTEXT",
+      "tokens_prompt": 762,
+      "tokens_completion": 6
+    },
+    {
+      "id": "ADV-07",
+      "query": "Can unused public holidays be exchanged for pay?",
+      "retrieved": [
+        "faq_08",
+        "faq_04",
+        "faq_01",
+        "faq_06",
+        "faq_18"
+      ],
+      "refused": true,
+      "answer": "INSUFFICIENT_CONTEXT",
+      "tokens_prompt": 732,
+      "tokens_completion": 6
+    },
+    {
+      "id": "ADV-08",
+      "query": "What happens if a sabbatical request is denied?",
+      "retrieved": [
+        "faq_05",
+        "faq_06",
+        "faq_07",
+        "faq_20",
+        "faq_09"
+      ],
+      "refused": true,
+      "answer": "INSUFFICIENT_CONTEXT",
+      "tokens_prompt": 754,
+      "tokens_completion": 6
+    },
+    {
+      "id": "ADV-09",
+      "query": "How do I apply for a sabbatical?",
+      "retrieved": [
+        "faq_05",
+        "faq_06",
+        "faq_07",
+        "faq_10",
+        "faq_09"
+      ],
+      "refused": true,
+      "answer": "INSUFFICIENT_CONTEXT",
+      "tokens_prompt": 762,
+      "tokens_completion": 5
+    },
+    {
+      "id": "ADV-10",
+      "query": "Can I cash out my unused sick leave when I resign?",
+      "retrieved": [
+        "faq_04",
+        "faq_07",
+        "faq_09",
+        "faq_06",
+        "faq_01"
+      ],
+      "refused": true,
+      "answer": "INSUFFICIENT_CONTEXT",
+      "tokens_prompt": 754,
+      "tokens_completion": 6
+    },
+    {
+      "id": "ADV-11",
+      "query": "What is the maximum allowed response time for a Tier 3 complaint?",
+      "retrieved": [
+        "faq_12",
+        "faq_17",
+        "faq_16",
+        "faq_11",
+        "faq_13"
+      ],
+      "refused": true,
+      "answer": "INSUFFICIENT_CONTEXT",
+      "tokens_prompt": 749,
+      "tokens_completion": 5
+    },
+    {
+      "id": "ADV-12",
+      "query": "When calculating the customer response deadline, do working hours include weekends?",
+      "retrieved": [
+        "faq_11",
+        "faq_12",
+        "faq_17",
+        "faq_16",
+        "faq_07"
+      ],
+      "refused": true,
+      "answer": "INSUFFICIENT_CONTEXT",
+      "tokens_prompt": 742,
+      "tokens_completion": 5
+    },
+    {
+      "id": "ADV-13",
+      "query": "What is the penalty for missing the 12-hour deadline for a customer email?",
+      "retrieved": [
+        "faq_11",
+        "faq_17",
+        "faq_12",
+        "faq_16",
+        "faq_20"
+      ],
+      "refused": false,
+      "answer": "General customer emails must receive a human response within 12 working hours. I do not have information on the penalty for missing this deadline.",
+      "tokens_prompt": 751,
+      "tokens_completion": 28
+    },
+    {
+      "id": "ADV-14",
+      "query": "Does the 14-day timeline apply to data request from former employees?",
+      "retrieved": [
+        "faq_13",
+        "faq_17",
+        "faq_07",
+        "faq_12",
+        "faq_01"
+      ],
+      "refused": false,
+      "answer": "The company must provide requested personal data within 14 calendar days of verifying the data subject's identity. I do not have information on whether this timeline applies to data requests from former employees.",
+      "tokens_prompt": 743,
+      "tokens_completion": 39
+    },
+    {
+      "id": "ADV-15",
+      "query": "Is there a fee charged for a data request?",
+      "retrieved": [
+        "faq_13",
+        "faq_18",
+        "faq_19",
+        "faq_11",
+        "faq_14"
+      ],
+      "refused": true,
+      "answer": "INSUFFICIENT_CONTEXT",
+      "tokens_prompt": 724,
+      "tokens_completion": 5
+    },
+    {
+      "id": "ADV-16",
+      "query": "How long does it take IT to fix a broken laptop?",
+      "retrieved": [
+        "faq_14",
+        "faq_17",
+        "faq_12",
+        "faq_11",
+        "faq_13"
+      ],
+      "refused": true,
+      "answer": "INSUFFICIENT_CONTEXT",
+      "tokens_prompt": 731,
+      "tokens_completion": 6
+    },
+    {
+      "id": "ADV-17",
+      "query": "Can I request a Mac instead of a Windows PC from IT?",
+      "retrieved": [
+        "faq_14",
+        "faq_15",
+        "faq_22",
+        "faq_18",
+        "faq_24"
+      ],
+      "refused": true,
+      "answer": "INSUFFICIENT_CONTEXT",
+      "tokens_prompt": 721,
+      "tokens_completion": 6
+    },
+    {
+      "id": "ADV-18",
+      "query": "Who handles Level 2 or Level 3 server outages?",
+      "retrieved": [
+        "faq_16",
+        "faq_12",
+        "faq_02",
+        "faq_20",
+        "faq_24"
+      ],
+      "refused": true,
+      "answer": "INSUFFICIENT_CONTEXT",
+      "tokens_prompt": 744,
+      "tokens_completion": 6
+    },
+    {
+      "id": "ADV-19",
+      "query": "Is the IT helpdesk open on weekends?",
+      "retrieved": [
+        "faq_16",
+        "faq_15",
+        "faq_14",
+        "faq_05",
+        "faq_08"
+      ],
+      "refused": true,
+      "answer": "INSUFFICIENT_CONTEXT",
+      "tokens_prompt": 731,
+      "tokens_completion": 6
+    },
+    {
+      "id": "ADV-20",
+      "query": "How fast must HR reply to internal employee emails?",
+      "retrieved": [
+        "faq_11",
+        "faq_12",
+        "faq_17",
+        "faq_13",
+        "faq_16"
+      ],
+      "refused": true,
+      "answer": "INSUFFICIENT_CONTEXT",
+      "tokens_prompt": 745,
+      "tokens_completion": 6
+    },
+    {
+      "id": "ADV-21",
+      "query": "What is the per-meal limit for local expenses?",
+      "retrieved": [
+        "faq_18",
+        "faq_24",
+        "faq_03",
+        "faq_19",
+        "faq_08"
+      ],
+      "refused": true,
+      "answer": "INSUFFICIENT_CONTEXT",
+      "tokens_prompt": 729,
+      "tokens_completion": 6
+    },
+    {
+      "id": "ADV-22",
+      "query": "Can I use a corporate credit card for international travel?",
+      "retrieved": [
+        "faq_19",
+        "faq_18",
+        "faq_22",
+        "faq_24",
+        "faq_15"
+      ],
+      "refused": true,
+      "answer": "INSUFFICIENT_CONTEXT",
+      "tokens_prompt": 726,
+      "tokens_completion": 5
+    },
+    {
+      "id": "ADV-23",
+      "query": "Do I need to keep boarding passes for international expenses?",
+      "retrieved": [
+        "faq_19",
+        "faq_18",
+        "faq_10",
+        "faq_02",
+        "faq_04"
+      ],
+      "refused": false,
+      "answer": "International travel expenses require submitting original physical receipts to the Finance Helpdesk in Room 402 within 30 days. I do not have information on whether you need to keep boarding passes for international expenses.",
+      "tokens_prompt": 742,
+      "tokens_completion": 42
+    },
+    {
+      "id": "ADV-24",
+      "query": "What happens if I lose my physical receipt for an international trip?",
+      "retrieved": [
+        "faq_19",
+        "faq_18",
+        "faq_17",
+        "faq_13",
+        "faq_24"
+      ],
+      "refused": false,
+      "answer": "International travel expenses require submitting original physical receipts to the Finance Helpdesk in Room 402 within 30 days. I do not have information on what happens if you lose your physical receipt.",
+      "tokens_prompt": 749,
+      "tokens_completion": 40
+    },
+    {
+      "id": "ADV-25",
+      "query": "Can my probation period be extended beyond 3 months?",
+      "retrieved": [
+        "faq_20",
+        "faq_05",
+        "faq_10",
+        "faq_04",
+        "faq_12"
+      ],
+      "refused": true,
+      "answer": "INSUFFICIENT_CONTEXT",
+      "tokens_prompt": 743,
+      "tokens_completion": 6
+    },
+    {
+      "id": "ADV-26",
+      "query": "What is the notice period after I have passed probation?",
+      "retrieved": [
+        "faq_20",
+        "faq_12",
+        "faq_04",
+        "faq_17",
+        "faq_10"
+      ],
+      "refused": true,
+      "answer": "INSUFFICIENT_CONTEXT",
+      "tokens_prompt": 752,
+      "tokens_completion": 6
+    },
+    {
+      "id": "ADV-27",
+      "query": "Can I bypass my Line Manager for a transfer if we don't get along?",
+      "retrieved": [
+        "faq_21",
+        "faq_22",
+        "faq_24",
+        "faq_23",
+        "faq_12"
+      ],
+      "refused": false,
+      "answer": "To apply for an internal department transfer, you must first obtain written approval from your current direct Line Manager via email. I do not have information on whether you can bypass your Line Manager if you do not get along.",
+      "tokens_prompt": 726,
+      "tokens_completion": 43
+    },
+    {
+      "id": "ADV-28",
+      "query": "Is there a salary increase associated with an internal transfer?",
+      "retrieved": [
+        "faq_22",
+        "faq_21",
+        "faq_23",
+        "faq_01",
+        "faq_04"
+      ],
+      "refused": true,
+      "answer": "INSUFFICIENT_CONTEXT",
+      "tokens_prompt": 718,
+      "tokens_completion": 6
+    },
+    {
+      "id": "ADV-29",
+      "query": "Does an internal transfer reset my sick leave accrual?",
+      "retrieved": [
+        "faq_04",
+        "faq_22",
+        "faq_10",
+        "faq_23",
+        "faq_01"
+      ],
+      "refused": true,
+      "answer": "INSUFFICIENT_CONTEXT",
+      "tokens_prompt": 733,
+      "tokens_completion": 5
+    },
+    {
+      "id": "ADV-30",
+      "query": "Can a Department Manager approve a software subscription?",
+      "retrieved": [
+        "faq_24",
+        "faq_15",
+        "faq_21",
+        "faq_14",
+        "faq_22"
+      ],
+      "refused": true,
+      "answer": "INSUFFICIENT_CONTEXT",
+      "tokens_prompt": 715,
+      "tokens_completion": 6
+    },
+    {
+      "id": "ADV-31",
+      "query": "Who signs off on purchases above HKD 10,000?",
+      "retrieved": [
+        "faq_24",
+        "faq_19",
+        "faq_18",
+        "faq_15",
+        "faq_06"
+      ],
+      "refused": false,
+      "answer": "A secondary sign-off is required for purchase orders above HKD 10,000, but I do not have information on who provides this secondary sign-off.",
+      "tokens_prompt": 737,
+      "tokens_completion": 36
+    },
+    {
+      "id": "ADV-32",
+      "query": "Are interns eligible for the 24 days of annual leave?",
+      "retrieved": [
+        "faq_01",
+        "faq_10",
+        "faq_03",
+        "faq_02",
+        "faq_05"
+      ],
+      "refused": false,
+      "answer": "Permanent full-time employees receive 24 calendar days of paid annual leave per year. I do not have information on whether interns are eligible for this leave.",
+      "tokens_prompt": 731,
+      "tokens_completion": 32
+    },
+    {
+      "id": "ADV-33",
+      "query": "How do I log my leave in the HR system?",
+      "retrieved": [
+        "faq_22",
+        "faq_02",
+        "faq_01",
+        "faq_10",
+        "faq_18"
+      ],
+      "refused": true,
+      "answer": "INSUFFICIENT_CONTEXT",
+      "tokens_prompt": 734,
+      "tokens_completion": 6
+    },
+    {
+      "id": "ADV-34",
+      "query": "What is the current version of the HR app we use?",
+      "retrieved": [
+        "faq_18",
+        "faq_22",
+        "faq_23",
+        "faq_03",
+        "faq_12"
+      ],
+      "refused": true,
+      "answer": "INSUFFICIENT_CONTEXT",
+      "tokens_prompt": 712,
+      "tokens_completion": 6
+    },
+    {
+      "id": "ADV-35",
+      "query": "Where is the HR intranet portal located?",
+      "retrieved": [
+        "faq_22",
+        "faq_23",
+        "faq_21",
+        "faq_18",
+        "faq_19"
+      ],
+      "refused": true,
+      "answer": "INSUFFICIENT_CONTEXT",
+      "tokens_prompt": 717,
+      "tokens_completion": 6
+    },
+    {
+      "id": "ADV-36",
+      "query": "Can I take a sabbatical to work for a competitor?",
+      "retrieved": [
+        "faq_05",
+        "faq_06",
+        "faq_03",
+        "faq_10",
+        "faq_07"
+      ],
+      "refused": false,
+      "answer": "I do not have information on whether you can work for a competitor during a sabbatical. To be eligible to apply for a sabbatical, you must have completed at least 5 years of continuous full-time service. A sabbatical lasts for exactly 8 weeks and is paid at 50% of your standard base salary.",
+      "tokens_prompt": 735,
+      "tokens_completion": 64
+    },
+    {
+      "id": "ADV-37",
+      "query": "Do I need to bring anything to the internal transfer interview?",
+      "retrieved": [
+        "faq_23",
+        "faq_22",
+        "faq_21",
+        "faq_19",
+        "faq_10"
+      ],
+      "refused": true,
+      "answer": "INSUFFICIENT_CONTEXT",
+      "tokens_prompt": 734,
+      "tokens_completion": 6
+    },
+    {
+      "id": "ADV-38",
+      "query": "Is compassionate leave granted for the death of a pet?",
+      "retrieved": [
+        "faq_07",
+        "faq_09",
+        "faq_03",
+        "faq_05",
+        "faq_06"
+      ],
+      "refused": false,
+      "answer": "Employees are granted 5 consecutive working days of fully paid compassionate leave for the loss of an immediate family member. I do not have information on whether a pet counts as an immediate family member.",
+      "tokens_prompt": 745,
+      "tokens_completion": 38
+    },
+    {
+      "id": "ADV-39",
+      "query": "What happens if I submit my local travel expense on day 15?",
+      "retrieved": [
+        "faq_18",
+        "faq_19",
+        "faq_22",
+        "faq_13",
+        "faq_08"
+      ],
+      "refused": false,
+      "answer": "Local travel expenses must be submitted via the mobile HR app by uploading PDF receipts within 14 days of the journey. I do not have information on what happens if you submit your local travel expense on day 15.",
+      "tokens_prompt": 740,
+      "tokens_completion": 45
+    },
+    {
+      "id": "ADV-40",
+      "query": "How are expenses in foreign currency converted for reimbursement?",
+      "retrieved": [
+        "faq_19",
+        "faq_18",
+        "faq_08",
+        "faq_04",
+        "faq_23"
+      ],
+      "refused": true,
+      "answer": "INSUFFICIENT_CONTEXT",
+      "tokens_prompt": 729,
+      "tokens_completion": 6
+    }
+  ]
+}

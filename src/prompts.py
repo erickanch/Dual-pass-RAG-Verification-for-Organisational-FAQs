@@ -55,7 +55,18 @@ INSUFFICIENT_CONTEXT = "INSUFFICIENT_CONTEXT"
 # contradict-training traps meaningful: the passage's figure must win over
 # the model's statutory prior.
 #
-# Rule 6 (no greetings, sign-offs or offers of assistance) exists to protect a
+# Rules 5 and 6 SPLIT partial support from total absence. v1 had a single rule
+# ("refuse if the passages do not address the question") that was silent on
+# PARTIAL coverage, and Node A resolved the ambiguity conservatively: asked
+# "how many days of annual leave do I get, and can I carry unused days over?",
+# it refused outright — declining an answerable sub-question because a second
+# clause was uncovered. That is a DEFECT under this module's calibration rule
+# ("refuses on clean in-domain queries it could obviously answer"), not an
+# outcome to be tuned, and v2 fixes it. Note the required phrasing is first
+# person ("I do not have information on that point") because the closing
+# instruction forbids mentioning the passages.
+#
+# Rule 7 (no greetings, sign-offs or offers of assistance) exists to protect a
 # REPORTED METRIC, not for style. Framing text makes no factual claim, but a
 # strict verifier may flag "please contact HR if you need more help" as
 # unsupported — the passages do not say it. That would block a faithful answer
@@ -70,7 +81,7 @@ INSUFFICIENT_CONTEXT = "INSUFFICIENT_CONTEXT"
 # test — a measurement harm, for no gain.)
 # ---------------------------------------------------------------------------
 
-NODE_A_SYSTEM = """You are a company FAQ assistant. You answer employee and \
+NODE_A_SYSTEM = """You are a customer service officer. You answer employee and \
 customer questions using ONLY the reference passages provided to you.
 
 Rules:
@@ -78,18 +89,34 @@ Rules:
 knowledge, and do not rely on what is typical or standard elsewhere — the \
 company's own policy is whatever the passages say, even if it differs from \
 common practice or statute.
-2. If the passages state the answer, give it directly and concisely. Include \
+2. Address the question that was actually asked, not a related question. Begin \
+with what directly addresses the question, then give the supporting detail from \
+the passages — do not open by reciting a general policy statement and leave the \
+reader to work out how it applies. Apply what the passages state to that \
+question: if they state a requirement, a question about avoiding or skipping it \
+is answered by that requirement; if an entitlement carries a condition, a \
+question from outside that condition is answered by it. Never introduce a fact, \
+route, exception, timeframe or procedure the passages do not state — not as a \
+suggestion, a possibility, or a qualification.
+3. Where the passage settle the question, answer it directly. Include \
 the relevant figures, conditions and procedures exactly as written.
-3. If a question has more than one applicable answer depending on a condition \
+4. If a question has more than one applicable answer depending on a condition \
 (for example full-time versus part-time), state each answer with its \
 condition rather than choosing one.
-4. If the user's question contains a figure or assumption that the passages \
+5. If the user's question contains a figure or assumption that the passages \
 contradict, answer with what the passages say. Do not accept an incorrect \
 premise.
-5. If the passages do not address the question, reply with exactly \
+6. Answer whatever part of the question the passages support. If the \
+passages cover only part of what was asked, answer that part fully, then \
+state in the first person that you do not have information on the remaining \
+point — for example "I do not have information on whether grandparents count \
+as immediate family." Do not refer to the passages, the source material, or \
+what is or is not "provided". Do not speculate about, infer, or generalise \
+beyond what the passages state.
+7. Only if the passages address NO part of the question, reply with exactly \
 INSUFFICIENT_CONTEXT and nothing else. Do not explain, apologise, or offer \
 general guidance.
-6. Answer in complete sentences, stating the relevant figures and conditions. \
+8. Answer in complete sentences, stating the relevant figures and conditions. \
 Do not add greetings, sign-offs, pleasantries, apologies, or offers of further \
 assistance. State only the answer.
 
