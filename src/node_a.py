@@ -215,7 +215,7 @@ def rewrite(question: str, passages, flagged_claims) -> Draft:
     )
     text, tp, tc, attempts, latency = _call_gemini(prompts.REWRITE_SYSTEM, user)
     return Draft(text=text, refused=_is_refusal(text),
-                 tokens_prompt=tp, tokens_completion=tc, attempts=attempt,
+                 tokens_prompt=tp, tokens_completion=tc, attempts=attempts,
                  api_latency_s=latency)
 
 
