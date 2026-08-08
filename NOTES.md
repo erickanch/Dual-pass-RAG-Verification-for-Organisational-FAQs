@@ -386,6 +386,55 @@ distinct-draft count post hash-grouping — not committed in the proposal
 deduplication if most initial drafts are shared. If drafts diverge more than
 expected, the proposal's Ragas-only treatment is kept.
 
+## 8.8.2026
+
+**run_experiment.py built and first complete sweep run**
+
+Parameterised runner: reads ACTIVE_ARM, writes one .jsonl per sweep (metadata
+header + one record per query, append-only, flushed per write). Resume
+retries only generation_failed/verifier_malformed outcomes. Genuine results
+(passed_first, fixed_by_rewrite, fallback) are left untouched. A controller
+exception not already converted to an outcome halts the sweep rather than
+being logged as an infrastructure failure — that would hide a code defect
+inside normal noise.
+
+**First baseline sweep: 108/108, 0 errors, ~4.5 minutes**
+
+    passed_first: 58   fallback: 50
+    in_domain (47):     47 passed_first, 0 fallback
+    adversarial (40):   11 passed_first, 29 fallback
+    out_of_domain (21):  0 passed_first, 21 fallback
+
+Zero generation failures, zero queries needed a second attempt. Matches the
+throwaway-probe pattern from 26-27.7.2026 exactly, now as a logged,
+metadata-stamped, reproducible run rather than an indicative script — this
+is the first REPORTABLE measurement of the zero-hallucination finding.
+
+The 11 adversarial passed_first queries are the identical set observed in
+the frozen-prompt probes (ADV-03, 13, 14, 23, 24, 27, 31, 32, 36, 38, 39).
+Spot-checked ADV-27 and ADV-31 in full: both faithful, both explicitly
+decline the unsupported part, neither invents anything.
+
+**ADV-27 — rule 2 confirmed working**
+
+Earlier probe: "To apply for an internal department transfer, you must first
+obtain written approval..." (recitation, no direct response to "can I
+bypass?"). This run: "You cannot bypass your Line Manager. [supporting
+detail] I do not have information on whether exceptions are made..." — leads
+with a direct answer to the question asked, exactly the ordering rule 2 was
+written to produce. Best evidence yet that the rule works. The earlier
+sample simply hadn't shown it.
+
+**Retrieval-timing artefact (record for Phase 2 analysis)**
+
+First record of the run showed t_retrieval_s = 6.27s. Every other record was
+0.01-0.05s. Not a retrieval bug — the embedding model loads on the first call
+of the process ("Loading weights" warm-up), inflating only that one
+measurement. EXCLUDE the first record per sweep from latency percentiles, or
+warm the model with a throwaway call before the sweep's first real query.
+Flag this in figures.py / the results write-up so it is not misread as a
+genuine outlier.
+
 ---
 
 ## OPEN ITEMS (running list — move up with a date when settled)
