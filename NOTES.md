@@ -435,6 +435,71 @@ warm the model with a throwaway call before the sweep's first real query.
 Flag this in figures.py / the results write-up so it is not misread as a
 genuine outlier.
 
+## 8.8.2026 (continued — cross_vendor sweep)
+
+**First complete cross_vendor sweep: 108/108, 0 errors**
+
+    passed_first: 56   fixed_by_rewrite: 1   fallback: 51
+    in_domain (47):     46 passed_first, 1 fixed_by_rewrite
+    adversarial (40):   10 passed_first, 30 fallback
+    out_of_domain (21):  0 passed_first, 21 fallback
+
+57 queries reached Node B; 0 verifier_malformed. One node_a.py bug hit and
+fixed mid-sweep (attempts=attempt typo in rewrite(), NameError on the first
+real rewrite call — IN-25). Fixed, resumed via --resume from record 24: prior
+records untouched, sweep completed cleanly from IN-25.
+
+**IN-44 — the rewrite loop working end to end (report exhibit)**
+
+Draft 1: "No, you cannot take marriage leave in your first year..." — Luna
+correctly flagged this CONTRADICTED: the passage states a positive condition
+(12 months' service), not a prohibition; asserting "cannot" overstates it.
+Rewrite 1 over-corrected: dropped the direct answer, added "the passages do
+not provide information on whether..." — Luna flagged THIS as contradicted
+too (the question is answerable by entailment; claiming it isn't is itself
+wrong). Rewrite 2 converged correctly: "No, you cannot... [because] employees
+must have completed 12 months" — same conclusion as draft 1, now correctly
+derived as entailment from the stated condition rather than asserted
+outright. Three rounds, all-supported on the third. A clean, reproducible
+demonstration of claim-level verification catching a subtle
+contradiction-vs-entailment error and converging to a correct answer.
+
+**ADV-31 — pre-test concern did not recur in the live pipeline**
+
+Passed_first again (as in the earlier controller test). Checked why: Node
+A's actual phrasing here never asserts "a secondary sign-off is required
+above HKD 10,000" (the claim Luna flagged in the hand-written pre-test
+draft) — it states only what a manager may approve up to, then declines the
+rest. Luna correctly marked the declining clause supported (the passages
+ARE silent, so saying so is accurate). Conclusion: ADV-31 was never a real
+failure in live output — only in the synthetic pre-test draft, which was
+worded more assertively than anything Node A actually produces. The pre-test
+served its purpose (surfacing the mechanism) but should not be read as a
+live-pipeline failure.
+
+**ADV-13 — Node A non-determinism observed (limitation, not investigated further)**
+
+Same query, IDENTICAL retrieved passages (confirmed: same 5 chunk IDs, same
+order) — yet different Node A output between the baseline and cross_vendor
+sweeps. Baseline: answered (SLA stated, penalty declined). Cross_vendor:
+draft was INSUFFICIENT_CONTEXT before Node B was ever called — the
+divergence is generation-stage, not verification-stage; Node B is not
+responsible for this difference. Consistent with documented commercial API
+non-determinism at temperature 0 (cf. 17.7.2026).
+
+n=1 — not a basis for a rate estimate, and not investigated further with a
+dedicated stability run. Noted as a limitation rather than generalised from
+a single instance: an observed cross-arm outcome difference is not
+automatically attributable to the verifier, and where this matters (e.g.
+ADV-13) it should be checked against the underlying draft rather than
+assumed.
+
+**Structured output — confirmed at scale**
+
+0 verifier_malformed across 57 real Node B calls (previously validated only
+on 6 hand-written pre-test cases). Closes the structured-output risk beyond
+the pre-test.
+
 ---
 
 ## OPEN ITEMS (running list — move up with a date when settled)
