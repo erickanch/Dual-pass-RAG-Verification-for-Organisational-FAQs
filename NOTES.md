@@ -304,25 +304,157 @@ it is what permits Node A's helpfulness to be set higher than a single-pass
 deployment could safely allow. The trade-off is measurable here — answer
 relevance against FNR/FPR across arms.
 
+
+## 27.7.2026
+
+**Node B pre-test — 6 hand-written drafts, both vendor paths**
+
+*   **Declining clauses are NOT flagged** by either vendor. "I do not have
+    information on whether grandparents count as immediate family" was marked
+    supported by both. Rule 6's engineered behaviour is therefore safe: the 11
+    adversarial and 6 compound partial answers will not become False Positives.
+    This was the critical unknown before the sweeps; it is now closed.
+
+*   **Courtesy framing — the vendors disagree.** Luna ignored a greeting and
+    "Please contact HR if you need further assistance" entirely, extracting
+    only substantive claims. Gemini flagged the HR sign-off as unsupported.
+    Consequence: had pleasantries been allowed, cross_vendor and same_vendor
+    would differ in FPR because of how each vendor treats framing language,
+    not because of the treatment under test — a direct confound in the RQ3
+    comparison. **Rule 8 (no pleasantries) retained on this evidence**, which
+    replaces the earlier speculative justification.
+
+*   **ADV-31 — a real over-read produced by the pipeline itself.** The draft
+    claimed "a secondary sign-off is required for purchase orders above HKD
+    10,000"; the passages state only what a manager may approve *without* one,
+    and are silent above that threshold. Luna flagged it (as contradicted);
+    Gemini marked it supported — a false negative on an ungrounded claim, by
+    the same model that generated it. Whether the correct verdict is
+    contradicted or unsupported is arguable; both block, so either counts as
+    the verifier succeeding. Consistent with the shared-blind-spot mechanism
+    RQ3 tests. n=1 — to be characterised properly in the pilot.
+
+*   **Decomposition granularity is inconsistent** within and across vendors:
+    the same compassionate-leave sentence became 1 claim in one case and 3 in
+    another. Verdicts were unaffected, but claim counts are not comparable
+    across queries and should not be reported as a metric.
+
+**Limitation — corpus structure favours the baseline**
+
+The corpus is 24 atomic single-topic FAQ files, which yields clean chunking
+(one FAQ per chunk, verified at ingestion). A real deployment more typically
+ingests a monolithic staff handbook, where chunk boundaries cut across topics
+and retrieval is correspondingly noisier. The corpus design therefore
+minimises retrieval error by construction — as intended, so that generation
+and verification effects are isolated — but the baseline's faithfulness
+partly reflects that favourable structure.
+
+**Anticipated objection — "you chose the weakest configuration to beat"**
+
+The naive configuration is the deployment the research question is *about*,
+not a competitor selected for weakness. It is also not the baseline arm: the
+baseline is single-pass through the same pipeline with the full grounding
+specification — the demanding comparison, since a verifier that adds nothing
+over competent prompting has no deployment case. NotebookLM (purpose-built RAG
+with forced citation) and AI Studio (developer GUI taking one's own system
+prompt) answer different questions and are not naive deployments.
+
+**Draft deduplication across arms — methodology, not just efficiency**
+
+All three arms share Node A, the prompt, and retrieval, so the initial draft
+is identical across arms wherever no rewrite fires. The controller therefore
+hashes every draft (SHA-256) rather than assuming identity: labelling.py will
+group records by hash and present each DISTINCT draft to the labeller once,
+applying that label to every matching record.
+
+This is not primarily an efficiency saving. Presenting the same text three
+times in a blinded set would not produce three independent judgements anyway
+— the labeller may recognise it and anchor — so deduplication makes explicit
+what was already true. It also protects CONSISTENCY: the same text labelled on
+separate occasions could plausibly receive different labels on a borderline
+case, and that inconsistency would propagate into the confusion matrix as an
+apparent arm difference. Labelling each distinct draft once removes that
+source of noise by construction. Identity is verified by hash, never assumed:
+commercial APIs are not perfectly deterministic even at temperature 0, so
+drafts that differ in any respect are labelled separately. The divergence
+rate (how often arms produced non-identical drafts from identical inputs) is
+itself worth reporting as a small observation on API determinism.
+
+Same-vendor human labelling is decided AFTER the runs, from the actual
+distinct-draft count post hash-grouping — not committed in the proposal
+(which excludes it on cost grounds), but potentially near-free under
+deduplication if most initial drafts are shared. If drafts diverge more than
+expected, the proposal's Ragas-only treatment is kept.
+
 ---
 
 ## OPEN ITEMS (running list — move up with a date when settled)
 
-*   [ ] ARMS_CONFIG mechanism (`ACTIVE_ARM` selection + per-arm guards) — next
+*   [x] ARMS_CONFIG mechanism (`ACTIVE_ARM` selection + per-arm guards) — next
         structural commit. same_vendor's node_b_model must be a REFERENCE to
         NODE_A_MODEL, not a copied string.
 *   [ ] Pilot: verifier tier (Luna vs Terra) — see 13.7.2026
-*   [ ] Pilot: retrieval recall at k=5/8/10 on the real corpus.
-*   [ ] Verify "1 FAQ = 1 chunk" at embedding time.
+*   [x] Pilot: retrieval recall at k=5/8/10 on the real corpus.
+*   [x] Verify "1 FAQ = 1 chunk" at embedding time.
 *   [ ] Ragas RunConfig(max_workers=8): test whether the 81 s/query is serial
         execution; a full sweep at current speed is 6–7 hours.
 *   [ ] Per-query cost: measure real $/query on ~10 corpus queries (Anthropic
         dashboard before/after) — replaces the smoke-test-derived estimate.
 *   [ ] Week 14: `uv export` requirements.txt; README final pass; regenerate
         PROJECT_STRUCTURE markers.
-*   [ ] Verify Luna + reasoning_effort=low supports schema-enforced
+*   [x] Verify Luna + reasoning_effort=low supports schema-enforced
         structured output (one-liner, messy multi-claim test answer) —
         FIRST Node B session, before controller integration.
-*   [ ] Verify Gemini `response_schema` structured output for the
+*   [x] Verify Gemini `response_schema` structured output for the
         same-vendor arm's Node B (one-liner).
-
+*   [ ] Write-up: informal Gemini app check (corpus uploaded, no system prompt,
+        5-8 queries across categories, fresh chat each) — to see whether the
+        naive-deployment contrast is real before asserting it in Limitations.
+        Illustrative only and not a comparison.
+*   [ ] Write-up: naive-baseline sanity check = consumer Gemini chat + ONE
+        concatenated document + NO instruction. This alone is the configuration
+        the problem statement describes. NotebookLM (purpose-built RAG, forced
+        citation) and AI Studio (developer GUI, own system prompt) are NOT naive
+        and must not be conflated with it — distinguish them in Limitations to
+        pre-empt the objection. If condition 1 grounds well, SOFTEN the premise
+        rather than defending it.
+*   [ ] Write-up (Recommendations): if single-pass proves sufficient, present the
+        eight-rule grounding specification as a deployment recommendation with its
+        per-rule rationale. Scope honestly — validated on THIS corpus and model
+        only; transfer untested. NOT a template for NotebookLM/AI Studio, neither
+        of which was evaluated.
+*   [ ] Write-up cluster (baseline framing):
+*   [ ] Naive check: consumer Gemini + ONE concatenated doc + NO instruction.
+        Only this configuration is what the problem statement describes.
+*   [ ] Distinguish the four conditions (naive one-doc / naive 24-file /
+        NotebookLM purpose-built RAG / AI Studio developer GUI). 2-3 sentences:
+        all are quick to set up, but only the first is the deployment the
+        research addresses — not a claim about which performs worst.
+*   [ ] Why the pipeline and not those tools: the dual-pass design needs a
+        DEFINED passage set for both nodes; long-context provides none, so the
+        architecture is unimplementable there. Plus comparability across arms,
+        failure attribution, reproducibility.
+*   [ ] Contribution: the eight-rule specification with per-rule rationale,
+        scoped to this corpus and model.
+*   [ ] Limitation: the baseline is well-configured, not naive; corpus is
+        atomic single-topic files, not a monolithic handbook. If the naive
+        check grounds well, SOFTEN the premise rather than defend it.
+*   [ ] node_a.py: distinguish 429 (quota — short backoff) from 503 (Google
+        capacity — longer, more patient backoff). Current 5 attempts from 2s
+        gives ~45s total, too short for a demand spike; a spike during a sweep
+        would convert good queries into generation_failed. Hit 26.7.2026.
+*   [ ] run_experiment.py: incremental writes + RESUME — re-run only queries
+        that came back generation_failed, not the whole sweep.
+*   [ ] VERIFIER NON-DETERMINISM (test-retest). ADV-31 was flagged
+        `contradicted` in the Node B pre-test and `supported` in the controller
+        run — same model, same passages, near-identical prompt tokens
+        (711 both times), opposite decision. Run ~20 queries x3 and count
+        verdict stability before the sweeps. Affects reproducibility claims;
+        also a legitimate finding (a verifier that disagrees with itself is a
+        deployment consideration).
+*   [ ] Compound queries: UNBLOCKED — both vendors accepted declining clauses
+        as supported in the pre-test, so no False-Positive risk. Decide whether
+        to adopt (would need second-reviewer plausibility check, as the 108 had).
+*   [ ] Same-vendor human labelling: decide AFTER the runs, from actual
+        distinct-draft counts post hash-grouping. Not committed in the proposal;
+        cheap if most drafts are shared, drop it if they diverge.

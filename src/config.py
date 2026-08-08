@@ -233,15 +233,40 @@ REQUEST_TIMEOUT = 60              # seconds
 # Per-query log contract (populated by the controller at runtime — NOT config)
 #
 # Fields the controller must write for every query:
-#   query_id, arm, t_retrieval_s, t_generation_s, t_verification_s (list,
-#   one per verify round), t_rewrite_s (list), t_total_s, attempts,
+#   query_id, arm, answer_shown, attempts (REWRITES consumed, not API calls),
 #   outcome — one of src.constants.VALID_OUTCOMES (five; verifier_malformed
 #             and generation_failed are infrastructure failures, excluded
 #             from the confusion matrix and reported as counts),
-#   withheld_draft — the answer generated but NOT displayed, on blocked
-#             answers; labelling judges this, not the fallback message
-#             (Labelling Guide v3),
-#   tokens_prompt, tokens_completion, retrieved_chunk_ids (list)
+#   drafts  — the full chain: [{stage, text, sha256, refused}, ...] with
+#             stage in {initial, rewrite_1, ...}. Human labelling judges
+#             DRAFTS, not the displayed output, and every distinct draft is
+#             labelled. The hash lets labelling.py group identical texts
+#             across arms: the initial draft is produced by the same Node A,
+#             prompt and passages in every arm, so where hashes match it is
+#             read once and the label applied to all matching records.
+#             Grouping is an analysis decision and lives in labelling.py —
+#             at runtime only one arm exists.
+#   verifications — [{stage, claims, n_claims, n_flagged, all_supported}, ...]
+#   retrieved_chunk_ids (list)
+#
+#   TIMINGS, two kinds:
+#     t_retrieval_s, t_generation_s, t_verification_s (list), t_rewrite_s
+#       (list), t_total_s — the SUCCESSFUL call's duration. These are the
+#       latency percentiles reported in Phase 2: what a user experiences.
+#     t_generation_wall_s, t_verification_wall_s, t_rewrite_wall_s — elapsed
+#       time INCLUDING failed attempts and backoff sleeps. These answer how
+#       long a sweep took. They diverge only when retries fire, but a 429
+#       plus a 6-second backoff would otherwise be reported as 6 seconds of
+#       generation latency and distort the p95.
+#     generation_attempts, verification_attempts (lists) — API attempts per
+#       call, so wall/latency divergence is attributable to retries.
+#
+#   TOKENS, split by node: tokens_a_prompt, tokens_a_completion,
+#     tokens_b_prompt, tokens_b_completion (plus derived totals). Node A and
+#     Node B may be different vendors with different prices, so a single
+#     total cannot be converted to a cost. Rates are applied in ANALYSIS,
+#     never written here: a results file with a hardcoded price becomes wrong
+#     when prices change, rather than merely stale.
 #
 # Timer: time.perf_counter() — monotonic, per the proposal's latency protocol.
 # Bump this version if fields are ever added/changed mid-project, so every

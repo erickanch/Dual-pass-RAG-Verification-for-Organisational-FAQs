@@ -62,12 +62,20 @@ class Draft:
     such a draft straight to the fallback message, with no verification (no
     claims to check) and no rewrite (deterministic Node A on the same
     passages would return the identical refusal).
+
+    TWO TIMINGS, deliberately. api_latency_s is the duration of the SUCCESSFUL
+    call — the figure reported as latency, because it is what a user would
+    experience. The controller separately records wall time, which includes
+    failed attempts and backoff sleeps. They diverge only when retries fire,
+    but a 429 followed by a 6-second sleep would otherwise be reported as
+    6 seconds of generation latency and distort the p95.
     """
     text: str                 # the answer, or the sentinel
     refused: bool
     tokens_prompt: int
     tokens_completion: int
     attempts: int             # API attempts consumed, including retries
+    api_latency_s: float      # duration of the successful attempt only
 
 
 _client: genai.Client | None = None
@@ -95,10 +103,10 @@ def _is_refusal(text: str) -> bool:
     return stripped == prompts.INSUFFICIENT_CONTEXT
 
 
-def _call_gemini(system: str, user: str) -> tuple[str, int, int, int]:
+def _call_gemini(system: str, user: str) -> tuple[str, int, int, int, float]:
     """
     One logical generation, with retry-and-backoff around transport failures.
-    Returns (text, tokens_prompt, tokens_completion, attempts).
+    Returns (text, tokens_prompt, tokens_completion, attempts, api_latency_s).
 
     Raises GenerationFailed when retries are exhausted, or when the model
     keeps returning degenerate output.
@@ -108,6 +116,7 @@ def _call_gemini(system: str, user: str) -> tuple[str, int, int, int]:
 
     for attempt in range(1, MAX_RETRIES + 1):
         try:
+            _t0 = time.perf_counter()
             response = client.models.generate_content(
                 model=NODE_A_MODEL,
                 contents=user,
@@ -118,6 +127,7 @@ def _call_gemini(system: str, user: str) -> tuple[str, int, int, int]:
                 ),
             )
 
+            api_latency = time.perf_counter() - _t0
             text = (response.text or "").strip()
 
             # Degenerate output: treat as a failure worth retrying rather than
@@ -138,7 +148,7 @@ def _call_gemini(system: str, user: str) -> tuple[str, int, int, int]:
             tokens_completion = (
                 getattr(usage, "candidates_token_count", 0) or 0)
 
-            return text, tokens_prompt, tokens_completion, attempt
+            return text, tokens_prompt, tokens_completion, attempt, api_latency
 
         except GenerationFailed:
             raise
@@ -179,9 +189,10 @@ def generate(question: str, passages) -> Draft:
         passages=prompts.format_passages(passages),
         question=question,
     )
-    text, tp, tc, attempts = _call_gemini(prompts.NODE_A_SYSTEM, user)
+    text, tp, tc, attempts, latency = _call_gemini(prompts.NODE_A_SYSTEM, user)
     return Draft(text=text, refused=_is_refusal(text),
-                 tokens_prompt=tp, tokens_completion=tc, attempts=attempts)
+                 tokens_prompt=tp, tokens_completion=tc, attempts=attempts,
+                 api_latency_s=latency)
 
 
 def rewrite(question: str, passages, flagged_claims) -> Draft:
@@ -202,9 +213,10 @@ def rewrite(question: str, passages, flagged_claims) -> Draft:
         question=question,
         flagged=prompts.format_flagged_claims(flagged_claims),
     )
-    text, tp, tc, attempts = _call_gemini(prompts.REWRITE_SYSTEM, user)
+    text, tp, tc, attempts, latency = _call_gemini(prompts.REWRITE_SYSTEM, user)
     return Draft(text=text, refused=_is_refusal(text),
-                 tokens_prompt=tp, tokens_completion=tc, attempts=attempts)
+                 tokens_prompt=tp, tokens_completion=tc, attempts=attempt,
+                 api_latency_s=latency)
 
 
 # ---------------------------------------------------------------------------
