@@ -1,0 +1,1405 @@
+{
+  "seed": 42,
+  "valid_labels": [
+    "faithful",
+    "intrinsic",
+    "extrinsic",
+    "correct_refusal"
+  ],
+  "n_units": 67,
+  "n_records_covered": 174,
+  "mapping": [
+    {
+      "sha256": "c3478d714ccb619f",
+      "arm": "baseline",
+      "query_id": "IN-01",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U036"
+    },
+    {
+      "sha256": "f4966cf005f2ddd3",
+      "arm": "baseline",
+      "query_id": "IN-02",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U052"
+    },
+    {
+      "sha256": "c548372eaeb1eb89",
+      "arm": "baseline",
+      "query_id": "IN-03",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U053"
+    },
+    {
+      "sha256": "986eedb5bf755b96",
+      "arm": "baseline",
+      "query_id": "IN-04",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U066"
+    },
+    {
+      "sha256": "4d0d5b56cfed16c6",
+      "arm": "baseline",
+      "query_id": "IN-05",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U031"
+    },
+    {
+      "sha256": "efa5d73f93e98243",
+      "arm": "baseline",
+      "query_id": "IN-06",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U056"
+    },
+    {
+      "sha256": "efa5d73f93e98243",
+      "arm": "baseline",
+      "query_id": "IN-07",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U056"
+    },
+    {
+      "sha256": "d83a283092635abf",
+      "arm": "baseline",
+      "query_id": "IN-08",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U060"
+    },
+    {
+      "sha256": "6d60b14751229c4c",
+      "arm": "baseline",
+      "query_id": "IN-09",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U005"
+    },
+    {
+      "sha256": "3fabb4c5eef9af29",
+      "arm": "baseline",
+      "query_id": "IN-10",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U062"
+    },
+    {
+      "sha256": "1553518167c786be",
+      "arm": "baseline",
+      "query_id": "IN-11",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U011"
+    },
+    {
+      "sha256": "236e8abc9e8d9f59",
+      "arm": "baseline",
+      "query_id": "IN-12",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U035"
+    },
+    {
+      "sha256": "9870b329670a886d",
+      "arm": "baseline",
+      "query_id": "IN-13",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U023"
+    },
+    {
+      "sha256": "0679d4daf7236725",
+      "arm": "baseline",
+      "query_id": "IN-14",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U044"
+    },
+    {
+      "sha256": "8adb1203f018de70",
+      "arm": "baseline",
+      "query_id": "IN-15",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U050"
+    },
+    {
+      "sha256": "5fbcb31a069fe232",
+      "arm": "baseline",
+      "query_id": "IN-16",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U067"
+    },
+    {
+      "sha256": "f9f0a08b5177e81c",
+      "arm": "baseline",
+      "query_id": "IN-17",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U001"
+    },
+    {
+      "sha256": "8fe74c6ea21b887b",
+      "arm": "baseline",
+      "query_id": "IN-18",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U009"
+    },
+    {
+      "sha256": "dd5db3806e85b0d2",
+      "arm": "baseline",
+      "query_id": "IN-19",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U037"
+    },
+    {
+      "sha256": "dd5db3806e85b0d2",
+      "arm": "baseline",
+      "query_id": "IN-20",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U037"
+    },
+    {
+      "sha256": "78c35626955199df",
+      "arm": "baseline",
+      "query_id": "IN-21",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U015"
+    },
+    {
+      "sha256": "1375e712035ab70a",
+      "arm": "baseline",
+      "query_id": "IN-22",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U021"
+    },
+    {
+      "sha256": "14e224b79a9bc94a",
+      "arm": "baseline",
+      "query_id": "IN-23",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U014"
+    },
+    {
+      "sha256": "c64cc3d3103bc092",
+      "arm": "baseline",
+      "query_id": "IN-24",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U033"
+    },
+    {
+      "sha256": "c64cc3d3103bc092",
+      "arm": "baseline",
+      "query_id": "IN-25",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U033"
+    },
+    {
+      "sha256": "b226605a0b7f6b9e",
+      "arm": "baseline",
+      "query_id": "IN-26",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U022"
+    },
+    {
+      "sha256": "be164a7010c20e3a",
+      "arm": "baseline",
+      "query_id": "IN-27",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U017"
+    },
+    {
+      "sha256": "9c2637af014b7672",
+      "arm": "baseline",
+      "query_id": "IN-28",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U029"
+    },
+    {
+      "sha256": "635151d187b94a26",
+      "arm": "baseline",
+      "query_id": "IN-29",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U004"
+    },
+    {
+      "sha256": "0add5241e09b7e3d",
+      "arm": "baseline",
+      "query_id": "IN-30",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U041"
+    },
+    {
+      "sha256": "d1b8aec23e4d300f",
+      "arm": "baseline",
+      "query_id": "IN-31",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U054"
+    },
+    {
+      "sha256": "c8161a4643673f3a",
+      "arm": "baseline",
+      "query_id": "IN-32",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U039"
+    },
+    {
+      "sha256": "2e55461ea187435a",
+      "arm": "baseline",
+      "query_id": "IN-33",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U003"
+    },
+    {
+      "sha256": "7b23fb05e95fa668",
+      "arm": "baseline",
+      "query_id": "IN-34",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U013"
+    },
+    {
+      "sha256": "ef7fbf2e14bc7885",
+      "arm": "baseline",
+      "query_id": "IN-35",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U064"
+    },
+    {
+      "sha256": "547f413c79d4d4c1",
+      "arm": "baseline",
+      "query_id": "IN-36",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U048"
+    },
+    {
+      "sha256": "b6a9d0dd04fc34aa",
+      "arm": "baseline",
+      "query_id": "IN-37",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U012"
+    },
+    {
+      "sha256": "c275cfc5d8c5c264",
+      "arm": "baseline",
+      "query_id": "IN-38",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U057"
+    },
+    {
+      "sha256": "247032a1fc9a9195",
+      "arm": "baseline",
+      "query_id": "IN-39",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U065"
+    },
+    {
+      "sha256": "ba8583463c87364d",
+      "arm": "baseline",
+      "query_id": "IN-40",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U032"
+    },
+    {
+      "sha256": "f15984e750d9774c",
+      "arm": "baseline",
+      "query_id": "IN-41",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U055"
+    },
+    {
+      "sha256": "cf1f15f24576365a",
+      "arm": "baseline",
+      "query_id": "IN-42",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U047"
+    },
+    {
+      "sha256": "ea285aea67c75e48",
+      "arm": "baseline",
+      "query_id": "IN-43",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U018"
+    },
+    {
+      "sha256": "7e82a0369010993e",
+      "arm": "baseline",
+      "query_id": "IN-44",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U024"
+    },
+    {
+      "sha256": "3c86adb40c9db969",
+      "arm": "baseline",
+      "query_id": "IN-45",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U043"
+    },
+    {
+      "sha256": "4020297cbe6d287c",
+      "arm": "baseline",
+      "query_id": "IN-46",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U028"
+    },
+    {
+      "sha256": "4020297cbe6d287c",
+      "arm": "baseline",
+      "query_id": "IN-47",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U028"
+    },
+    {
+      "sha256": "05c27cacb6a51fe1",
+      "arm": "baseline",
+      "query_id": "ADV-03",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U059"
+    },
+    {
+      "sha256": "e21400320ba759e0",
+      "arm": "baseline",
+      "query_id": "ADV-13",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U007"
+    },
+    {
+      "sha256": "638a833f9413f2b4",
+      "arm": "baseline",
+      "query_id": "ADV-14",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U019"
+    },
+    {
+      "sha256": "9cacda786a932e06",
+      "arm": "baseline",
+      "query_id": "ADV-23",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U016"
+    },
+    {
+      "sha256": "50d8696614adb5d3",
+      "arm": "baseline",
+      "query_id": "ADV-24",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U061"
+    },
+    {
+      "sha256": "10a1cc8123145d7f",
+      "arm": "baseline",
+      "query_id": "ADV-27",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U040"
+    },
+    {
+      "sha256": "a4ce660478427934",
+      "arm": "baseline",
+      "query_id": "ADV-31",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U002"
+    },
+    {
+      "sha256": "d43018a3c0961e93",
+      "arm": "baseline",
+      "query_id": "ADV-32",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U010"
+    },
+    {
+      "sha256": "09e413e29691fd2c",
+      "arm": "baseline",
+      "query_id": "ADV-36",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U046"
+    },
+    {
+      "sha256": "f151b545b80a3e45",
+      "arm": "baseline",
+      "query_id": "ADV-38",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U026"
+    },
+    {
+      "sha256": "96c5cbeec9acfa3f",
+      "arm": "baseline",
+      "query_id": "ADV-39",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U034"
+    },
+    {
+      "sha256": "c3478d714ccb619f",
+      "arm": "cross_vendor",
+      "query_id": "IN-01",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U036"
+    },
+    {
+      "sha256": "f4966cf005f2ddd3",
+      "arm": "cross_vendor",
+      "query_id": "IN-02",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U052"
+    },
+    {
+      "sha256": "c548372eaeb1eb89",
+      "arm": "cross_vendor",
+      "query_id": "IN-03",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U053"
+    },
+    {
+      "sha256": "db249624980aa907",
+      "arm": "cross_vendor",
+      "query_id": "IN-04",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U038"
+    },
+    {
+      "sha256": "4d0d5b56cfed16c6",
+      "arm": "cross_vendor",
+      "query_id": "IN-05",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U031"
+    },
+    {
+      "sha256": "efa5d73f93e98243",
+      "arm": "cross_vendor",
+      "query_id": "IN-06",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U056"
+    },
+    {
+      "sha256": "efa5d73f93e98243",
+      "arm": "cross_vendor",
+      "query_id": "IN-07",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U056"
+    },
+    {
+      "sha256": "d83a283092635abf",
+      "arm": "cross_vendor",
+      "query_id": "IN-08",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U060"
+    },
+    {
+      "sha256": "6d60b14751229c4c",
+      "arm": "cross_vendor",
+      "query_id": "IN-09",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U005"
+    },
+    {
+      "sha256": "3fabb4c5eef9af29",
+      "arm": "cross_vendor",
+      "query_id": "IN-10",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U062"
+    },
+    {
+      "sha256": "1553518167c786be",
+      "arm": "cross_vendor",
+      "query_id": "IN-11",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U011"
+    },
+    {
+      "sha256": "236e8abc9e8d9f59",
+      "arm": "cross_vendor",
+      "query_id": "IN-12",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U035"
+    },
+    {
+      "sha256": "9870b329670a886d",
+      "arm": "cross_vendor",
+      "query_id": "IN-13",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U023"
+    },
+    {
+      "sha256": "0679d4daf7236725",
+      "arm": "cross_vendor",
+      "query_id": "IN-14",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U044"
+    },
+    {
+      "sha256": "8adb1203f018de70",
+      "arm": "cross_vendor",
+      "query_id": "IN-15",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U050"
+    },
+    {
+      "sha256": "2f0842141a1c19c7",
+      "arm": "cross_vendor",
+      "query_id": "IN-16",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U051"
+    },
+    {
+      "sha256": "f9f0a08b5177e81c",
+      "arm": "cross_vendor",
+      "query_id": "IN-17",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U001"
+    },
+    {
+      "sha256": "8fe74c6ea21b887b",
+      "arm": "cross_vendor",
+      "query_id": "IN-18",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U009"
+    },
+    {
+      "sha256": "dd5db3806e85b0d2",
+      "arm": "cross_vendor",
+      "query_id": "IN-19",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U037"
+    },
+    {
+      "sha256": "dd5db3806e85b0d2",
+      "arm": "cross_vendor",
+      "query_id": "IN-20",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U037"
+    },
+    {
+      "sha256": "78c35626955199df",
+      "arm": "cross_vendor",
+      "query_id": "IN-21",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U015"
+    },
+    {
+      "sha256": "1375e712035ab70a",
+      "arm": "cross_vendor",
+      "query_id": "IN-22",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U021"
+    },
+    {
+      "sha256": "14e224b79a9bc94a",
+      "arm": "cross_vendor",
+      "query_id": "IN-23",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U014"
+    },
+    {
+      "sha256": "c64cc3d3103bc092",
+      "arm": "cross_vendor",
+      "query_id": "IN-24",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U033"
+    },
+    {
+      "sha256": "e733928b1d1b0966",
+      "arm": "cross_vendor",
+      "query_id": "IN-25",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U042"
+    },
+    {
+      "sha256": "b226605a0b7f6b9e",
+      "arm": "cross_vendor",
+      "query_id": "IN-26",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U022"
+    },
+    {
+      "sha256": "be164a7010c20e3a",
+      "arm": "cross_vendor",
+      "query_id": "IN-27",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U017"
+    },
+    {
+      "sha256": "9c2637af014b7672",
+      "arm": "cross_vendor",
+      "query_id": "IN-28",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U029"
+    },
+    {
+      "sha256": "635151d187b94a26",
+      "arm": "cross_vendor",
+      "query_id": "IN-29",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U004"
+    },
+    {
+      "sha256": "0add5241e09b7e3d",
+      "arm": "cross_vendor",
+      "query_id": "IN-30",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U041"
+    },
+    {
+      "sha256": "d1b8aec23e4d300f",
+      "arm": "cross_vendor",
+      "query_id": "IN-31",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U054"
+    },
+    {
+      "sha256": "c8161a4643673f3a",
+      "arm": "cross_vendor",
+      "query_id": "IN-32",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U039"
+    },
+    {
+      "sha256": "de65efe35583d9e2",
+      "arm": "cross_vendor",
+      "query_id": "IN-33",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U006"
+    },
+    {
+      "sha256": "7b23fb05e95fa668",
+      "arm": "cross_vendor",
+      "query_id": "IN-34",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U013"
+    },
+    {
+      "sha256": "ef7fbf2e14bc7885",
+      "arm": "cross_vendor",
+      "query_id": "IN-35",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U064"
+    },
+    {
+      "sha256": "b3a61704a2c07a4f",
+      "arm": "cross_vendor",
+      "query_id": "IN-36",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U025"
+    },
+    {
+      "sha256": "b6a9d0dd04fc34aa",
+      "arm": "cross_vendor",
+      "query_id": "IN-37",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U012"
+    },
+    {
+      "sha256": "c275cfc5d8c5c264",
+      "arm": "cross_vendor",
+      "query_id": "IN-38",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U057"
+    },
+    {
+      "sha256": "247032a1fc9a9195",
+      "arm": "cross_vendor",
+      "query_id": "IN-39",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U065"
+    },
+    {
+      "sha256": "ba8583463c87364d",
+      "arm": "cross_vendor",
+      "query_id": "IN-40",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U032"
+    },
+    {
+      "sha256": "f15984e750d9774c",
+      "arm": "cross_vendor",
+      "query_id": "IN-41",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U055"
+    },
+    {
+      "sha256": "cf1f15f24576365a",
+      "arm": "cross_vendor",
+      "query_id": "IN-42",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U047"
+    },
+    {
+      "sha256": "ea285aea67c75e48",
+      "arm": "cross_vendor",
+      "query_id": "IN-43",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U018"
+    },
+    {
+      "sha256": "7e82a0369010993e",
+      "arm": "cross_vendor",
+      "query_id": "IN-44",
+      "stage": "initial",
+      "outcome": "fixed_by_rewrite",
+      "unit_id": "U024"
+    },
+    {
+      "sha256": "2b819017d3e18e89",
+      "arm": "cross_vendor",
+      "query_id": "IN-44",
+      "stage": "rewrite_1",
+      "outcome": "fixed_by_rewrite",
+      "unit_id": "U030"
+    },
+    {
+      "sha256": "b6341f6dd2decb9b",
+      "arm": "cross_vendor",
+      "query_id": "IN-44",
+      "stage": "rewrite_2",
+      "outcome": "fixed_by_rewrite",
+      "unit_id": "U058"
+    },
+    {
+      "sha256": "3c86adb40c9db969",
+      "arm": "cross_vendor",
+      "query_id": "IN-45",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U043"
+    },
+    {
+      "sha256": "4020297cbe6d287c",
+      "arm": "cross_vendor",
+      "query_id": "IN-46",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U028"
+    },
+    {
+      "sha256": "4020297cbe6d287c",
+      "arm": "cross_vendor",
+      "query_id": "IN-47",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U028"
+    },
+    {
+      "sha256": "05c27cacb6a51fe1",
+      "arm": "cross_vendor",
+      "query_id": "ADV-03",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U059"
+    },
+    {
+      "sha256": "638a833f9413f2b4",
+      "arm": "cross_vendor",
+      "query_id": "ADV-14",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U019"
+    },
+    {
+      "sha256": "9cacda786a932e06",
+      "arm": "cross_vendor",
+      "query_id": "ADV-23",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U016"
+    },
+    {
+      "sha256": "50d8696614adb5d3",
+      "arm": "cross_vendor",
+      "query_id": "ADV-24",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U061"
+    },
+    {
+      "sha256": "10a1cc8123145d7f",
+      "arm": "cross_vendor",
+      "query_id": "ADV-27",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U040"
+    },
+    {
+      "sha256": "a4ce660478427934",
+      "arm": "cross_vendor",
+      "query_id": "ADV-31",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U002"
+    },
+    {
+      "sha256": "d43018a3c0961e93",
+      "arm": "cross_vendor",
+      "query_id": "ADV-32",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U010"
+    },
+    {
+      "sha256": "b07969930da6ec56",
+      "arm": "cross_vendor",
+      "query_id": "ADV-36",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U020"
+    },
+    {
+      "sha256": "f151b545b80a3e45",
+      "arm": "cross_vendor",
+      "query_id": "ADV-38",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U026"
+    },
+    {
+      "sha256": "96c5cbeec9acfa3f",
+      "arm": "cross_vendor",
+      "query_id": "ADV-39",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U034"
+    },
+    {
+      "sha256": "c3478d714ccb619f",
+      "arm": "same_vendor",
+      "query_id": "IN-01",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U036"
+    },
+    {
+      "sha256": "f4966cf005f2ddd3",
+      "arm": "same_vendor",
+      "query_id": "IN-02",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U052"
+    },
+    {
+      "sha256": "c548372eaeb1eb89",
+      "arm": "same_vendor",
+      "query_id": "IN-03",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U053"
+    },
+    {
+      "sha256": "986eedb5bf755b96",
+      "arm": "same_vendor",
+      "query_id": "IN-04",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U066"
+    },
+    {
+      "sha256": "4d0d5b56cfed16c6",
+      "arm": "same_vendor",
+      "query_id": "IN-05",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U031"
+    },
+    {
+      "sha256": "efa5d73f93e98243",
+      "arm": "same_vendor",
+      "query_id": "IN-06",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U056"
+    },
+    {
+      "sha256": "efa5d73f93e98243",
+      "arm": "same_vendor",
+      "query_id": "IN-07",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U056"
+    },
+    {
+      "sha256": "d83a283092635abf",
+      "arm": "same_vendor",
+      "query_id": "IN-08",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U060"
+    },
+    {
+      "sha256": "a64956e5dbbc22ff",
+      "arm": "same_vendor",
+      "query_id": "IN-09",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U049"
+    },
+    {
+      "sha256": "3fabb4c5eef9af29",
+      "arm": "same_vendor",
+      "query_id": "IN-10",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U062"
+    },
+    {
+      "sha256": "1553518167c786be",
+      "arm": "same_vendor",
+      "query_id": "IN-11",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U011"
+    },
+    {
+      "sha256": "236e8abc9e8d9f59",
+      "arm": "same_vendor",
+      "query_id": "IN-12",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U035"
+    },
+    {
+      "sha256": "9870b329670a886d",
+      "arm": "same_vendor",
+      "query_id": "IN-13",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U023"
+    },
+    {
+      "sha256": "0679d4daf7236725",
+      "arm": "same_vendor",
+      "query_id": "IN-14",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U044"
+    },
+    {
+      "sha256": "8adb1203f018de70",
+      "arm": "same_vendor",
+      "query_id": "IN-15",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U050"
+    },
+    {
+      "sha256": "2f0842141a1c19c7",
+      "arm": "same_vendor",
+      "query_id": "IN-16",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U051"
+    },
+    {
+      "sha256": "f9f0a08b5177e81c",
+      "arm": "same_vendor",
+      "query_id": "IN-17",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U001"
+    },
+    {
+      "sha256": "8fe74c6ea21b887b",
+      "arm": "same_vendor",
+      "query_id": "IN-18",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U009"
+    },
+    {
+      "sha256": "dd5db3806e85b0d2",
+      "arm": "same_vendor",
+      "query_id": "IN-19",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U037"
+    },
+    {
+      "sha256": "dd5db3806e85b0d2",
+      "arm": "same_vendor",
+      "query_id": "IN-20",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U037"
+    },
+    {
+      "sha256": "e06a612ba3bcf5d4",
+      "arm": "same_vendor",
+      "query_id": "IN-21",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U008"
+    },
+    {
+      "sha256": "1375e712035ab70a",
+      "arm": "same_vendor",
+      "query_id": "IN-22",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U021"
+    },
+    {
+      "sha256": "14e224b79a9bc94a",
+      "arm": "same_vendor",
+      "query_id": "IN-23",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U014"
+    },
+    {
+      "sha256": "c64cc3d3103bc092",
+      "arm": "same_vendor",
+      "query_id": "IN-24",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U033"
+    },
+    {
+      "sha256": "c64cc3d3103bc092",
+      "arm": "same_vendor",
+      "query_id": "IN-25",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U033"
+    },
+    {
+      "sha256": "b226605a0b7f6b9e",
+      "arm": "same_vendor",
+      "query_id": "IN-26",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U022"
+    },
+    {
+      "sha256": "be164a7010c20e3a",
+      "arm": "same_vendor",
+      "query_id": "IN-27",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U017"
+    },
+    {
+      "sha256": "9c2637af014b7672",
+      "arm": "same_vendor",
+      "query_id": "IN-28",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U029"
+    },
+    {
+      "sha256": "635151d187b94a26",
+      "arm": "same_vendor",
+      "query_id": "IN-29",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U004"
+    },
+    {
+      "sha256": "0add5241e09b7e3d",
+      "arm": "same_vendor",
+      "query_id": "IN-30",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U041"
+    },
+    {
+      "sha256": "d1b8aec23e4d300f",
+      "arm": "same_vendor",
+      "query_id": "IN-31",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U054"
+    },
+    {
+      "sha256": "c8161a4643673f3a",
+      "arm": "same_vendor",
+      "query_id": "IN-32",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U039"
+    },
+    {
+      "sha256": "de65efe35583d9e2",
+      "arm": "same_vendor",
+      "query_id": "IN-33",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U006"
+    },
+    {
+      "sha256": "b06c89f840d521e0",
+      "arm": "same_vendor",
+      "query_id": "IN-34",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U045"
+    },
+    {
+      "sha256": "ef7fbf2e14bc7885",
+      "arm": "same_vendor",
+      "query_id": "IN-35",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U064"
+    },
+    {
+      "sha256": "b3a61704a2c07a4f",
+      "arm": "same_vendor",
+      "query_id": "IN-36",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U025"
+    },
+    {
+      "sha256": "b6a9d0dd04fc34aa",
+      "arm": "same_vendor",
+      "query_id": "IN-37",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U012"
+    },
+    {
+      "sha256": "c275cfc5d8c5c264",
+      "arm": "same_vendor",
+      "query_id": "IN-38",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U057"
+    },
+    {
+      "sha256": "247032a1fc9a9195",
+      "arm": "same_vendor",
+      "query_id": "IN-39",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U065"
+    },
+    {
+      "sha256": "ba8583463c87364d",
+      "arm": "same_vendor",
+      "query_id": "IN-40",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U032"
+    },
+    {
+      "sha256": "f15984e750d9774c",
+      "arm": "same_vendor",
+      "query_id": "IN-41",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U055"
+    },
+    {
+      "sha256": "cf1f15f24576365a",
+      "arm": "same_vendor",
+      "query_id": "IN-42",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U047"
+    },
+    {
+      "sha256": "ea285aea67c75e48",
+      "arm": "same_vendor",
+      "query_id": "IN-43",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U018"
+    },
+    {
+      "sha256": "7e82a0369010993e",
+      "arm": "same_vendor",
+      "query_id": "IN-44",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U024"
+    },
+    {
+      "sha256": "3c86adb40c9db969",
+      "arm": "same_vendor",
+      "query_id": "IN-45",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U043"
+    },
+    {
+      "sha256": "4020297cbe6d287c",
+      "arm": "same_vendor",
+      "query_id": "IN-46",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U028"
+    },
+    {
+      "sha256": "4020297cbe6d287c",
+      "arm": "same_vendor",
+      "query_id": "IN-47",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U028"
+    },
+    {
+      "sha256": "05c27cacb6a51fe1",
+      "arm": "same_vendor",
+      "query_id": "ADV-03",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U059"
+    },
+    {
+      "sha256": "638a833f9413f2b4",
+      "arm": "same_vendor",
+      "query_id": "ADV-14",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U019"
+    },
+    {
+      "sha256": "9d366a5b402c7c3f",
+      "arm": "same_vendor",
+      "query_id": "ADV-23",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U027"
+    },
+    {
+      "sha256": "50d8696614adb5d3",
+      "arm": "same_vendor",
+      "query_id": "ADV-24",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U061"
+    },
+    {
+      "sha256": "4317d591f533fc0b",
+      "arm": "same_vendor",
+      "query_id": "ADV-27",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U063"
+    },
+    {
+      "sha256": "a4ce660478427934",
+      "arm": "same_vendor",
+      "query_id": "ADV-31",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U002"
+    },
+    {
+      "sha256": "d43018a3c0961e93",
+      "arm": "same_vendor",
+      "query_id": "ADV-32",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U010"
+    },
+    {
+      "sha256": "09e413e29691fd2c",
+      "arm": "same_vendor",
+      "query_id": "ADV-36",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U046"
+    },
+    {
+      "sha256": "f151b545b80a3e45",
+      "arm": "same_vendor",
+      "query_id": "ADV-38",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U026"
+    },
+    {
+      "sha256": "96c5cbeec9acfa3f",
+      "arm": "same_vendor",
+      "query_id": "ADV-39",
+      "stage": "initial",
+      "outcome": "passed_first",
+      "unit_id": "U034"
+    }
+  ]
+}
