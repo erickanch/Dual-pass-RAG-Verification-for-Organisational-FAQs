@@ -35,30 +35,34 @@ msc-rag/
 │   │                         #    per arm. same_vendor sets Node B = NODE_A_MODEL
 │   │                         #    by reference (not a copied string); cross_vendor
 │   │                         #    guard requires distinct vendors.
-│   ├── prompts.py            # TODO VERSIONED PROMPTS. Node A gen, Node B verify,
-│   │                         #    rewrite prompt, fallback message. Tied to PROMPT_VERSION.
+│   ├── prompts.py            # DONE VERSIONED PROMPTS. Node A gen (8 rules), Node B
+│   │                         #    verify, rewrite prompt, fallback message. Tied to
+│   │                         #    PROMPT_VERSION (v1). FROZEN 27.7.2026 after four
+│   │                         #    defect-driven revisions; see NOTES for the
+│   │                         #    calibration rule governing further changes.
 │   ├── retrieval.py          # DONE INGESTION + RETRIEVAL. Chunk corpus -> embed
 │   │                         #    (all-MiniLM) -> ChromaDB. Query-time top-k.
 │   │                         #    Stores a config-hash with the index; refuses to
 │   │                         #    run on a stale index (chunk/embed settings changed).
 │   │                         #    Logs chunks-per-FAQ at ingestion (verifies the
 │   │                         #    "1 FAQ = 1 chunk" assumption).
-│   ├── node_a.py             # TODO GENERATOR. Gemini. (question + passages) -> draft.
+│   ├── node_a.py             # DONE GENERATOR. Gemini. (question + passages) -> draft.
 │   │                         #    API failure after retries -> generation_failed;
 │   │                         #    skips Node B and the rewrite loop entirely.
-│   ├── node_b.py             # TODO VERIFIER. MODEL PER ACTIVE ARM (not fixed to GPT).
+│   ├── node_b.py             # DONE VERIFIER. MODEL PER ACTIVE ARM (not fixed to GPT).
 │   │                         #    Decomposes draft into atomic claims; labels each
 │   │                         #    supported / contradicted / unsupported.
 │   │                         #    SCHEMA-ENFORCED structured output: TWO vendor paths
 │   │                         #    (OpenAI Responses API; Gemini response_schema).
 │   │                         #    Pydantic-validated + one retry -> verifier_malformed.
-│   └── controller.py         # TODO DETERMINISTIC CONTROLLER. Owns routing, the rewrite
+│   └── controller.py         # DONE DETERMINISTIC CONTROLLER. Owns routing, the rewrite
 │                             #    loop (cap = MAX_REWRITE_ATTEMPTS), and the fallback.
 │                             #    Control logic lives HERE, in ordinary code — never
 │                             #    in the models. Writes the per-query log
 │                             #    (LOG_SCHEMA_VERSION contract in config.py), including
-│                             #    the withheld draft on blocked answers — labelling
-│                             #    judges the draft, not the fallback message.
+│                             #    the FULL DRAFT CHAIN with SHA-256 per draft —
+│                             #    labelling judges drafts, not the fallback message,
+│                             #    and the hashes let labelling.py dedupe across arms.
 │
 ├── web/                      # ── WEB APP (BUILT LAST) ───────────────────────
 │   └── main.py               # TODO FastAPI app. Thin layer over controller.py.
@@ -73,14 +77,32 @@ msc-rag/
 │                             #    target_faq, underspecified}.
 │
 ├── experiments/              # ── RUNNING THE SYSTEM ─────────────────────────
-│   ├── run_experiment.py     # TODO ONE parameterised runner. Reads ACTIVE_ARM from
+│   ├── run_experiment.py     # DONE ONE parameterised runner. Reads ACTIVE_ARM from
 │   │                         #    config, runs the full query set through the
-│   │                         #    pipeline, writes timestamped results + run_metadata().
-│   ├── pilot.py              # TODO SMALL-SCALE PRE-TEST. Validates verifier tier
-│   │                         #    (Luna vs Terra), retrieval recall (k), chunk size,
-│   │                         #    sweep time, and per-query cost — before the full run.
-│   └── results/              # TODO Raw outputs. Every run timestamped, NEVER overwritten.
-│                             #    Gitignored if large; keep a manifest.
+│   │                         #    pipeline, writes timestamped .jsonl (metadata
+│   │                         #    header + one record per query, flushed per write).
+│   │                         #    --resume retries ONLY infrastructure failures.
+│   ├── pilot.py              # NOT BUILT AND NOT PLANNED. Pilot validation done via
+│   │                         #    scratch_*.py probes (28.7.2026: adversarial,
+│   │                         #    compound) and the Node B pre-test (27.7.2026),
+│   │                         #    rather than a dedicated script. 
+│   │                         #    The tier comparison (Luna vs Terra, and symmetrically 
+│   │                         #    the same_vendor tier) is an OPEN DECISION leaning
+│   │                         #    DROP: verifier adequacy is already evidenced by 
+│   │                         #    full-sweep performance (0 verifier_malformed across
+│   │                         #    57+ live calls per arm). Kept as a row so the open
+│   │                         #    obligation stays visible. Consider to delete when 
+│   │                         #    the decision is recorded.
+│   └── results/              # DONE Raw outputs, timestamped, NEVER overwritten:
+│                             #      {arm}_{ts}.jsonl        pipeline record
+│                             #      ragas_{arm}_{ts}.jsonl  scoring record
+│                             #      labelling_sheet.csv     blinded, 67 units
+│                             #      labelling_sheet_reviewer.csv  20-unit sample
+│                             #      labelling_mapping.json  unit_id -> arm/query
+│                             #    Pipeline and scoring records are SEPARATE files
+│                             #    joined by query_id: generation and scoring are
+│                             #    distinct events, and the pipeline record is never
+│                             #    mutated after the fact.
 │
 ├── analysis/                 # ── MEASURING THE RUNS (offline) ───────────────
 │   ├── metrics.py            # DONE Confusion matrix from FOUR labels x block/pass;
@@ -89,17 +111,27 @@ msc-rag/
 │   ├── stats.py              # DONE McNemar exact (paired binary, baseline vs
 │   │                         #    cross_vendor) + Wilcoxon signed-rank (paired
 │   │                         #    Ragas faithfulness).
-│   ├── ragas_eval.py         # TODO RAGAS SCORING. Claude judge + local embeddings.
+│   ├── ragas_eval.py         # DONE RAGAS SCORING. Claude judge + local embeddings.
 │   │                         #    Faithfulness + answer relevance. Writes its OWN
 │   │                         #    scoring_metadata() (judge, ragas version, which
 │   │                         #    results file it scored). The 3rd-vendor subsystem.
-│   │                         #    Includes the judge-validation check: Ragas vs
-│   │                         #    human labels on the Baseline arm (see NOTES 12.7.2026).
-│   ├── labelling.py          # TODO HITL SUPPORT. Presents query + answer (or the
-│   │                         #    WITHHELD DRAFT) + retrieved passages, blind to arm
-│   │                         #    and to the verifier's decision, in SEEDED random
-│   │                         #    order for human labelling; captures labels;
-│   │                         #    computes Cohen's kappa on the 2nd-reviewer sample.
+│   │                         #    Scores ONLY answers shown to a user
+│   │                         #    (passed_first / fixed_by_rewrite); refusals are
+│   │                         #    excluded and counted as a refusal rate.
+│   │                         #    Sets RAGAS_DO_NOT_TRACK before import — the
+│   │                         #    telemetry call otherwise hangs on DNS timeout
+│   │                         #    (NOTES 8.8.2026). Judge-validation check vs human
+│   │                         #    labels on Baseline still PENDING labels.
+│   ├── labelling.py          # DONE HITL SUPPORT. `build` writes a blinded CSV
+│   │                         #    (query + answer + passages only; arm, outcome and
+│   │                         #    verifier verdict withheld), seeded-shuffled, with
+│   │                         #    the unit_id -> arm mapping in a SEPARATE file.
+│   │                         #    Deduplicates by draft SHA-256: 67 distinct texts
+│   │                         #    cover 174 records (107 labels saved). `sample`
+│   │                         #    draws the 2nd-reviewer subset (20% or 20 minimum);
+│   │                         #    `read` validates and expands labels back to all
+│   │                         #    matching records. Cohen's kappa NOT yet implemented
+│   │                         #    — pending returned reviewer labels.
 │   └── figures.py            # TODO matplotlib figures for the report.
 │
 ├── tests/                    # ── TESTS AND DIAGNOSTICS ──────────────────────
@@ -167,14 +199,16 @@ Each fact lives in exactly ONE of the three.
 
 ## Build order (dependency-driven)
 
-1. **corpus + questions.json**  <- blocks everything (do first)
-2. **retrieval.py** + provisional index
-3. **prompts.py, node_a.py, node_b.py, controller.py** (the pipeline)
-4. **pilot.py** -> settle verifier tier / k / chunk size -> RE-EMBED if changed
-5. **run_experiment.py** -> full runs, all three arms
-6. **ragas_eval.py, labelling.py** (measurement: metrics.py & stats.py done)
-7. **figures.py**, then the **report**
-8. **web/main.py** + demo video (last)
+1. DONE **corpus + questions.json**
+2. DONE **retrieval.py** + index (recall 100% at k=3/5/8/10; k=5 chosen)
+3. DONE **prompts.py, node_a.py, node_b.py, controller.py**
+4. DONE **run_experiment.py** -> all three arms swept, 108/108 each, 0 errors
+5. DONE **ragas_eval.py** -> all three arms scored
+6. DONE **labelling.py** -> 67 units generated, blinded, deduplicated
+7. NEXT **human labelling** (67 units; 20 to 2nd reviewer) — the critical path
+8. THEN **figures.py** (needs labels), Cohen's kappa, judge-validation check
+9. THEN the **report**
+10. LAST **web/main.py** + demo video
 
 `analysis/metrics.py` and `stats.py` are the exception — they can be written and
 unit-tested against synthetic confusion matrices at ANY point, with no pipeline
