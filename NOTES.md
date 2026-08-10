@@ -388,6 +388,10 @@ expected, the proposal's Ragas-only treatment is kept.
 
 ## 8.8.2026
 
+[Contents: run_experiment.py build; baseline/cross_vendor/same_vendor
+sweeps; IN-44 three-arm RQ3 exhibit; ADV-13 non-determinism; Ragas
+answer_relevancy artefact + human-labelling argument]
+
 **run_experiment.py built and first complete sweep run**
 
 Parameterised runner: reads ACTIVE_ARM, writes one .jsonl per sweep (metadata
@@ -435,7 +439,6 @@ warm the model with a throwaway call before the sweep's first real query.
 Flag this in figures.py / the results write-up so it is not misread as a
 genuine outlier.
 
-## 8.8.2026 (continued — cross_vendor sweep)
 
 **First complete cross_vendor sweep: 108/108, 0 errors**
 
@@ -444,7 +447,7 @@ genuine outlier.
     adversarial (40):   10 passed_first, 30 fallback
     out_of_domain (21):  0 passed_first, 21 fallback
 
-57 queries reached Node B; 0 verifier_malformed. One node_a.py bug hit and
+57 queries reached Node B. 0 verifier_malformed. One node_a.py bug hit and
 fixed mid-sweep (attempts=attempt typo in rewrite(), NameError on the first
 real rewrite call — IN-25). Fixed, resumed via --resume from record 24: prior
 records untouched, sweep completed cleanly from IN-25.
@@ -500,75 +503,498 @@ assumed.
 on 6 hand-written pre-test cases). Closes the structured-output risk beyond
 the pre-test.
 
+**First complete same_vendor sweep: 108/108, 0 errors**
+
+    passed_first: 57   fallback: 51
+    in_domain (47):     47 passed_first
+    adversarial (40):   10 passed_first, 30 fallback
+    out_of_domain (21):  0 passed_first, 21 fallback
+
+57 queries reached Node B; 0 verifier_malformed (Gemini response_schema path
+now confirmed at scale, not just the 6-case pre-test). ACTIVE_NODE_B_MODEL
+correctly resolved to gemini-3.5-flash via the reference mechanism (metadata
+confirms node_b_model=gpt-5.6-luna, active_node_b_model=gemini-3.5-flash —
+static config vs. resolved value both visible, as intended).
+
+Across all three arms, only TWO queries produced different outcomes:
+ADV-13 (Node A non-determinism, see below) and IN-44.
+
+**IN-44 — a controlled three-arm comparison; direct RQ3 evidence**
+
+Node A produced the IDENTICAL initial draft in all three arms (same hash) —
+the only variable across outcomes is therefore the verifier, which is
+exactly the isolation the design exists to achieve:
+
+    "No, you cannot take paid marriage leave in your first year of
+    employment. Employees must have completed 12 months of continuous
+    service..."
+
+*   **baseline** (no verifier): passed_first — draft shown as-is.
+*   **cross_vendor** (Luna verifies): FLAGGED "you cannot... in your first
+    year" as contradicted. The passage states a SUFFICIENT condition (12
+    months' service -> entitled), not explicitly a necessary one; read
+    strictly, "you cannot" asserts more than the passage states. Triggered
+    a rewrite; the rewrite over-corrected and Luna flagged that too;
+    converged to an entailment-based answer on round 3 (fixed_by_rewrite).
+*   **same_vendor** (Gemini verifies Gemini): the IDENTICAL draft, containing
+    the IDENTICAL claim, marked 0 flagged, all_supported=True.
+
+**Not a clean "one verdict right, one wrong" case — the finding is the
+DISAGREEMENT, not a ruling on which vendor was correct.** Both readings are
+defensible: Luna's strict reading (a sufficient condition does not licence
+an unqualified "cannot") versus Gemini's colloquial reading (the condition
+functions as the answer for any practical reader, absent evidence of
+exceptions) — which is the same entailment move rule 2 explicitly licenses
+Node A to make. There is no ground-truth fact settling which threshold is
+right; the ambiguity is real, and the labelling guide does not yet have a
+rule for a claim entailed from a stated SUFFICIENT (not necessary) condition.
+Needs one before this class of case is labelled.
+
+The safe, evidence-supported claim: with the confound of differing drafts
+eliminated by construction, the two verifiers applied DIFFERENT STRICTNESS
+THRESHOLDS to the identical claim, and same_vendor's threshold was looser
+here than cross_vendor's. Whether looser is worse depends on the FPR/FNR
+trade-off the evaluation protocol is designed to quantify, not on an
+argument about which reading is correct. This is itself informative for
+RQ3 regardless: it is direct evidence that vendor identity affects
+verification behaviour beyond information asymmetry alone (same_vendor DOES
+have a fresh, asymmetric call and still applied a looser threshold) — a
+production deployment would need to choose a threshold, and this shows
+vendors do not converge on one by default.
+
+This is the shared-blind-spot mechanism RQ3 hypothesises, observed on a real
+query with drafts held constant by construction — not a synthetic pre-test
+and not inferred from a single vendor's behaviour. Gemini-as-verifier,
+checking a claim shaped by Gemini-as-generator's own reasoning pattern,
+applied no additional scrutiny where a different vendor's verifier did.
+Same_vendor DOES have information asymmetry (a fresh call, no shared
+context) and still showed no scrutiny — evidence that vendor difference
+adds something beyond asymmetry alone, which is precisely RQ3's question.
+
+Caveat for Discussion: whether the passed-through claim is meaningfully
+harmful is arguable — "you cannot... in your first year" is a reasonable
+colloquial gloss on "12 months' service required," even if not strictly
+entailed. The finding is not that same_vendor produced something false; it
+is that same_vendor's verification added measurably less scrutiny than
+cross_vendor's to the identical claim. Strong candidate as a worked example
+in Results/Discussion — one of very few cases where n=1 is still compelling,
+because the confound (different drafts) is eliminated by construction.
+
+**IN-44 — supplementary record detail**
+
+Retrieved passages confirmed identical by ID across both arms:
+faq_09/10/03/05/02 (target_faq=faq_09 at rank 1) — retrieval isolation is
+verified from the log, not assumed.
+
+Cost of the divergence: cross_vendor spent 23.43s / 5,720 tokens (3 rounds)
+against same_vendor's 6.49s / 1,578 tokens (1 round) — a 3.6x cost for the
+extra scrutiny on this query. Concrete RQ2 exhibit alongside the RQ3 finding.
+
+Claim decomposition differs between vendors even on AGREED claims (e.g.
+"entitled to marriage leave" vs "entitled to PAID marriage leave") —
+consistent with the granularity inconsistency noted 27.7.2026, now
+confirmed at full-sweep scale, not just the 6-case pre-test.
+
+
+**ADV-13 — non-determinism note refined**
+
+cross_vendor and same_vendor produced IDENTICAL Node A drafts (same hash,
+INSUFFICIENT_CONTEXT), both differing from baseline's answered draft. So the
+divergence occurred once — between the baseline run and the two later runs —
+not on every run. Slightly more precise than the earlier note ("Node A
+varied between runs"): consistent with an occasional deviation rather than
+persistent instability on this specific query. Still n=1; still not
+investigated further; still a limitation, not a rate claim.
+
+**ADV-03 — latency outlier, not a defect**
+
+t_generation_s = 26.20s (generation_attempts=[1], no retry) — a single slow
+Gemini response, not a bug or a rate-limit retry. Flag as an outlier when
+computing latency percentiles rather than investigating further.
+
+**Ragas answer_relevancy on partial answers — a scoring artefact, and a
+separate real question about value delivered**
+
+All 12 answers containing a declining clause ("I do not have information
+on X") scored answer_relevancy EXACTLY 0.000 in the baseline arm — not
+merely low, uniformly zero — while 11 of the 12 scored faithfulness 1.000.
+The 46 clean answers averaged relevancy 0.7993; the pooled mean (0.6339)
+is a straight arithmetic consequence of the 12 zeros and is misleading if
+reported alone. Full breakdown belongs in Results as two subgroup means,
+not one pooled figure.
+
+Mechanical cause: Ragas generates hypothetical questions FROM the answer
+text and compares them to the real question by embedding similarity. An
+answer combining a factual statement with an explicit statement of what is
+NOT covered appears to produce hypothetical questions that average out to
+near-zero similarity — a known brittleness on compound-content answers,
+not a judgement that the underlying answer is poor. These are NOT
+refusals: refusals (the fallback message) are already excluded from
+scoring entirely (confirmed: 50/50 fallbacks excluded, 0 reached Ragas).
+These are substantive, partially-informative answers that also decline a
+sub-part — rule 6's engineered behaviour.
+
+**This is the clearest evidence yet for why human labelling cannot be
+replaced by the automated score alone.** Ragas relevancy, taken in
+isolation, would wrongly flag 12 genuinely faithful answers as failures.
+A human labeller applying the actual labelling-guide criteria would
+correctly assess these as faithful (per the worst-element rule) and could
+separately judge relevance on its merits — not zero out mechanically.
+
+**A separate, harder question this raises — not a Ragas artefact, a real
+one: does a partial answer actually deliver USABLE information, or does
+the pipeline run to completion and produce nothing the enquirer can act
+on?** "Faithful" only means every stated claim is grounded — it says
+nothing about whether the answer contains anything responsive to what was
+asked. IN-44 is the extreme case: three full rounds (retrieval once,
+generation x3, verification x3) to arrive at a faithful answer — but for a
+DIFFERENT declining-clause query, if the entitlement fact stated is not
+what the enquirer actually needed to know, the dual-pass machinery may
+have run its full, most expensive path to deliver a non-answer dressed
+with an unrelated fact. This is a genuine cost-effectiveness question
+distinct from faithfulness and distinct from the Ragas scoring bug above:
+even a CORRECTLY human-labelled-faithful partial answer may deliver zero
+practical value, at full pipeline cost. Worth checking specifically during
+human labelling — not just "is this faithful" but "does this answer give
+the enquirer anything they can use" — and worth a labelling-guide note or
+a separate tracked flag if the guide is revised before labelling starts.
+
+Candidates for this check, from the 12 declining-clause answers: ADV-31
+(states the manager's approval limit, which the enquirer did not ask
+about, then declines who signs off above it, which IS what was asked —
+arguably close to zero usable information delivered despite being fully
+faithful).
+
+Pattern replicated in cross_vendor: 12 declining-clause answers, all
+0.000 relevancy (identical to baseline); 45 clean answers averaged 0.8122.
+Confirms this is a systematic Ragas mechanism, not a baseline-specific
+artefact — strengthens the human-labelling argument above.
+
+**IN-38 — a second Ragas artefact, this time on FAITHFULNESS**
+
+"The interview for an internal transfer is conducted by the receiving
+Department Head and an HR Business Partner." scored faithfulness=0.000 in
+ALL THREE ARMS. This is near-verbatim faq_19 — the same content approved
+when the corpus was written. Trivially, obviously faithful; a score of
+exactly 0.000 across three independent scoring runs on a textbook-correct
+answer is not a real faithfulness failure.
+
+Likely mechanism: the answer is a single short sentence, largely lifted
+from the passage. Ragas's faithfulness metric decomposes the answer into
+atomic statements before checking each against the context; a decomposition
+failure on a terse, single-clause answer (extracting zero or malformed
+statements) may default to a 0.000 score rather than signalling "no claims
+extracted". NOT currently verifiable from the saved output — the
+statement-level breakdown Ragas computes internally is not saved by
+ragas_eval.py, only the final score. Would need re-running with Ragas's
+verbose/trace output to confirm the exact mechanism.
+
+Consequence: min_faithfulness in every arm's summary table (all three
+report min_faith=0.000) is understated for the SAME reason min relevancy
+was — an isolated scoring artefact, not a genuine pipeline failure. Do not
+report min/max faithfulness without inspecting the flagged record first;
+this affects the faithfulness metric as well as relevancy, not just the
+one already documented.
+
+**Adversarial category: answer_relevancy is a clean, complete 0.0000 across
+ALL passed_first adversarial answers, all three arms**
+
+    cross_vendor  IN-*  (n=47): mean relevancy 0.7777
+    cross_vendor  ADV-* (n=10): mean relevancy 0.0000  <- every single one
+
+Every adversarial partial-answer scores relevancy exactly zero, with no
+exceptions, in every arm. This is a stronger and cleaner pattern than the
+"declining clause" framing used above: by design, every adversarial
+passed_first answer targets a designed gap and therefore contains a
+declining clause, so the artefact is total and complete for this entire
+query category. Worth its own Results table (relevancy by category: in_domain
+vs adversarial) rather than the ad-hoc "answers containing the phrase 'I do
+not have information'" framing — category is a design variable already
+reported elsewhere in this project; the phrase-match filter was only a
+diagnostic convenience.
+
+Reinforces the finding above: automated answer-relevancy scoring is
+UNUSABLE for the adversarial category as currently computed. Any claim
+about relevancy differing between arms on adversarial queries would be
+measuring a Ragas artefact, not a real difference. Human labelling (and,
+if adopted, genuine per-query judgement) is the only sound source of
+relevance assessment for this category.
+
+**IN-44 — Ragas relevancy scores add a small corroborating point**
+
+    baseline (untouched draft):        relevancy 0.951
+    cross_vendor (after 2 rewrites):   relevancy 1.000
+    same_vendor (untouched draft):     relevancy 0.951
+
+The rewritten answer scored marginally HIGHER relevancy than the original
+phrasing used by both other arms — Ragas independently judged the corrected
+answer to be at least as relevant to the question as the version it
+replaced, not merely more faithful at a usability cost. Small effect (0.951
+-> 1.000) but a genuine point in cross_vendor's favour for the IN-44 exhibit:
+the extra scrutiny did not trade relevance for faithfulness here; it
+improved (or at minimum did not harm) both.
+
+**OPEN DECISION — tier comparisons (Luna/Terra AND same_vendor's Gemini
+tier): keep or drop?**
+
+If a tier comparison is required for cross_vendor (Luna vs Terra), the same
+standard applies symmetrically to same_vendor's verifier tier — no
+principled basis to hold one arm to it and not the other. Both or neither.
+Adequacy evidence already exists for BOTH verifiers from full-sweep
+performance (0 verifier_malformed in both arms; correct handling of IN-44,
+ADV-31). Leaning toward: NEITHER comparison required — adequacy is
+established by observed live performance, not a dedicated study. Revisit
+with a clear head; if kept, both comparisons must be done together for
+consistency, roughly doubling that scope.
+
+**DECIDED: same_vendor included in human labelling**
+
+Marginal cost computed by hash: adding same_vendor to baseline+cross_vendor
+labelling costs only 5 additional unique labels (103/108 same_vendor
+records share an initial-draft hash already covered elsewhere; 95.4%
+overlap). Proposal's stated reason for exclusion ("would roughly triple
+the task") does not hold at this measured cost. Benefit: same_vendor
+currently has no confusion matrix / FNR / FPR, only Ragas scores — which
+carry confirmed artefacts on a meaningful subset (declining-clause and
+short-answer cases, see above). Human labels give a genuine three-arm RQ3
+comparison on primary safety metrics, directly strengthening the IN-44
+finding across the full dataset rather than one query. Total labelling
+scope: 68 unique labels (was 63 for two arms), not the ~200+ the proposal
+anticipated for three independently-labelled arms.
+
+**Total human labelling requirement: 68 unique labels**
+
+Computed by SHA-256 deduplication across all three arms (baseline,
+cross_vendor, same_vendor), all 108 queries, including rewrite-chain
+drafts as separate units where text genuinely differs. Down from ~200+
+anticipated for two arms without deduplication in the original proposal
+scope. At an estimated 2-3 minutes per careful judgement: roughly 2.5-3.5
+hours of labelling time total, not 7-12+.
+
+**Second-reviewer sample size — needs revisiting given the 68-label total**
+
+Proposal specifies 15-20% for the reliability sample, sized against an
+anticipated ~200-label total. At the actual 68, 15-20% is only 10-14 items
+— too small for a stable Cohen's kappa. Consider a minimum absolute floor
+(e.g., max(20%, 20 items)) rather than the percentage alone. Decide before
+labelling begins; the sample must be drawn once, by the seeded shuffle, not
+adjusted after seeing results.
+
+## 9.8.2026
+
+**Systematic audit of the two Ragas artefacts — both questions settled**
+
+Ran a systematic pass over all scored records in all three arms (58/57/57),
+rather than the curiosity-driven spot-check of 8.8.2026. Two questions were
+open: (1) is the zero-relevancy artefact arm-blind, and therefore harmless to
+the between-arm comparison? (2) is IN-38's zero faithfulness isolated, or the
+visible tip of a class of failures on short answers?
+
+**(1) Zero-relevancy IS arm-blind — comparison is safe**
+
+    baseline      12 zero-relevancy / 58 scored
+    cross_vendor  12 / 57
+    same_vendor   11 / 57
+
+TEN query IDs are identical across all three arms (ADV-03, 14, 23, 24, 27,
+31, 32, 36, 38, 39, plus IN-42). The small count differences are fully
+explained by cases already understood:
+*   ADV-13 appears in baseline only — the known Node A non-determinism case
+    (28.7.2026): baseline answered, the other two arms refused, so there was
+    no answer to score in those arms.
+*   IN-25 appears in cross_vendor only — a rewrite case where the revised
+    answer contained a declining clause the other arms' answers did not.
+
+The artefact therefore hits the same queries, for the same reason, in every
+arm. This satisfies the arm-blindness condition identified on 8.8.2026 as
+necessary for the comparison to remain valid. CONCLUSION: absolute relevancy
+figures are not reportable as estimates of answer quality; RELATIVE
+comparison between arms remains valid, because the measurement bias applies
+to the same queries across all conditions.
+
+**(2) IN-38 is ISOLATED, not a class — and the short-answer hypothesis is REFUTED**
+
+Faithfulness by answer length, all three arms:
+
+    <=15 words   n=13/11/12   mean faithfulness 1.000  (zeros: none)
+    16-30 words  n=30/31/30   mean 0.925/0.944/0.942   (zeros: IN-38 only)
+    31-50 words  n=12/13/12   mean 0.944/0.949/0.972   (zeros: none)
+    >50 words    n= 3/ 2/ 3   mean 1.000               (zeros: none)
+
+The SHORTEST answers (<=15 words) score a perfect 1.000 in every arm. IN-38
+is 18 words, sitting in a bucket where everything else scores well. There is
+no length gradient whatsoever. This REFUTES the hypothesis proposed on
+8.8.2026 that terse single-clause answers break Ragas's statement
+decomposition — a plausible mechanism, now shown by the data not to hold.
+
+Total faithfulness zeros across all three arms: exactly ONE query (IN-38),
+three times, reproducibly. Nothing else in 172 scored records resembles it.
+The rest of the distribution is healthy: only 4-6 records per arm score below
+1.0, and those are graded values (0.5, 0.667, 0.75) consistent with genuine
+partial-faithfulness judgements rather than artefacts.
+
+IN-38's answer ("The interview for an internal transfer is conducted by the
+receiving Department Head and an HR Business Partner.") is verbatim-correct
+against faq_19. The 0.000 is a scoring anomaly specific to this one
+answer/context pairing; the underlying mechanism remains unverified and is
+NOT explained by answer length.
+
+**DECISION: report, do not remediate**
+
+Both artefacts are reported as measurement limitations, not fixed:
+*   No re-run, no judge-model change, no input reformatting. The evidence
+    does not support a systemic problem that remediation would address, and
+    a judge-strength change would not test the suspected mechanism anyway
+    (8.8.2026).
+*   IN-38 is LEFT IN the dataset and flagged as a known-erroneous zero rather
+    than excluded. Excluding data points, even with justification, invites
+    more scrutiny than a clearly-documented anomaly.
+*   Absolute faithfulness/relevancy means are reported with the caveat above;
+    between-arm comparisons are reported as valid.
+
+Cost of this audit: ~30 minutes against data already held. Converted two open
+worries into settled, evidenced facts — and refuted one of my own working
+hypotheses in the process, which is the more valuable half of the result.
+
+**Labelling blindness — limitation and partial mitigations**
+
+The primary labeller (the researcher) is not truly blind: these answers have
+been read and discussed during pipeline development and analysis. Three
+mitigations applied: (1) a deliberate delay of several days between analysis
+and labelling, to allow recall to decay; (2) seeded shuffle with the arm
+identifier stripped, so that even where an answer is recognised, its arm is
+not; (3) opaque row IDs, with the mapping written to a separate file not
+opened during labelling. Residual limitation acknowledged: recall decay is
+uneven — memorable cases (IN-44, ADV-31, IN-38) will likely remain
+recognisable, and these are disproportionately the cases where judgement is
+contested. The second reviewer's sample is therefore the genuinely blind
+reliability check, and is weighted accordingly in interpreting kappa.
+
+Labelling scope: 67 distinct draft texts covering 174 records across three
+arms (107 labels saved by deduplication). Second-reviewer sample: 20 units
+(30%), applying an absolute floor of 20 rather than the proposal's 15-20%
+proportion, which at this deduplicated total would yield only 10-13 items —
+too few for a stable Cohen's kappa. Documented deviation.
+
 ---
 
 ## OPEN ITEMS (running list — move up with a date when settled)
 
-*   [x] ARMS_CONFIG mechanism (`ACTIVE_ARM` selection + per-arm guards) — next
-        structural commit. same_vendor's node_b_model must be a REFERENCE to
-        NODE_A_MODEL, not a copied string.
-*   [ ] Pilot: verifier tier (Luna vs Terra) — see 13.7.2026
-*   [x] Pilot: retrieval recall at k=5/8/10 on the real corpus.
-*   [x] Verify "1 FAQ = 1 chunk" at embedding time.
-*   [ ] Ragas RunConfig(max_workers=8): test whether the 81 s/query is serial
-        execution; a full sweep at current speed is 6–7 hours.
-*   [ ] Per-query cost: measure real $/query on ~10 corpus queries (Anthropic
-        dashboard before/after) — replaces the smoke-test-derived estimate.
+### Settled — decisions recorded, no further action
+
+*   [x] ARMS_CONFIG mechanism (`ACTIVE_ARM` + per-arm guards). same_vendor's
+        node_b_model is a REFERENCE to NODE_A_MODEL, not a copied string.
+*   [x] Retrieval recall at k=3/5/8/10 on the real corpus — 100% at every k;
+        RETRIEVAL_K=5 chosen for margin on the transfer cluster (26.7.2026).
+*   [x] "1 FAQ = 1 chunk" verified at embedding time — holds for all 24.
+*   [x] Luna + reasoning_effort=low supports schema-enforced structured output.
+*   [x] Gemini `response_schema` structured output for the same_vendor arm.
+        Both now confirmed AT SCALE: 0 verifier_malformed across 57+ live
+        calls per arm (28.7.2026).
+*   [x] run_experiment.py incremental writes + --resume — built, and proven
+        under fire when the node_a rewrite bug halted the cross_vendor sweep
+        at IN-25 (28.7.2026).
+*   [x] Ragas artefact audit — systematic pass done 9.8.2026. Zero-relevancy
+        is ARM-BLIND (same 10 query IDs in all three arms), so the between-arm
+        comparison is safe. IN-38's zero faithfulness is ISOLATED (1 record,
+        3 arms, reproducible) and the short-answer hypothesis is REFUTED
+        (<=15-word answers score 1.000). DECISION: report as limitations, do
+        NOT remediate — no re-run, no judge change, IN-38 left in and flagged.
+*   [x] Same-vendor human labelling — INCLUDED. Marginal cost measured at 5
+        additional labels (103/108 same_vendor drafts already covered by
+        baseline/cross_vendor hashes). The proposal's cost-based reason for
+        excluding it does not hold at this measured cost (8.8.2026).
+*   [x] Second-reviewer sample size — 20% with an absolute floor of 20 units.
+        At the deduplicated total (67), the proposal's 15-20% would yield only
+        10-13 items, too few for a stable Cohen's kappa. Documented deviation;
+        the fraction is unchanged, the floor is what binds.
+*   [x] Ragas telemetry hang — RAGAS_DO_NOT_TRACK set in ragas_eval.py before
+        import. Was 6+ min/row (~11h projected); now 35s for 116 evaluations.
+        DNS failure on Ragas's usage-tracking host, not a judge/API problem.
+
+### Open — needs a decision
+
+*   [ ] **Tier comparisons (Luna vs Terra AND same_vendor's Gemini tier):
+        keep or drop?** Both or neither — no principled basis for holding one
+        arm to a comparative-adequacy standard and not the other. Adequacy
+        evidence already exists for both verifiers from full-sweep
+        performance. LEANING DROP; if kept, both must be done, roughly
+        doubling that scope. Decide before the report's Future Work section.
+*   [ ] **Compound queries: adopt or leave as probes?** UNBLOCKED — both
+        vendors accepted declining clauses as supported in the pre-test, so
+        no False-Positive risk. Adoption would need a second-reviewer
+        plausibility check, as the 108 had.
+
+### Open — work still to do
+
+*   [ ] **HUMAN LABELLING — the critical path.** 67 units built and blinded;
+        20-unit reviewer sample drawn. Deliberately delayed several days to
+        allow recall decay (see blindness limitation, 9.8.2026).
+*   [ ] **Send the reviewer their CSV + Labelling Guide v3.** Their clock runs
+        independently of the delay; no reason to hold this.
+*   [ ] Cohen's kappa — not yet implemented in labelling.py; pending returned
+        reviewer labels.
+*   [ ] Judge-validation check: Ragas faithfulness vs human labels on the
+        Baseline arm (NOTES 12.7.2026). Pending labels.
+*   [ ] figures.py — pending labels.
+*   [ ] Per-query cost: measure real $/query. Token counts are logged per node
+        (tokens_a_*, tokens_b_*); rates applied in analysis, not stored.
+*   [ ] node_a.py: distinguish 429 (quota — short backoff) from 503 (capacity
+        — longer, more patient backoff). Current ~45s total is too short for
+        a demand spike (hit 26.7.2026). Not triggered in any completed sweep.
+*   [ ] ragas_eval.py: no guard against corpus drift when reconstructing
+        contexts from data/corpus/ — safe only because the corpus is closed.
 *   [ ] Week 14: `uv export` requirements.txt; README final pass; regenerate
         PROJECT_STRUCTURE markers.
-*   [x] Verify Luna + reasoning_effort=low supports schema-enforced
-        structured output (one-liner, messy multi-claim test answer) —
-        FIRST Node B session, before controller integration.
-*   [x] Verify Gemini `response_schema` structured output for the
-        same-vendor arm's Node B (one-liner).
-*   [ ] Write-up: informal Gemini app check (corpus uploaded, no system prompt,
-        5-8 queries across categories, fresh chat each) — to see whether the
-        naive-deployment contrast is real before asserting it in Limitations.
-        Illustrative only and not a comparison.
-*   [ ] Write-up: naive-baseline sanity check = consumer Gemini chat + ONE
-        concatenated document + NO instruction. This alone is the configuration
-        the problem statement describes. NotebookLM (purpose-built RAG, forced
-        citation) and AI Studio (developer GUI, own system prompt) are NOT naive
-        and must not be conflated with it — distinguish them in Limitations to
-        pre-empt the objection. If condition 1 grounds well, SOFTEN the premise
-        rather than defending it.
-*   [ ] Write-up (Recommendations): if single-pass proves sufficient, present the
-        eight-rule grounding specification as a deployment recommendation with its
-        per-rule rationale. Scope honestly — validated on THIS corpus and model
-        only; transfer untested. NOT a template for NotebookLM/AI Studio, neither
-        of which was evaluated.
-*   [ ] Write-up cluster (baseline framing):
+
+### Open — dropped or superseded
+
+*   [~] VERIFIER NON-DETERMINISM (test-retest, ~20 queries x3). The original
+        motivation (ADV-31 flagged `contradicted` in the pre-test, `supported`
+        in the controller run) was RESOLVED on inspection: Node A's live
+        phrasing never asserted the claim Luna flagged in the hand-written
+        pre-test draft, so this was not verifier inconsistency (28.7.2026).
+        A separate Node A non-determinism instance (ADV-13) was observed and
+        quantified from existing sweep data (101/108 baseline-vs-cross_vendor
+        drafts identical) — recorded as a limitation, n=1, not investigated
+        further. No dedicated re-test run planned.
+
+### Write-up cluster (baseline framing) — one task, five parts
+
 *   [ ] Naive check: consumer Gemini + ONE concatenated doc + NO instruction.
         Only this configuration is what the problem statement describes.
+        Illustrative only; not a comparison. Do at write-up, not before.
 *   [ ] Distinguish the four conditions (naive one-doc / naive 24-file /
-        NotebookLM purpose-built RAG / AI Studio developer GUI). 2-3 sentences:
-        all are quick to set up, but only the first is the deployment the
-        research addresses — not a claim about which performs worst.
+        NotebookLM purpose-built RAG / AI Studio developer GUI). 2-3
+        sentences: all are quick to set up, but only the first is the
+        deployment the research addresses — not a claim about which performs
+        worst.
 *   [ ] Why the pipeline and not those tools: the dual-pass design needs a
         DEFINED passage set for both nodes; long-context provides none, so the
         architecture is unimplementable there. Plus comparability across arms,
         failure attribution, reproducibility.
-*   [ ] Contribution: the eight-rule specification with per-rule rationale,
-        scoped to this corpus and model.
+*   [ ] Anticipated objection: "you chose the weakest configuration to beat."
+        Answer: the naive configuration is the deployment the RQ is ABOUT, not
+        a competitor; and it is NOT the baseline arm — the baseline is
+        single-pass through the same pipeline with the full specification,
+        i.e. the DEMANDING comparison.
 *   [ ] Limitation: the baseline is well-configured, not naive; corpus is
         atomic single-topic files, not a monolithic handbook. If the naive
         check grounds well, SOFTEN the premise rather than defend it.
-*   [ ] node_a.py: distinguish 429 (quota — short backoff) from 503 (Google
-        capacity — longer, more patient backoff). Current 5 attempts from 2s
-        gives ~45s total, too short for a demand spike; a spike during a sweep
-        would convert good queries into generation_failed. Hit 26.7.2026.
-*   [ ] run_experiment.py: incremental writes + RESUME — re-run only queries
-        that came back generation_failed, not the whole sweep.
-*   [ ] VERIFIER NON-DETERMINISM (test-retest). ADV-31 was flagged
-        `contradicted` in the Node B pre-test and `supported` in the controller
-        run — same model, same passages, near-identical prompt tokens
-        (711 both times), opposite decision. Run ~20 queries x3 and count
-        verdict stability before the sweeps. Affects reproducibility claims;
-        also a legitimate finding (a verifier that disagrees with itself is a
-        deployment consideration).
-*   [ ] Compound queries: UNBLOCKED — both vendors accepted declining clauses
-        as supported in the pre-test, so no False-Positive risk. Decide whether
-        to adopt (would need second-reviewer plausibility check, as the 108 had).
-*   [ ] Same-vendor human labelling: decide AFTER the runs, from actual
-        distinct-draft counts post hash-grouping. Not committed in the proposal;
-        cheap if most drafts are shared, drop it if they diverge.
+
+### Write-up — other
+
+*   [ ] Recommendations: present the eight-rule grounding specification with
+        per-rule rationale. Scope honestly — validated on THIS corpus and
+        model only; transfer untested. NOT a template for NotebookLM/AI
+        Studio, neither of which was evaluated.
+*   [ ] Future Work: verifier selection (vendor, tier, hosted vs open-weights)
+        evaluated jointly on verification quality, cost and latency. Motivated
+        by IN-44's strictness divergence and the measured cost overhead;
+        held fixed here to isolate the verification step itself.
+*   [ ] Limitations: Node A generation non-determinism (ADV-13, 28.7.2026).
+        Cross-reference from any cross-arm outcome comparison.
+*   [ ] Limitations: labelling blindness — primary labeller not truly blind;
+        mitigations and residual limitation (9.8.2026).
+*   [ ] Methodology: two-file results arrangement (pipeline record + scoring
+        record, joined by query_id) — state explicitly so it is not inferred.

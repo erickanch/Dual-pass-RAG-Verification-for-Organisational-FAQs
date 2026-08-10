@@ -139,10 +139,10 @@ msc-rag/
 │   │                         #    expected values. Free, fast, no API keys.
 │   │                         #    This is what bare `pytest` runs.
 │   ├── smoke_test.py         # DONE Full-stack import/connectivity check.
-│   │                         #    use live APIs (costs money).
+│   │                         #    Use live APIs (costs money).
 │   │                         #    Run explicitly: uv run python tests/smoke_test.py
-│   └── test_ragas.py         # DONE Three-vendor Ragas end-to-end proof.
-│   │                         #    use live APIs (costs money).
+│   ├── test_ragas.py         # DONE Three-vendor Ragas end-to-end proof.
+│   │                         #    Use live APIs (costs money).
 │   │                         #    Run explicitly: uv run python tests/test_ragas.py
 │
 └── notebooks/                # Scratch exploration ONLY. Never the source of truth.
