@@ -1,0 +1,943 @@
+unit_id,question,answer,retrieved_passages,label,notes
+U001,What is the required response time for replying to general customer emails?,General customer emails must receive a human response within 12 working hours.,"[1] Q: What is the standard response time for general customer emails?
+A: General customer emails must receive a human response within 12 working hours.
+
+[2] Q: What is the standard response time for escalated complaints?
+A: Escalated complaints routed from Tier 1 must receive a written resolution plan within 2 working days.
+
+[3] Q: What are the timelines for handling a formal customer complaint?
+A: All formal complaints must be acknowledged within 1 working day of receipt, and a full written response must be issued within 10 working days.
+
+[4] Q: What is the required response time for a Level 1 Emergency Server Outage?
+A: The on-call engineering team must acknowledge a Level 1 Server Outage within 15 minutes, 24/7.
+
+[5] Q: How long does the company have to fulfil a data request from data subject?
+A: The company must provide the requested personal data within 14 calendar days of verifying the subject's identity.",faithful,
+U002,"Who signs off on purchases above HKD 10,000?","A Department Manager can approve purchase orders up to HKD 10,000 without secondary sign-off, but I do not have information on who signs off on purchases above HKD 10,000.","[1] Q: What is the financial approval limit for a Department Manager?
+A: A Department Manager can approve purchase orders up to HKD 10,000 without secondary sign-off.
+
+[2] Q: How do I submit an international travel expense?
+A: International travel expenses require submitting original physical receipts to the Finance Helpdesk in Room 402 within 30 days.
+
+[3] Q: How do I submit a local travel expense?
+A: Submit local travel expenses via the mobile HR app by uploading PDF receipts within 14 days of the journey.
+
+[4] Q: How long does it take for IT to grant software license access?
+A: Software license access is granted within 2 business days of managerial approval.
+
+[5] Q: How long is a sabbatical and is it paid?
+A: A sabbatical lasts for exactly 8 weeks and is paid at 50% of the employee's standard base salary.",faithful,
+U003,Can I use the HR app for an international expense?,"No, you cannot use the HR app for an international expense. International travel expenses require submitting original physical receipts to the Finance Helpdesk in Room 402 within 30 days.","[1] Q: How do I submit a local travel expense?
+A: Submit local travel expenses via the mobile HR app by uploading PDF receipts within 14 days of the journey.
+
+[2] Q: How do I submit an international travel expense?
+A: International travel expenses require submitting original physical receipts to the Finance Helpdesk in Room 402 within 30 days.
+
+[3] Q: What form is required for an internal transfer?
+A: After gaining manager approval, the employee must submit Form TR-09 to the HR intranet portal.
+
+[4] Q: Who conducts the interview for an internal transfer?
+A: The final step is an interview conducted by the receiving Department Head and an HR Business Partner.
+
+[5] Q: What is the company policy regarding Maternity Leave?
+A: Female employees are entitled to 20 weeks of fully paid Maternity Leave.",faithful,
+U004,Does the engineering team have an hour to acknowledge a Level 1 outage?,"No, the on-call engineering team does not have an hour to acknowledge a Level 1 Server Outage. They must acknowledge a Level 1 Server Outage within 15 minutes, 24/7.","[1] Q: What is the required response time for a Level 1 Emergency Server Outage?
+A: The on-call engineering team must acknowledge a Level 1 Server Outage within 15 minutes, 24/7.
+
+[2] Q: What is the standard response time for escalated complaints?
+A: Escalated complaints routed from Tier 1 must receive a written resolution plan within 2 working days.
+
+[3] Q: What are the timelines for handling a formal customer complaint?
+A: All formal complaints must be acknowledged within 1 working day of receipt, and a full written response must be issued within 10 working days.
+
+[4] Q: How long does it take for IT to deploy requested hardware?
+A: Standard IT hardware requests are deployed within 5 business days of managerial approval.
+
+[5] Q: What is the standard response time for general customer emails?
+A: General customer emails must receive a human response within 12 working hours.",faithful,
+U005,What is the maximum cap for sick leave days I can save up?,The maximum cap for paid sick leave is 36 days.,"[1] Q: How is paid sick leave accrued?
+A: Employees accrue 2 days of paid sick leave per completed month of service, up to a maximum cap of 36 days.
+
+[2] Q: How many days of compassionate leave are provided?
+A: Employees are granted 5 consecutive working days of fully paid compassionate leave for the loss of an immediate family member.
+
+[3] Q: What is the annual leave entitlement for full-time staff?
+A: Permanent full-time employees receive 24 calendar days of paid annual leave per year.
+
+[4] Q: What is the annual leave entitlement for part-time staff?
+A: Permanent part-time employees receive 12 calendar days of paid annual leave per year.
+
+[5] Q: What is the company's marriage leave policy?
+A: Employees who have completed 12 months of continuous service are entitled to 5 working days of paid marriage leave, which must be applied for via Form ML-02 at least one month before the intended leave date.",faithful,
+U006,Can I use the HR app for an international expense?,"No, you cannot use the HR app for an international travel expense. International travel expenses require submitting original physical receipts to the Finance Helpdesk in Room 402 within 30 days.","[1] Q: How do I submit a local travel expense?
+A: Submit local travel expenses via the mobile HR app by uploading PDF receipts within 14 days of the journey.
+
+[2] Q: How do I submit an international travel expense?
+A: International travel expenses require submitting original physical receipts to the Finance Helpdesk in Room 402 within 30 days.
+
+[3] Q: What form is required for an internal transfer?
+A: After gaining manager approval, the employee must submit Form TR-09 to the HR intranet portal.
+
+[4] Q: Who conducts the interview for an internal transfer?
+A: The final step is an interview conducted by the receiving Department Head and an HR Business Partner.
+
+[5] Q: What is the company policy regarding Maternity Leave?
+A: Female employees are entitled to 20 weeks of fully paid Maternity Leave.",faithful,
+U007,What is the penalty for missing the 12-hour deadline for a customer email?,General customer emails must receive a human response within 12 working hours. I do not have information on the penalty for missing this deadline.,"[1] Q: What is the standard response time for general customer emails?
+A: General customer emails must receive a human response within 12 working hours.
+
+[2] Q: What are the timelines for handling a formal customer complaint?
+A: All formal complaints must be acknowledged within 1 working day of receipt, and a full written response must be issued within 10 working days.
+
+[3] Q: What is the standard response time for escalated complaints?
+A: Escalated complaints routed from Tier 1 must receive a written resolution plan within 2 working days.
+
+[4] Q: What is the required response time for a Level 1 Emergency Server Outage?
+A: The on-call engineering team must acknowledge a Level 1 Server Outage within 15 minutes, 24/7.
+
+[5] Q: What is the required notice period during the probationary period?
+A: During the 3-month probationary period, either party may terminate the contract with just 2 days of written notice.",faithful,
+U008,I have a customer email and an escalated complaint. What are the response deadlines for each of them?,A general customer email must receive a human response within 12 working hours. An escalated complaint routed from Tier 1 must receive a written resolution plan within 2 working days.,"[1] Q: What is the standard response time for escalated complaints?
+A: Escalated complaints routed from Tier 1 must receive a written resolution plan within 2 working days.
+
+[2] Q: What are the timelines for handling a formal customer complaint?
+A: All formal complaints must be acknowledged within 1 working day of receipt, and a full written response must be issued within 10 working days.
+
+[3] Q: What is the standard response time for general customer emails?
+A: General customer emails must receive a human response within 12 working hours.
+
+[4] Q: What is the required response time for a Level 1 Emergency Server Outage?
+A: The on-call engineering team must acknowledge a Level 1 Server Outage within 15 minutes, 24/7.
+
+[5] Q: How long does it take for IT to deploy requested hardware?
+A: Standard IT hardware requests are deployed within 5 business days of managerial approval.",faithful,
+U009,Do I have 24 hours to reply to a general customer enquiry?,"No, you do not have 24 hours to reply. General customer emails must receive a human response within 12 working hours.","[1] Q: What is the standard response time for general customer emails?
+A: General customer emails must receive a human response within 12 working hours.
+
+[2] Q: What are the timelines for handling a formal customer complaint?
+A: All formal complaints must be acknowledged within 1 working day of receipt, and a full written response must be issued within 10 working days.
+
+[3] Q: What is the standard response time for escalated complaints?
+A: Escalated complaints routed from Tier 1 must receive a written resolution plan within 2 working days.
+
+[4] Q: How long does the company have to fulfil a data request from data subject?
+A: The company must provide the requested personal data within 14 calendar days of verifying the subject's identity.
+
+[5] Q: What is the required response time for a Level 1 Emergency Server Outage?
+A: The on-call engineering team must acknowledge a Level 1 Server Outage within 15 minutes, 24/7.",faithful,
+U010,Are interns eligible for the 24 days of annual leave?,Permanent full-time employees receive 24 calendar days of paid annual leave per year. I do not have information on whether interns are eligible for this leave.,"[1] Q: What is the annual leave entitlement for full-time staff?
+A: Permanent full-time employees receive 24 calendar days of paid annual leave per year.
+
+[2] Q: What is the study and examination leave entitlement?
+A: Permanent full-time employees are entitled to 4 days of paid study and examination leave per year for approved professional qualifications. Part-time employees are not eligible for study leave.
+
+[3] Q: What is the company policy regarding Maternity Leave?
+A: Female employees are entitled to 20 weeks of fully paid Maternity Leave.
+
+[4] Q: What is the annual leave entitlement for part-time staff?
+A: Permanent part-time employees receive 12 calendar days of paid annual leave per year.
+
+[5] Q: Who is eligible to apply for a sabbatical?
+A: Employees must have completed at least 5 years of continuous full-time service to be eligible for a sabbatical.",faithful,
+U011,Who is eligible to apply for a sabbatical?,Employees must have completed at least 5 years of continuous full-time service to be eligible for a sabbatical.,"[1] Q: Who is eligible to apply for a sabbatical?
+A: Employees must have completed at least 5 years of continuous full-time service to be eligible for a sabbatical.
+
+[2] Q: How long is a sabbatical and is it paid?
+A: A sabbatical lasts for exactly 8 weeks and is paid at 50% of the employee's standard base salary.
+
+[3] Q: What is the study and examination leave entitlement?
+A: Permanent full-time employees are entitled to 4 days of paid study and examination leave per year for approved professional qualifications. Part-time employees are not eligible for study leave.
+
+[4] Q: How many days of compassionate leave are provided?
+A: Employees are granted 5 consecutive working days of fully paid compassionate leave for the loss of an immediate family member.
+
+[5] Q: What is the annual leave entitlement for part-time staff?
+A: Permanent part-time employees receive 12 calendar days of paid annual leave per year.",faithful,
+U012,What form is required for an internal transfer?,"The form required for an internal transfer is Form TR-09. After gaining manager approval, the employee must submit this form to the HR intranet portal.","[1] Q: What form is required for an internal transfer?
+A: After gaining manager approval, the employee must submit Form TR-09 to the HR intranet portal.
+
+[2] Q: What is the first step to apply for an internal department transfer?
+A: The employee must first obtain written approval from their current direct Line Manager via email.
+
+[3] Q: Who conducts the interview for an internal transfer?
+A: The final step is an interview conducted by the receiving Department Head and an HR Business Partner.
+
+[4] Q: How do I submit an international travel expense?
+A: International travel expenses require submitting original physical receipts to the Finance Helpdesk in Room 402 within 30 days.
+
+[5] Q: How do I submit a local travel expense?
+A: Submit local travel expenses via the mobile HR app by uploading PDF receipts within 14 days of the journey.",faithful,
+U013,What is the required notice period if I resign during my probation?,"During the 3-month probationary period, either party may terminate the contract with just 2 days of written notice.","[1] Q: What is the required notice period during the probationary period?
+A: During the 3-month probationary period, either party may terminate the contract with just 2 days of written notice.
+
+[2] Q: What is the company's marriage leave policy?
+A: Employees who have completed 12 months of continuous service are entitled to 5 working days of paid marriage leave, which must be applied for via Form ML-02 at least one month before the intended leave date.
+
+[3] Q: What is the study and examination leave entitlement?
+A: Permanent full-time employees are entitled to 4 days of paid study and examination leave per year for approved professional qualifications. Part-time employees are not eligible for study leave.
+
+[4] Q: Who is eligible to apply for a sabbatical?
+A: Employees must have completed at least 5 years of continuous full-time service to be eligible for a sabbatical.
+
+[5] Q: What is the annual leave entitlement for part-time staff?
+A: Permanent part-time employees receive 12 calendar days of paid annual leave per year.",faithful,
+U014,Do we have 30 days to process a Data Subject Access Request?,No. The company must provide the requested personal data within 14 calendar days of verifying the subject's identity.,"[1] Q: How long does the company have to fulfil a data request from data subject?
+A: The company must provide the requested personal data within 14 calendar days of verifying the subject's identity.
+
+[2] Q: What is the standard response time for escalated complaints?
+A: Escalated complaints routed from Tier 1 must receive a written resolution plan within 2 working days.
+
+[3] Q: What are the timelines for handling a formal customer complaint?
+A: All formal complaints must be acknowledged within 1 working day of receipt, and a full written response must be issued within 10 working days.
+
+[4] Q: How long does it take for IT to deploy requested hardware?
+A: Standard IT hardware requests are deployed within 5 business days of managerial approval.
+
+[5] Q: How long does it take for IT to grant software license access?
+A: Software license access is granted within 2 business days of managerial approval.",faithful,
+U015,I have a customer email and an escalated complaint. What are the response deadlines for each of them?,General customer emails must receive a human response within 12 working hours. Escalated complaints routed from Tier 1 must receive a written resolution plan within 2 working days.,"[1] Q: What is the standard response time for escalated complaints?
+A: Escalated complaints routed from Tier 1 must receive a written resolution plan within 2 working days.
+
+[2] Q: What are the timelines for handling a formal customer complaint?
+A: All formal complaints must be acknowledged within 1 working day of receipt, and a full written response must be issued within 10 working days.
+
+[3] Q: What is the standard response time for general customer emails?
+A: General customer emails must receive a human response within 12 working hours.
+
+[4] Q: What is the required response time for a Level 1 Emergency Server Outage?
+A: The on-call engineering team must acknowledge a Level 1 Server Outage within 15 minutes, 24/7.
+
+[5] Q: How long does it take for IT to deploy requested hardware?
+A: Standard IT hardware requests are deployed within 5 business days of managerial approval.",faithful,
+U016,Do I need to keep boarding passes for international expenses?,International travel expenses require submitting original physical receipts to the Finance Helpdesk in Room 402 within 30 days. I do not have information on whether you need to keep boarding passes for international expenses.,"[1] Q: How do I submit an international travel expense?
+A: International travel expenses require submitting original physical receipts to the Finance Helpdesk in Room 402 within 30 days.
+
+[2] Q: How do I submit a local travel expense?
+A: Submit local travel expenses via the mobile HR app by uploading PDF receipts within 14 days of the journey.
+
+[3] Q: What is the study and examination leave entitlement?
+A: Permanent full-time employees are entitled to 4 days of paid study and examination leave per year for approved professional qualifications. Part-time employees are not eligible for study leave.
+
+[4] Q: What is the annual leave entitlement for part-time staff?
+A: Permanent part-time employees receive 12 calendar days of paid annual leave per year.
+
+[5] Q: How is paid sick leave accrued?
+A: Employees accrue 2 days of paid sick leave per completed month of service, up to a maximum cap of 36 days.",faithful,
+U017,I need hardware and software. How long will IT take for both?,"Standard IT hardware requests are deployed within 5 business days of managerial approval, and software license access is granted within 2 business days of managerial approval.","[1] Q: How long does it take for IT to deploy requested hardware?
+A: Standard IT hardware requests are deployed within 5 business days of managerial approval.
+
+[2] Q: How long does it take for IT to grant software license access?
+A: Software license access is granted within 2 business days of managerial approval.
+
+[3] Q: How long does the company have to fulfil a data request from data subject?
+A: The company must provide the requested personal data within 14 calendar days of verifying the subject's identity.
+
+[4] Q: What are the timelines for handling a formal customer complaint?
+A: All formal complaints must be acknowledged within 1 working day of receipt, and a full written response must be issued within 10 working days.
+
+[5] Q: What is the standard response time for escalated complaints?
+A: Escalated complaints routed from Tier 1 must receive a written resolution plan within 2 working days.",faithful,
+U018,What is the company's marriage leave policy?,"Employees who have completed 12 months of continuous service are entitled to 5 working days of paid marriage leave, which must be applied for via Form ML-02 at least one month before the intended leave date.","[1] Q: What is the company's marriage leave policy?
+A: Employees who have completed 12 months of continuous service are entitled to 5 working days of paid marriage leave, which must be applied for via Form ML-02 at least one month before the intended leave date.
+
+[2] Q: What is the company policy regarding Maternity Leave?
+A: Female employees are entitled to 20 weeks of fully paid Maternity Leave.
+
+[3] Q: How many days of compassionate leave are provided?
+A: Employees are granted 5 consecutive working days of fully paid compassionate leave for the loss of an immediate family member.
+
+[4] Q: What is the study and examination leave entitlement?
+A: Permanent full-time employees are entitled to 4 days of paid study and examination leave per year for approved professional qualifications. Part-time employees are not eligible for study leave.
+
+[5] Q: What is the annual leave entitlement for full-time staff?
+A: Permanent full-time employees receive 24 calendar days of paid annual leave per year.",faithful,
+U019,Does the 14-day timeline apply to data request from former employees?,The company must provide requested personal data within 14 calendar days of verifying the subject's identity. I do not have information on whether this timeline applies to data requests from former employees.,"[1] Q: How long does the company have to fulfil a data request from data subject?
+A: The company must provide the requested personal data within 14 calendar days of verifying the subject's identity.
+
+[2] Q: What are the timelines for handling a formal customer complaint?
+A: All formal complaints must be acknowledged within 1 working day of receipt, and a full written response must be issued within 10 working days.
+
+[3] Q: How many days of compassionate leave are provided?
+A: Employees are granted 5 consecutive working days of fully paid compassionate leave for the loss of an immediate family member.
+
+[4] Q: What is the standard response time for escalated complaints?
+A: Escalated complaints routed from Tier 1 must receive a written resolution plan within 2 working days.
+
+[5] Q: What is the annual leave entitlement for full-time staff?
+A: Permanent full-time employees receive 24 calendar days of paid annual leave per year.",faithful,
+U020,Can I take a sabbatical to work for a competitor?,"To be eligible to apply for a sabbatical, you must have completed at least 5 years of continuous full-time service. I do not have information on whether you can work for a competitor during a sabbatical.","[1] Q: Who is eligible to apply for a sabbatical?
+A: Employees must have completed at least 5 years of continuous full-time service to be eligible for a sabbatical.
+
+[2] Q: How long is a sabbatical and is it paid?
+A: A sabbatical lasts for exactly 8 weeks and is paid at 50% of the employee's standard base salary.
+
+[3] Q: What is the company policy regarding Maternity Leave?
+A: Female employees are entitled to 20 weeks of fully paid Maternity Leave.
+
+[4] Q: What is the study and examination leave entitlement?
+A: Permanent full-time employees are entitled to 4 days of paid study and examination leave per year for approved professional qualifications. Part-time employees are not eligible for study leave.
+
+[5] Q: How many days of compassionate leave are provided?
+A: Employees are granted 5 consecutive working days of fully paid compassionate leave for the loss of an immediate family member.",faithful,
+U021,How long does the company have to fulfil a data access request?,The company must provide the requested personal data within 14 calendar days of verifying the subject's identity.,"[1] Q: How long does the company have to fulfil a data request from data subject?
+A: The company must provide the requested personal data within 14 calendar days of verifying the subject's identity.
+
+[2] Q: How long does it take for IT to grant software license access?
+A: Software license access is granted within 2 business days of managerial approval.
+
+[3] Q: What is the standard response time for escalated complaints?
+A: Escalated complaints routed from Tier 1 must receive a written resolution plan within 2 working days.
+
+[4] Q: What is the standard response time for general customer emails?
+A: General customer emails must receive a human response within 12 working hours.
+
+[5] Q: How long does it take for IT to deploy requested hardware?
+A: Standard IT hardware requests are deployed within 5 business days of managerial approval.",faithful,
+U022,How long does it take for IT to grant software license access?,Software license access is granted within 2 business days of managerial approval.,"[1] Q: How long does it take for IT to grant software license access?
+A: Software license access is granted within 2 business days of managerial approval.
+
+[2] Q: How long does it take for IT to deploy requested hardware?
+A: Standard IT hardware requests are deployed within 5 business days of managerial approval.
+
+[3] Q: How long does the company have to fulfil a data request from data subject?
+A: The company must provide the requested personal data within 14 calendar days of verifying the subject's identity.
+
+[4] Q: What is the standard response time for general customer emails?
+A: General customer emails must receive a human response within 12 working hours.
+
+[5] Q: What is the standard response time for escalated complaints?
+A: Escalated complaints routed from Tier 1 must receive a written resolution plan within 2 working days.",faithful,
+U023,Is a sabbatical fully paid?,"No, a sabbatical is not fully paid. It is paid at 50% of the employee's standard base salary.","[1] Q: How long is a sabbatical and is it paid?
+A: A sabbatical lasts for exactly 8 weeks and is paid at 50% of the employee's standard base salary.
+
+[2] Q: Who is eligible to apply for a sabbatical?
+A: Employees must have completed at least 5 years of continuous full-time service to be eligible for a sabbatical.
+
+[3] Q: What is the study and examination leave entitlement?
+A: Permanent full-time employees are entitled to 4 days of paid study and examination leave per year for approved professional qualifications. Part-time employees are not eligible for study leave.
+
+[4] Q: What is the annual leave entitlement for full-time staff?
+A: Permanent full-time employees receive 24 calendar days of paid annual leave per year.
+
+[5] Q: How many days of compassionate leave are provided?
+A: Employees are granted 5 consecutive working days of fully paid compassionate leave for the loss of an immediate family member.",faithful,
+U024,Can I take marriage leave in my first year of employment?,"No, you cannot take paid marriage leave in your first year of employment. Employees must have completed 12 months of continuous service to be entitled to 5 working days of paid marriage leave, which must be applied for via Form ML-02 at least one month before the intended leave date.","[1] Q: What is the company's marriage leave policy?
+A: Employees who have completed 12 months of continuous service are entitled to 5 working days of paid marriage leave, which must be applied for via Form ML-02 at least one month before the intended leave date.
+
+[2] Q: What is the study and examination leave entitlement?
+A: Permanent full-time employees are entitled to 4 days of paid study and examination leave per year for approved professional qualifications. Part-time employees are not eligible for study leave.
+
+[3] Q: What is the company policy regarding Maternity Leave?
+A: Female employees are entitled to 20 weeks of fully paid Maternity Leave.
+
+[4] Q: Who is eligible to apply for a sabbatical?
+A: Employees must have completed at least 5 years of continuous full-time service to be eligible for a sabbatical.
+
+[5] Q: What is the annual leave entitlement for part-time staff?
+A: Permanent part-time employees receive 12 calendar days of paid annual leave per year.",faithful,
+U025,What is the first step to apply for an internal department transfer?,The first step to apply for an internal department transfer is that the employee must obtain written approval from their current direct Line Manager via email.,"[1] Q: What is the first step to apply for an internal department transfer?
+A: The employee must first obtain written approval from their current direct Line Manager via email.
+
+[2] Q: What form is required for an internal transfer?
+A: After gaining manager approval, the employee must submit Form TR-09 to the HR intranet portal.
+
+[3] Q: Who conducts the interview for an internal transfer?
+A: The final step is an interview conducted by the receiving Department Head and an HR Business Partner.
+
+[4] Q: What is the financial approval limit for a Department Manager?
+A: A Department Manager can approve purchase orders up to HKD 10,000 without secondary sign-off.
+
+[5] Q: How do I submit an international travel expense?
+A: International travel expenses require submitting original physical receipts to the Finance Helpdesk in Room 402 within 30 days.",faithful,
+U026,Is compassionate leave granted for the death of a pet?,Employees are granted 5 consecutive working days of fully paid compassionate leave for the loss of an immediate family member. I do not have information on whether a pet counts as an immediate family member.,"[1] Q: How many days of compassionate leave are provided?
+A: Employees are granted 5 consecutive working days of fully paid compassionate leave for the loss of an immediate family member.
+
+[2] Q: What is the company's marriage leave policy?
+A: Employees who have completed 12 months of continuous service are entitled to 5 working days of paid marriage leave, which must be applied for via Form ML-02 at least one month before the intended leave date.
+
+[3] Q: What is the company policy regarding Maternity Leave?
+A: Female employees are entitled to 20 weeks of fully paid Maternity Leave.
+
+[4] Q: Who is eligible to apply for a sabbatical?
+A: Employees must have completed at least 5 years of continuous full-time service to be eligible for a sabbatical.
+
+[5] Q: How long is a sabbatical and is it paid?
+A: A sabbatical lasts for exactly 8 weeks and is paid at 50% of the employee's standard base salary.",faithful,
+U027,Do I need to keep boarding passes for international expenses?,International travel expenses require submitting original physical receipts to the Finance Helpdesk in Room 402 within 30 days. I do not have information on whether you need to keep boarding passes.,"[1] Q: How do I submit an international travel expense?
+A: International travel expenses require submitting original physical receipts to the Finance Helpdesk in Room 402 within 30 days.
+
+[2] Q: How do I submit a local travel expense?
+A: Submit local travel expenses via the mobile HR app by uploading PDF receipts within 14 days of the journey.
+
+[3] Q: What is the study and examination leave entitlement?
+A: Permanent full-time employees are entitled to 4 days of paid study and examination leave per year for approved professional qualifications. Part-time employees are not eligible for study leave.
+
+[4] Q: What is the annual leave entitlement for part-time staff?
+A: Permanent part-time employees receive 12 calendar days of paid annual leave per year.
+
+[5] Q: How is paid sick leave accrued?
+A: Employees accrue 2 days of paid sick leave per completed month of service, up to a maximum cap of 36 days.",faithful,
+U028,What is the response time for a formal customer complaint?,"All formal complaints must be acknowledged within 1 working day of receipt, and a full written response must be issued within 10 working days.","[1] Q: What are the timelines for handling a formal customer complaint?
+A: All formal complaints must be acknowledged within 1 working day of receipt, and a full written response must be issued within 10 working days.
+
+[2] Q: What is the standard response time for escalated complaints?
+A: Escalated complaints routed from Tier 1 must receive a written resolution plan within 2 working days.
+
+[3] Q: What is the standard response time for general customer emails?
+A: General customer emails must receive a human response within 12 working hours.
+
+[4] Q: What is the required response time for a Level 1 Emergency Server Outage?
+A: The on-call engineering team must acknowledge a Level 1 Server Outage within 15 minutes, 24/7.
+
+[5] Q: How long does it take for IT to deploy requested hardware?
+A: Standard IT hardware requests are deployed within 5 business days of managerial approval.",faithful,
+U029,What is the required response time for a Level 1 Emergency Server Outage?,"The on-call engineering team must acknowledge a Level 1 Server Outage within 15 minutes, 24/7.","[1] Q: What is the required response time for a Level 1 Emergency Server Outage?
+A: The on-call engineering team must acknowledge a Level 1 Server Outage within 15 minutes, 24/7.
+
+[2] Q: What is the standard response time for escalated complaints?
+A: Escalated complaints routed from Tier 1 must receive a written resolution plan within 2 working days.
+
+[3] Q: What is the standard response time for general customer emails?
+A: General customer emails must receive a human response within 12 working hours.
+
+[4] Q: What are the timelines for handling a formal customer complaint?
+A: All formal complaints must be acknowledged within 1 working day of receipt, and a full written response must be issued within 10 working days.
+
+[5] Q: How long does the company have to fulfil a data request from data subject?
+A: The company must provide the requested personal data within 14 calendar days of verifying the subject's identity.",faithful,
+U030,Can I take marriage leave in my first year of employment?,"Employees who have completed 12 months of continuous service are entitled to 5 working days of paid marriage leave, which must be applied for via Form ML-02 at least one month before the intended leave date. I do not have information on whether you can take marriage leave in your first year of employment.","[1] Q: What is the company's marriage leave policy?
+A: Employees who have completed 12 months of continuous service are entitled to 5 working days of paid marriage leave, which must be applied for via Form ML-02 at least one month before the intended leave date.
+
+[2] Q: What is the study and examination leave entitlement?
+A: Permanent full-time employees are entitled to 4 days of paid study and examination leave per year for approved professional qualifications. Part-time employees are not eligible for study leave.
+
+[3] Q: What is the company policy regarding Maternity Leave?
+A: Female employees are entitled to 20 weeks of fully paid Maternity Leave.
+
+[4] Q: Who is eligible to apply for a sabbatical?
+A: Employees must have completed at least 5 years of continuous full-time service to be eligible for a sabbatical.
+
+[5] Q: What is the annual leave entitlement for part-time staff?
+A: Permanent part-time employees receive 12 calendar days of paid annual leave per year.",intrinsic,
+U031,How much annual leave do I get?,"Permanent full-time employees receive 24 calendar days of paid annual leave per year, while permanent part-time employees receive 12 calendar days of paid annual leave per year.","[1] Q: What is the annual leave entitlement for full-time staff?
+A: Permanent full-time employees receive 24 calendar days of paid annual leave per year.
+
+[2] Q: What is the annual leave entitlement for part-time staff?
+A: Permanent part-time employees receive 12 calendar days of paid annual leave per year.
+
+[3] Q: How long is a sabbatical and is it paid?
+A: A sabbatical lasts for exactly 8 weeks and is paid at 50% of the employee's standard base salary.
+
+[4] Q: How is paid sick leave accrued?
+A: Employees accrue 2 days of paid sick leave per completed month of service, up to a maximum cap of 36 days.
+
+[5] Q: What is the study and examination leave entitlement?
+A: Permanent full-time employees are entitled to 4 days of paid study and examination leave per year for approved professional qualifications. Part-time employees are not eligible for study leave.",faithful,
+U032,What is the financial approval limit for a Department Manager?,"A Department Manager can approve purchase orders up to HKD 10,000 without secondary sign-off.","[1] Q: What is the financial approval limit for a Department Manager?
+A: A Department Manager can approve purchase orders up to HKD 10,000 without secondary sign-off.
+
+[2] Q: What is the first step to apply for an internal department transfer?
+A: The employee must first obtain written approval from their current direct Line Manager via email.
+
+[3] Q: What form is required for an internal transfer?
+A: After gaining manager approval, the employee must submit Form TR-09 to the HR intranet portal.
+
+[4] Q: How long does it take for IT to grant software license access?
+A: Software license access is granted within 2 business days of managerial approval.
+
+[5] Q: What is the company policy regarding Maternity Leave?
+A: Female employees are entitled to 20 weeks of fully paid Maternity Leave.",faithful,
+U033,What is the Service Level Agreement for IT to deploy requested hardware?,Standard IT hardware requests are deployed within 5 business days of managerial approval.,"[1] Q: How long does it take for IT to deploy requested hardware?
+A: Standard IT hardware requests are deployed within 5 business days of managerial approval.
+
+[2] Q: What is the required response time for a Level 1 Emergency Server Outage?
+A: The on-call engineering team must acknowledge a Level 1 Server Outage within 15 minutes, 24/7.
+
+[3] Q: How long does it take for IT to grant software license access?
+A: Software license access is granted within 2 business days of managerial approval.
+
+[4] Q: What is the standard response time for escalated complaints?
+A: Escalated complaints routed from Tier 1 must receive a written resolution plan within 2 working days.
+
+[5] Q: What is the financial approval limit for a Department Manager?
+A: A Department Manager can approve purchase orders up to HKD 10,000 without secondary sign-off.",faithful,
+U034,What happens if I submit my local travel expense on day 15?,Local travel expenses must be submitted via the mobile HR app by uploading PDF receipts within 14 days of the journey. I do not have information on what happens if you submit your local travel expense on day 15.,"[1] Q: How do I submit a local travel expense?
+A: Submit local travel expenses via the mobile HR app by uploading PDF receipts within 14 days of the journey.
+
+[2] Q: How do I submit an international travel expense?
+A: International travel expenses require submitting original physical receipts to the Finance Helpdesk in Room 402 within 30 days.
+
+[3] Q: What form is required for an internal transfer?
+A: After gaining manager approval, the employee must submit Form TR-09 to the HR intranet portal.
+
+[4] Q: How long does the company have to fulfil a data request from data subject?
+A: The company must provide the requested personal data within 14 calendar days of verifying the subject's identity.
+
+[5] Q: How many paid public holidays do employees receive each year?
+A: All employees are entitled to 16 paid public holidays per calendar year, as listed in the annual company holiday schedule.",faithful,
+U035,How long does a sabbatical last?,A sabbatical lasts for exactly 8 weeks.,"[1] Q: How long is a sabbatical and is it paid?
+A: A sabbatical lasts for exactly 8 weeks and is paid at 50% of the employee's standard base salary.
+
+[2] Q: Who is eligible to apply for a sabbatical?
+A: Employees must have completed at least 5 years of continuous full-time service to be eligible for a sabbatical.
+
+[3] Q: How many days of compassionate leave are provided?
+A: Employees are granted 5 consecutive working days of fully paid compassionate leave for the loss of an immediate family member.
+
+[4] Q: What is the company's marriage leave policy?
+A: Employees who have completed 12 months of continuous service are entitled to 5 working days of paid marriage leave, which must be applied for via Form ML-02 at least one month before the intended leave date.
+
+[5] Q: What is the required notice period during the probationary period?
+A: During the 3-month probationary period, either party may terminate the contract with just 2 days of written notice.",faithful,
+U036,What is the annual leave entitlement for a full-time employee?,Permanent full-time employees receive 24 calendar days of paid annual leave per year.,"[1] Q: What is the annual leave entitlement for full-time staff?
+A: Permanent full-time employees receive 24 calendar days of paid annual leave per year.
+
+[2] Q: What is the annual leave entitlement for part-time staff?
+A: Permanent part-time employees receive 12 calendar days of paid annual leave per year.
+
+[3] Q: What is the study and examination leave entitlement?
+A: Permanent full-time employees are entitled to 4 days of paid study and examination leave per year for approved professional qualifications. Part-time employees are not eligible for study leave.
+
+[4] Q: What is the company policy regarding Maternity Leave?
+A: Female employees are entitled to 20 weeks of fully paid Maternity Leave.
+
+[5] Q: How is paid sick leave accrued?
+A: Employees accrue 2 days of paid sick leave per completed month of service, up to a maximum cap of 36 days.",faithful,
+U037,What is the standard response time for an escalated complaint?,Escalated complaints routed from Tier 1 must receive a written resolution plan within 2 working days.,"[1] Q: What is the standard response time for escalated complaints?
+A: Escalated complaints routed from Tier 1 must receive a written resolution plan within 2 working days.
+
+[2] Q: What are the timelines for handling a formal customer complaint?
+A: All formal complaints must be acknowledged within 1 working day of receipt, and a full written response must be issued within 10 working days.
+
+[3] Q: What is the standard response time for general customer emails?
+A: General customer emails must receive a human response within 12 working hours.
+
+[4] Q: What is the required response time for a Level 1 Emergency Server Outage?
+A: The on-call engineering team must acknowledge a Level 1 Server Outage within 15 minutes, 24/7.
+
+[5] Q: How long does the company have to fulfil a data request from data subject?
+A: The company must provide the requested personal data within 14 calendar days of verifying the subject's identity.",faithful,
+U038,Do part-time employees get the same 24 days of leave as full-time?,"No, permanent part-time employees do not receive the same 24 days of paid annual leave as full-time employees. Permanent part-time employees receive 12 calendar days of paid annual leave per year, while permanent full-time employees receive 24 calendar days of paid annual leave per year.","[1] Q: What is the annual leave entitlement for part-time staff?
+A: Permanent part-time employees receive 12 calendar days of paid annual leave per year.
+
+[2] Q: What is the annual leave entitlement for full-time staff?
+A: Permanent full-time employees receive 24 calendar days of paid annual leave per year.
+
+[3] Q: What is the study and examination leave entitlement?
+A: Permanent full-time employees are entitled to 4 days of paid study and examination leave per year for approved professional qualifications. Part-time employees are not eligible for study leave.
+
+[4] Q: What is the company policy regarding Maternity Leave?
+A: Female employees are entitled to 20 weeks of fully paid Maternity Leave.
+
+[5] Q: How is paid sick leave accrued?
+A: Employees accrue 2 days of paid sick leave per completed month of service, up to a maximum cap of 36 days.",faithful,
+U039,How do I submit an international travel expense?,"To submit an international travel expense, you must submit original physical receipts to the Finance Helpdesk in Room 402 within 30 days.","[1] Q: How do I submit an international travel expense?
+A: International travel expenses require submitting original physical receipts to the Finance Helpdesk in Room 402 within 30 days.
+
+[2] Q: How do I submit a local travel expense?
+A: Submit local travel expenses via the mobile HR app by uploading PDF receipts within 14 days of the journey.
+
+[3] Q: What form is required for an internal transfer?
+A: After gaining manager approval, the employee must submit Form TR-09 to the HR intranet portal.
+
+[4] Q: What is the first step to apply for an internal department transfer?
+A: The employee must first obtain written approval from their current direct Line Manager via email.
+
+[5] Q: Who conducts the interview for an internal transfer?
+A: The final step is an interview conducted by the receiving Department Head and an HR Business Partner.",faithful,
+U040,Can I bypass my Line Manager for a transfer if we don't get along?,"You cannot bypass your Line Manager. To apply for an internal department transfer, you must first obtain written approval from your current direct Line Manager via email. I do not have information on whether exceptions are made if you do not get along with your Line Manager.","[1] Q: What is the first step to apply for an internal department transfer?
+A: The employee must first obtain written approval from their current direct Line Manager via email.
+
+[2] Q: What form is required for an internal transfer?
+A: After gaining manager approval, the employee must submit Form TR-09 to the HR intranet portal.
+
+[3] Q: What is the financial approval limit for a Department Manager?
+A: A Department Manager can approve purchase orders up to HKD 10,000 without secondary sign-off.
+
+[4] Q: Who conducts the interview for an internal transfer?
+A: The final step is an interview conducted by the receiving Department Head and an HR Business Partner.
+
+[5] Q: What is the standard response time for escalated complaints?
+A: Escalated complaints routed from Tier 1 must receive a written resolution plan within 2 working days.",intrinsic,
+U041,How do I submit a local travel expense?,Submit local travel expenses via the mobile HR app by uploading PDF receipts within 14 days of the journey.,"[1] Q: How do I submit a local travel expense?
+A: Submit local travel expenses via the mobile HR app by uploading PDF receipts within 14 days of the journey.
+
+[2] Q: How do I submit an international travel expense?
+A: International travel expenses require submitting original physical receipts to the Finance Helpdesk in Room 402 within 30 days.
+
+[3] Q: What form is required for an internal transfer?
+A: After gaining manager approval, the employee must submit Form TR-09 to the HR intranet portal.
+
+[4] Q: What is the first step to apply for an internal department transfer?
+A: The employee must first obtain written approval from their current direct Line Manager via email.
+
+[5] Q: Who conducts the interview for an internal transfer?
+A: The final step is an interview conducted by the receiving Department Head and an HR Business Partner.",faithful,
+U042,How many business days does it take to get a new laptop after approval?,Standard IT hardware requests are deployed within 5 business days of managerial approval. I do not have information on the timeline specifically for a laptop.,"[1] Q: How long does it take for IT to deploy requested hardware?
+A: Standard IT hardware requests are deployed within 5 business days of managerial approval.
+
+[2] Q: How long does it take for IT to grant software license access?
+A: Software license access is granted within 2 business days of managerial approval.
+
+[3] Q: What are the timelines for handling a formal customer complaint?
+A: All formal complaints must be acknowledged within 1 working day of receipt, and a full written response must be issued within 10 working days.
+
+[4] Q: How long does the company have to fulfil a data request from data subject?
+A: The company must provide the requested personal data within 14 calendar days of verifying the subject's identity.
+
+[5] Q: What is the standard response time for escalated complaints?
+A: Escalated complaints routed from Tier 1 must receive a written resolution plan within 2 working days.",faithful,
+U043,"Is study or examination leave provided, and who qualifies?",Permanent full-time employees are entitled to 4 days of paid study and examination leave per year for approved professional qualifications. Part-time employees are not eligible for study leave.,"[1] Q: What is the study and examination leave entitlement?
+A: Permanent full-time employees are entitled to 4 days of paid study and examination leave per year for approved professional qualifications. Part-time employees are not eligible for study leave.
+
+[2] Q: Who is eligible to apply for a sabbatical?
+A: Employees must have completed at least 5 years of continuous full-time service to be eligible for a sabbatical.
+
+[3] Q: What is the annual leave entitlement for full-time staff?
+A: Permanent full-time employees receive 24 calendar days of paid annual leave per year.
+
+[4] Q: What is the company's marriage leave policy?
+A: Employees who have completed 12 months of continuous service are entitled to 5 working days of paid marriage leave, which must be applied for via Form ML-02 at least one month before the intended leave date.
+
+[5] Q: What is the annual leave entitlement for part-time staff?
+A: Permanent part-time employees receive 12 calendar days of paid annual leave per year.",faithful,
+U044,I have been here 5 years. What are the rules and pay for taking a sabbatical?,"To be eligible for a sabbatical, you must have completed at least 5 years of continuous full-time service. A sabbatical lasts for exactly 8 weeks and is paid at 50% of your standard base salary.","[1] Q: How long is a sabbatical and is it paid?
+A: A sabbatical lasts for exactly 8 weeks and is paid at 50% of the employee's standard base salary.
+
+[2] Q: Who is eligible to apply for a sabbatical?
+A: Employees must have completed at least 5 years of continuous full-time service to be eligible for a sabbatical.
+
+[3] Q: What is the study and examination leave entitlement?
+A: Permanent full-time employees are entitled to 4 days of paid study and examination leave per year for approved professional qualifications. Part-time employees are not eligible for study leave.
+
+[4] Q: How many days of compassionate leave are provided?
+A: Employees are granted 5 consecutive working days of fully paid compassionate leave for the loss of an immediate family member.
+
+[5] Q: What is the company policy regarding Maternity Leave?
+A: Female employees are entitled to 20 weeks of fully paid Maternity Leave.",faithful,
+U045,What is the required notice period if I resign during my probation?,"During the 3-month probationary period, the required notice period is 2 days of written notice.","[1] Q: What is the required notice period during the probationary period?
+A: During the 3-month probationary period, either party may terminate the contract with just 2 days of written notice.
+
+[2] Q: What is the company's marriage leave policy?
+A: Employees who have completed 12 months of continuous service are entitled to 5 working days of paid marriage leave, which must be applied for via Form ML-02 at least one month before the intended leave date.
+
+[3] Q: What is the study and examination leave entitlement?
+A: Permanent full-time employees are entitled to 4 days of paid study and examination leave per year for approved professional qualifications. Part-time employees are not eligible for study leave.
+
+[4] Q: Who is eligible to apply for a sabbatical?
+A: Employees must have completed at least 5 years of continuous full-time service to be eligible for a sabbatical.
+
+[5] Q: What is the annual leave entitlement for part-time staff?
+A: Permanent part-time employees receive 12 calendar days of paid annual leave per year.",faithful,
+U046,Can I take a sabbatical to work for a competitor?,"I do not have information on whether you can work for a competitor during a sabbatical. To be eligible to apply for a sabbatical, you must have completed at least 5 years of continuous full-time service. A sabbatical lasts for exactly 8 weeks and is paid at 50% of your standard base salary.","[1] Q: Who is eligible to apply for a sabbatical?
+A: Employees must have completed at least 5 years of continuous full-time service to be eligible for a sabbatical.
+
+[2] Q: How long is a sabbatical and is it paid?
+A: A sabbatical lasts for exactly 8 weeks and is paid at 50% of the employee's standard base salary.
+
+[3] Q: What is the company policy regarding Maternity Leave?
+A: Female employees are entitled to 20 weeks of fully paid Maternity Leave.
+
+[4] Q: What is the study and examination leave entitlement?
+A: Permanent full-time employees are entitled to 4 days of paid study and examination leave per year for approved professional qualifications. Part-time employees are not eligible for study leave.
+
+[5] Q: How many days of compassionate leave are provided?
+A: Employees are granted 5 consecutive working days of fully paid compassionate leave for the loss of an immediate family member.",faithful,
+U047,Do we get the standard 15 statutory holidays in Hong Kong?,"All employees are entitled to 16 paid public holidays per calendar year, as listed in the annual company holiday schedule. I do not have information on whether these are the standard statutory holidays in Hong Kong.","[1] Q: How many paid public holidays do employees receive each year?
+A: All employees are entitled to 16 paid public holidays per calendar year, as listed in the annual company holiday schedule.
+
+[2] Q: What is the annual leave entitlement for full-time staff?
+A: Permanent full-time employees receive 24 calendar days of paid annual leave per year.
+
+[3] Q: What is the financial approval limit for a Department Manager?
+A: A Department Manager can approve purchase orders up to HKD 10,000 without secondary sign-off.
+
+[4] Q: What is the annual leave entitlement for part-time staff?
+A: Permanent part-time employees receive 12 calendar days of paid annual leave per year.
+
+[5] Q: How is paid sick leave accrued?
+A: Employees accrue 2 days of paid sick leave per completed month of service, up to a maximum cap of 36 days.",faithful,
+U048,What is the first step to apply for an internal department transfer?,The employee must first obtain written approval from their current direct Line Manager via email.,"[1] Q: What is the first step to apply for an internal department transfer?
+A: The employee must first obtain written approval from their current direct Line Manager via email.
+
+[2] Q: What form is required for an internal transfer?
+A: After gaining manager approval, the employee must submit Form TR-09 to the HR intranet portal.
+
+[3] Q: Who conducts the interview for an internal transfer?
+A: The final step is an interview conducted by the receiving Department Head and an HR Business Partner.
+
+[4] Q: What is the financial approval limit for a Department Manager?
+A: A Department Manager can approve purchase orders up to HKD 10,000 without secondary sign-off.
+
+[5] Q: How do I submit an international travel expense?
+A: International travel expenses require submitting original physical receipts to the Finance Helpdesk in Room 402 within 30 days.",faithful,
+U049,What is the maximum cap for sick leave days I can save up?,The maximum cap for paid sick leave is 36 days. Employees accrue these days at a rate of 2 days of paid sick leave per completed month of service.,"[1] Q: How is paid sick leave accrued?
+A: Employees accrue 2 days of paid sick leave per completed month of service, up to a maximum cap of 36 days.
+
+[2] Q: How many days of compassionate leave are provided?
+A: Employees are granted 5 consecutive working days of fully paid compassionate leave for the loss of an immediate family member.
+
+[3] Q: What is the annual leave entitlement for full-time staff?
+A: Permanent full-time employees receive 24 calendar days of paid annual leave per year.
+
+[4] Q: What is the annual leave entitlement for part-time staff?
+A: Permanent part-time employees receive 12 calendar days of paid annual leave per year.
+
+[5] Q: What is the company's marriage leave policy?
+A: Employees who have completed 12 months of continuous service are entitled to 5 working days of paid marriage leave, which must be applied for via Form ML-02 at least one month before the intended leave date.",faithful,
+U050,How many days of compassionate leave are provided?,Employees are granted 5 consecutive working days of fully paid compassionate leave for the loss of an immediate family member.,"[1] Q: How many days of compassionate leave are provided?
+A: Employees are granted 5 consecutive working days of fully paid compassionate leave for the loss of an immediate family member.
+
+[2] Q: What is the company's marriage leave policy?
+A: Employees who have completed 12 months of continuous service are entitled to 5 working days of paid marriage leave, which must be applied for via Form ML-02 at least one month before the intended leave date.
+
+[3] Q: How is paid sick leave accrued?
+A: Employees accrue 2 days of paid sick leave per completed month of service, up to a maximum cap of 36 days.
+
+[4] Q: How long is a sabbatical and is it paid?
+A: A sabbatical lasts for exactly 8 weeks and is paid at 50% of the employee's standard base salary.
+
+[5] Q: What is the annual leave entitlement for part-time staff?
+A: Permanent part-time employees receive 12 calendar days of paid annual leave per year.",faithful,
+U051,"If an immediate family member passes away, is the leave paid?","Yes, employees are granted 5 consecutive working days of fully paid compassionate leave for the loss of an immediate family member.","[1] Q: How many days of compassionate leave are provided?
+A: Employees are granted 5 consecutive working days of fully paid compassionate leave for the loss of an immediate family member.
+
+[2] Q: How long is a sabbatical and is it paid?
+A: A sabbatical lasts for exactly 8 weeks and is paid at 50% of the employee's standard base salary.
+
+[3] Q: How is paid sick leave accrued?
+A: Employees accrue 2 days of paid sick leave per completed month of service, up to a maximum cap of 36 days.
+
+[4] Q: What is the annual leave entitlement for full-time staff?
+A: Permanent full-time employees receive 24 calendar days of paid annual leave per year.
+
+[5] Q: What is the company policy regarding Maternity Leave?
+A: Female employees are entitled to 20 weeks of fully paid Maternity Leave.",faithful,
+U052,How many days off do permanent full-time staff get a year?,"Permanent full-time employees receive 24 calendar days of paid annual leave per year. Additionally, they are entitled to 4 days of paid study and examination leave per year for approved professional qualifications, and they accrue 2 days of paid sick leave per completed month of service, up to a maximum cap of 36 days.","[1] Q: What is the annual leave entitlement for full-time staff?
+A: Permanent full-time employees receive 24 calendar days of paid annual leave per year.
+
+[2] Q: What is the annual leave entitlement for part-time staff?
+A: Permanent part-time employees receive 12 calendar days of paid annual leave per year.
+
+[3] Q: What is the study and examination leave entitlement?
+A: Permanent full-time employees are entitled to 4 days of paid study and examination leave per year for approved professional qualifications. Part-time employees are not eligible for study leave.
+
+[4] Q: How long is a sabbatical and is it paid?
+A: A sabbatical lasts for exactly 8 weeks and is paid at 50% of the employee's standard base salary.
+
+[5] Q: How is paid sick leave accrued?
+A: Employees accrue 2 days of paid sick leave per completed month of service, up to a maximum cap of 36 days.",faithful,
+U053,"As a part-time worker, how much annual leave am I entitled to?",Permanent part-time employees receive 12 calendar days of paid annual leave per year.,"[1] Q: What is the annual leave entitlement for part-time staff?
+A: Permanent part-time employees receive 12 calendar days of paid annual leave per year.
+
+[2] Q: What is the annual leave entitlement for full-time staff?
+A: Permanent full-time employees receive 24 calendar days of paid annual leave per year.
+
+[3] Q: What is the study and examination leave entitlement?
+A: Permanent full-time employees are entitled to 4 days of paid study and examination leave per year for approved professional qualifications. Part-time employees are not eligible for study leave.
+
+[4] Q: What is the company policy regarding Maternity Leave?
+A: Female employees are entitled to 20 weeks of fully paid Maternity Leave.
+
+[5] Q: How is paid sick leave accrued?
+A: Employees accrue 2 days of paid sick leave per completed month of service, up to a maximum cap of 36 days.",faithful,
+U054,What is the deadline to submit local travel expenses via the HR app?,The deadline to submit local travel expenses via the mobile HR app is within 14 days of the journey.,"[1] Q: How do I submit a local travel expense?
+A: Submit local travel expenses via the mobile HR app by uploading PDF receipts within 14 days of the journey.
+
+[2] Q: How do I submit an international travel expense?
+A: International travel expenses require submitting original physical receipts to the Finance Helpdesk in Room 402 within 30 days.
+
+[3] Q: What form is required for an internal transfer?
+A: After gaining manager approval, the employee must submit Form TR-09 to the HR intranet portal.
+
+[4] Q: How long does the company have to fulfil a data request from data subject?
+A: The company must provide the requested personal data within 14 calendar days of verifying the subject's identity.
+
+[5] Q: What are the timelines for handling a formal customer complaint?
+A: All formal complaints must be acknowledged within 1 working day of receipt, and a full written response must be issued within 10 working days.",faithful,
+U055,How many paid public holidays do employees receive each year?,"All employees are entitled to 16 paid public holidays per calendar year, as listed in the annual company holiday schedule.","[1] Q: How many paid public holidays do employees receive each year?
+A: All employees are entitled to 16 paid public holidays per calendar year, as listed in the annual company holiday schedule.
+
+[2] Q: What is the annual leave entitlement for full-time staff?
+A: Permanent full-time employees receive 24 calendar days of paid annual leave per year.
+
+[3] Q: What is the annual leave entitlement for part-time staff?
+A: Permanent part-time employees receive 12 calendar days of paid annual leave per year.
+
+[4] Q: How is paid sick leave accrued?
+A: Employees accrue 2 days of paid sick leave per completed month of service, up to a maximum cap of 36 days.
+
+[5] Q: How long is a sabbatical and is it paid?
+A: A sabbatical lasts for exactly 8 weeks and is paid at 50% of the employee's standard base salary.",faithful,
+U056,What is the company's maternity leave policy?,Female employees are entitled to 20 weeks of fully paid Maternity Leave.,"[1] Q: What is the company policy regarding Maternity Leave?
+A: Female employees are entitled to 20 weeks of fully paid Maternity Leave.
+
+[2] Q: What is the company's marriage leave policy?
+A: Employees who have completed 12 months of continuous service are entitled to 5 working days of paid marriage leave, which must be applied for via Form ML-02 at least one month before the intended leave date.
+
+[3] Q: What is the annual leave entitlement for full-time staff?
+A: Permanent full-time employees receive 24 calendar days of paid annual leave per year.
+
+[4] Q: How many days of compassionate leave are provided?
+A: Employees are granted 5 consecutive working days of fully paid compassionate leave for the loss of an immediate family member.
+
+[5] Q: What is the study and examination leave entitlement?
+A: Permanent full-time employees are entitled to 4 days of paid study and examination leave per year for approved professional qualifications. Part-time employees are not eligible for study leave.",faithful,
+U057,Who conducts the interview for an internal transfer?,The interview for an internal transfer is conducted by the receiving Department Head and an HR Business Partner.,"[1] Q: Who conducts the interview for an internal transfer?
+A: The final step is an interview conducted by the receiving Department Head and an HR Business Partner.
+
+[2] Q: What is the first step to apply for an internal department transfer?
+A: The employee must first obtain written approval from their current direct Line Manager via email.
+
+[3] Q: What form is required for an internal transfer?
+A: After gaining manager approval, the employee must submit Form TR-09 to the HR intranet portal.
+
+[4] Q: How do I submit an international travel expense?
+A: International travel expenses require submitting original physical receipts to the Finance Helpdesk in Room 402 within 30 days.
+
+[5] Q: How long does the company have to fulfil a data request from data subject?
+A: The company must provide the requested personal data within 14 calendar days of verifying the subject's identity.",faithful,
+U058,Can I take marriage leave in my first year of employment?,"No, you cannot take marriage leave in your first year of employment. Employees must have completed 12 months of continuous service to be entitled to 5 working days of paid marriage leave, which must be applied for via Form ML-02 at least one month before the intended leave date.","[1] Q: What is the company's marriage leave policy?
+A: Employees who have completed 12 months of continuous service are entitled to 5 working days of paid marriage leave, which must be applied for via Form ML-02 at least one month before the intended leave date.
+
+[2] Q: What is the study and examination leave entitlement?
+A: Permanent full-time employees are entitled to 4 days of paid study and examination leave per year for approved professional qualifications. Part-time employees are not eligible for study leave.
+
+[3] Q: What is the company policy regarding Maternity Leave?
+A: Female employees are entitled to 20 weeks of fully paid Maternity Leave.
+
+[4] Q: Who is eligible to apply for a sabbatical?
+A: Employees must have completed at least 5 years of continuous full-time service to be eligible for a sabbatical.
+
+[5] Q: What is the annual leave entitlement for part-time staff?
+A: Permanent part-time employees receive 12 calendar days of paid annual leave per year.",faithful,
+U059,Is there bereavement leave for grandparents?,Employees are granted 5 consecutive working days of fully paid compassionate leave for the loss of an immediate family member. I do not have information on whether grandparents count as immediate family.,"[1] Q: How many days of compassionate leave are provided?
+A: Employees are granted 5 consecutive working days of fully paid compassionate leave for the loss of an immediate family member.
+
+[2] Q: What is the company policy regarding Maternity Leave?
+A: Female employees are entitled to 20 weeks of fully paid Maternity Leave.
+
+[3] Q: What is the company's marriage leave policy?
+A: Employees who have completed 12 months of continuous service are entitled to 5 working days of paid marriage leave, which must be applied for via Form ML-02 at least one month before the intended leave date.
+
+[4] Q: Who is eligible to apply for a sabbatical?
+A: Employees must have completed at least 5 years of continuous full-time service to be eligible for a sabbatical.
+
+[5] Q: What is the annual leave entitlement for part-time staff?
+A: Permanent part-time employees receive 12 calendar days of paid annual leave per year.",faithful,
+U060,How is paid sick leave accrued?,"Employees accrue 2 days of paid sick leave per completed month of service, up to a maximum cap of 36 days.","[1] Q: How is paid sick leave accrued?
+A: Employees accrue 2 days of paid sick leave per completed month of service, up to a maximum cap of 36 days.
+
+[2] Q: What is the annual leave entitlement for full-time staff?
+A: Permanent full-time employees receive 24 calendar days of paid annual leave per year.
+
+[3] Q: What is the annual leave entitlement for part-time staff?
+A: Permanent part-time employees receive 12 calendar days of paid annual leave per year.
+
+[4] Q: What is the study and examination leave entitlement?
+A: Permanent full-time employees are entitled to 4 days of paid study and examination leave per year for approved professional qualifications. Part-time employees are not eligible for study leave.
+
+[5] Q: How many days of compassionate leave are provided?
+A: Employees are granted 5 consecutive working days of fully paid compassionate leave for the loss of an immediate family member.",faithful,
+U061,What happens if I lose my physical receipt for an international trip?,International travel expenses require submitting original physical receipts to the Finance Helpdesk in Room 402 within 30 days. I do not have information on what happens if you lose your physical receipt.,"[1] Q: How do I submit an international travel expense?
+A: International travel expenses require submitting original physical receipts to the Finance Helpdesk in Room 402 within 30 days.
+
+[2] Q: How do I submit a local travel expense?
+A: Submit local travel expenses via the mobile HR app by uploading PDF receipts within 14 days of the journey.
+
+[3] Q: What are the timelines for handling a formal customer complaint?
+A: All formal complaints must be acknowledged within 1 working day of receipt, and a full written response must be issued within 10 working days.
+
+[4] Q: How long does the company have to fulfil a data request from data subject?
+A: The company must provide the requested personal data within 14 calendar days of verifying the subject's identity.
+
+[5] Q: What is the financial approval limit for a Department Manager?
+A: A Department Manager can approve purchase orders up to HKD 10,000 without secondary sign-off.",faithful,
+U062,Do I earn 2 days of sick leave every month?,"You accrue 2 days of paid sick leave per completed month of service, up to a maximum cap of 36 days.","[1] Q: How is paid sick leave accrued?
+A: Employees accrue 2 days of paid sick leave per completed month of service, up to a maximum cap of 36 days.
+
+[2] Q: What is the annual leave entitlement for part-time staff?
+A: Permanent part-time employees receive 12 calendar days of paid annual leave per year.
+
+[3] Q: How many days of compassionate leave are provided?
+A: Employees are granted 5 consecutive working days of fully paid compassionate leave for the loss of an immediate family member.
+
+[4] Q: What is the annual leave entitlement for full-time staff?
+A: Permanent full-time employees receive 24 calendar days of paid annual leave per year.
+
+[5] Q: What is the company's marriage leave policy?
+A: Employees who have completed 12 months of continuous service are entitled to 5 working days of paid marriage leave, which must be applied for via Form ML-02 at least one month before the intended leave date.",faithful,
+U063,Can I bypass my Line Manager for a transfer if we don't get along?,"To apply for an internal department transfer, you must first obtain written approval from your current direct Line Manager via email. I do not have information on whether you can bypass your Line Manager if you do not get along.","[1] Q: What is the first step to apply for an internal department transfer?
+A: The employee must first obtain written approval from their current direct Line Manager via email.
+
+[2] Q: What form is required for an internal transfer?
+A: After gaining manager approval, the employee must submit Form TR-09 to the HR intranet portal.
+
+[3] Q: What is the financial approval limit for a Department Manager?
+A: A Department Manager can approve purchase orders up to HKD 10,000 without secondary sign-off.
+
+[4] Q: Who conducts the interview for an internal transfer?
+A: The final step is an interview conducted by the receiving Department Head and an HR Business Partner.
+
+[5] Q: What is the standard response time for escalated complaints?
+A: Escalated complaints routed from Tier 1 must receive a written resolution plan within 2 working days.",faithful,
+U064,Do I only need to give 7 days' notice during the probationary period?,"No, during the 3-month probationary period, either party may terminate the contract with just 2 days of written notice.","[1] Q: What is the required notice period during the probationary period?
+A: During the 3-month probationary period, either party may terminate the contract with just 2 days of written notice.
+
+[2] Q: How many days of compassionate leave are provided?
+A: Employees are granted 5 consecutive working days of fully paid compassionate leave for the loss of an immediate family member.
+
+[3] Q: What is the company's marriage leave policy?
+A: Employees who have completed 12 months of continuous service are entitled to 5 working days of paid marriage leave, which must be applied for via Form ML-02 at least one month before the intended leave date.
+
+[4] Q: What are the timelines for handling a formal customer complaint?
+A: All formal complaints must be acknowledged within 1 working day of receipt, and a full written response must be issued within 10 working days.
+
+[5] Q: What is the standard response time for escalated complaints?
+A: Escalated complaints routed from Tier 1 must receive a written resolution plan within 2 working days.",faithful,
+U065,Walk me through the entire internal transfer process step-by-step.,"To apply for an internal transfer, the process is as follows:
+
+1. First, the employee must obtain written approval from their current direct Line Manager via email.
+2. After gaining manager approval, the employee must submit Form TR-09 to the HR intranet portal.
+3. The final step is an interview conducted by the receiving Department Head and an HR Business Partner.","[1] Q: What is the first step to apply for an internal department transfer?
+A: The employee must first obtain written approval from their current direct Line Manager via email.
+
+[2] Q: Who conducts the interview for an internal transfer?
+A: The final step is an interview conducted by the receiving Department Head and an HR Business Partner.
+
+[3] Q: What form is required for an internal transfer?
+A: After gaining manager approval, the employee must submit Form TR-09 to the HR intranet portal.
+
+[4] Q: How do I submit an international travel expense?
+A: International travel expenses require submitting original physical receipts to the Finance Helpdesk in Room 402 within 30 days.
+
+[5] Q: How do I submit a local travel expense?
+A: Submit local travel expenses via the mobile HR app by uploading PDF receipts within 14 days of the journey.",faithful,
+U066,Do part-time employees get the same 24 days of leave as full-time?,"No, permanent part-time employees do not receive the same 24 days of leave as full-time employees. Permanent part-time employees receive 12 calendar days of paid annual leave per year, while permanent full-time employees receive 24 calendar days of paid annual leave per year.","[1] Q: What is the annual leave entitlement for part-time staff?
+A: Permanent part-time employees receive 12 calendar days of paid annual leave per year.
+
+[2] Q: What is the annual leave entitlement for full-time staff?
+A: Permanent full-time employees receive 24 calendar days of paid annual leave per year.
+
+[3] Q: What is the study and examination leave entitlement?
+A: Permanent full-time employees are entitled to 4 days of paid study and examination leave per year for approved professional qualifications. Part-time employees are not eligible for study leave.
+
+[4] Q: What is the company policy regarding Maternity Leave?
+A: Female employees are entitled to 20 weeks of fully paid Maternity Leave.
+
+[5] Q: How is paid sick leave accrued?
+A: Employees accrue 2 days of paid sick leave per completed month of service, up to a maximum cap of 36 days.",faithful,
+U067,"If an immediate family member passes away, is the leave paid?","Yes, the leave is fully paid. Employees are granted 5 consecutive working days of fully paid compassionate leave for the loss of an immediate family member.","[1] Q: How many days of compassionate leave are provided?
+A: Employees are granted 5 consecutive working days of fully paid compassionate leave for the loss of an immediate family member.
+
+[2] Q: How long is a sabbatical and is it paid?
+A: A sabbatical lasts for exactly 8 weeks and is paid at 50% of the employee's standard base salary.
+
+[3] Q: How is paid sick leave accrued?
+A: Employees accrue 2 days of paid sick leave per completed month of service, up to a maximum cap of 36 days.
+
+[4] Q: What is the annual leave entitlement for full-time staff?
+A: Permanent full-time employees receive 24 calendar days of paid annual leave per year.
+
+[5] Q: What is the company policy regarding Maternity Leave?
+A: Female employees are entitled to 20 weeks of fully paid Maternity Leave.",faithful,
