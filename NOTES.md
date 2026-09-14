@@ -876,6 +876,204 @@ arms (107 labels saved by deduplication). Second-reviewer sample: 20 units
 proportion, which at this deduplicated total would yield only 10-13 items —
 too few for a stable Cohen's kappa. Documented deviation.
 
+## 12.8.2026
+**Two tiers of claim — existential versus rate-based**
+
+The finding that the three configurations are NOT INTERCHANGEABLE is
+existential: at least one query produced a different outcome depending on
+which verifier ran, with the generator's draft held constant by hash. This
+does not depend on the run being representative, so single-run variance
+cannot undermine it, and labelling one run is sufficient to characterise the
+case.
+
+All other reported figures are RATES — outcome distributions, Ragas means,
+latency percentiles, and the confusion-matrix rates — and remain single-run
+estimates subject to the usual variance caveat. The repeat runs address
+these, not the existential finding.
+
+Keep the two separate in the write-up. The robustness of the first must not
+be allowed to appear to cover the second.
+
+## 16.8.2026 — Prompt-level mitigation probe (scratch, not part of the study)
+
+Curiosity probe run after the frozen configuration was complete. Tests
+whether a prompt rule could prevent the one error class observed in the
+study: converting a stated REQUIREMENT into a PROHIBITION on the manner of
+compliance. Not part of the experiment; results are not reported in Results.
+
+**The error.** ADV-27's delivered answer said "You cannot bypass your Line
+Manager." The passage states that written approval must be obtained from the
+Line Manager, but is silent on the ROUTE by which it is obtained — approval
+might be sought through HR or a skip-level manager. The answer collapsed
+"approval is required" into "you must deal with this person directly", which
+the passage does not state. This mirrors the common-law default that what is
+not prohibited is permitted: a stated requirement does not create a
+prohibition.
+
+**Method.** System prompts substituted at call time; prompts.py untouched.
+Four queries — ADV-27 as target, IN-44 (exhaustive entitlement condition),
+IN-35 (embedded false premise) and IN-01 (plain lookup) as controls — under
+three conditions: current prompt, generator rule added, and the ORIGINAL
+draft re-judged with a verifier rule added. Run under both dual-pass arms.
+About 40 calls.
+
+**Result 1 — the generator rule eliminated the error.** ADV-27's draft
+dropped the categorical claim and reframed the declining clause as "whether
+you can bypass this requirement". The controls held: IN-35 and IN-01 were
+byte-identical; IN-44 changed wording but kept the substance, which the
+rule's second half was written to protect.
+
+**Result 2 — verifier thresholds are prompt-tunable, and not vendor-fixed.**
+Both verifiers passed the original ADV-27 draft under the current
+instruction (0 flagged) and both flagged it `unsupported` with the rule
+added — same verdict, same wording, from Luna and Gemini alike. The
+divergence observed in the study is therefore not a fixed disposition of
+either model but a consequence of the prompt leaving the threshold
+unstated.
+
+**Result 3 — the residual IN-44 disagreement is specific, not general.**
+On IN-44 the rule moved neither verifier: Luna flagged `contradicted` in
+both conditions, Gemini flagged nothing in either. The rule addresses
+requirements-versus-prohibitions; IN-44 turns on an entitlement condition,
+which it explicitly protects. So the two verifiers agree once a threshold
+is specified for the case the rule covers, and continue to disagree on the
+case it does not. That is a narrower and better-supported claim than
+"vendors differ in strictness".
+
+**Incidental.** The generator produced different wording for IN-44 between
+the two runs ("You are not entitled to" versus "you cannot take") despite
+identical prompt and passages — another instance of the Node A
+non-determinism recorded earlier.
+
+**For Future Work.** A prompt-level rule distinguishing requirements from
+prohibitions eliminated the observed error at generation without affecting
+entitlement or factual queries, and caused both verifiers to flag a claim
+they had previously passed. Whether such rules generalise beyond this error
+class, and whether specifying thresholds explicitly reduces verifier
+divergence in general, was not tested.
+
+## 17.8.2026 — Stability runs (six sweeps, two per arm)
+
+Run in response to the marker's observation that single-run results carry no
+confidence estimate. Repeat runs NOT labelled: they measure pipeline
+stability, not ground truth. Labels stay on run 1.
+
+Timing check first: median generation 2.3-2.7s across eight of nine runs,
+comparable to the originals. Only cross_vendor rep1 was slower (6.71s, 6
+retries). An earlier attempt on 16.8 was abandoned — median 16s, 24-28
+retries per sweep, one generation_failed — and those two runs are kept for
+reference but excluded from the reported figures.
+
+    arm            outcome stable   draft stable
+    baseline       107/108  99.1%   93/108  86.1%
+    cross_vendor   103/108  95.4%   96/108  88.9%
+    same_vendor    107/108  99.1%   94/108  87.0%
+
+Draft varies on 11-14% of queries; outcome on far fewer. Most variation is
+rephrasing (a trailing qualifier) that leaves the claims identical.
+
+**cross_vendor is measurably less stable at the outcome level.** Five queries
+diverged (ADV-27, ADV-31, ADV-32, ADV-39, IN-33) against one for each other
+arm. Two sources of variance stack: generator draft AND verifier
+
+## 18.8.2026 — Human labelling complete
+
+67 distinct texts labelled, covering 174 records across the three arms.
+65 faithful, 2 intrinsic, 0 extrinsic. Correct-refusal never used: refusals
+make no factual claim and were excluded at sheet generation, so the label
+could not arise.
+
+**Second reviewer.** 20 units, labelled independently without sight of the
+researcher's labels. Agreement complete at 20/20. Cohen's kappa undefined —
+both raters assigned a single category throughout, so expected chance
+agreement is also complete. This is the kappa paradox, and it reflects the
+absence of hallucinated answers in that sample rather than rater failure.
+The three IN-44 units were not in the sample, so the judgement bearing most
+directly on RQ3 is not independently corroborated.
+
+**Labelling rules settled during the pass** — both now in Appendix D:
+
+1. A declining clause is itself a claim and must be accurate. U030 states
+   the source does not cover first-year marriage leave; the twelve-month
+   condition answers it, so the clause contradicts the source. Labelled
+   intrinsic.
+2. Entitlement conditions license categorical inference; procedural
+   requirements do not. "Twelve months of continuous service" is exhaustive,
+   so "you cannot take marriage leave in your first year" follows (U024,
+   faithful). "Approval must be obtained" is silent on the route by which it
+   is obtained, so "you cannot bypass your Line Manager" adds a claim
+   (U040, intrinsic).
+
+Rule 2 is the report's central analytical finding: inferential risk is not
+uniform, and procedural text carries more of it than entitlement text.
+
+## 19.8.2026 — Analysis
+
+analyse.py built and run. Joins labels to outcomes by unit hash, builds the
+confusion matrix per arm, computes SCR/FNR/FPR with Wilson intervals, and
+runs the paired comparison.
+
+**Design decision: which draft carries the outcome.** A query may produce
+several drafts; the outcome describes the query. The matrix uses the FINAL
+labelled draft — the answer shown, or the last withheld. Intermediate
+rewrite drafts are labelled and reported separately (8.7). Consequence: a
+hallucination caught and corrected inside the loop cannot appear as a true
+positive, since the delivered answer is faithful. TP is therefore structurally
+0 for fixed_by_rewrite outcomes, and 8.5 says so explicitly.
+
+    arm            TP  FP  FN  TN    SCR              FNR
+    baseline        0   0   1  57    98.3%            100% (n=1)
+    cross_vendor    0   0   1  56    98.2%            100% (n=1)
+    same_vendor     0   0   0  57    100%             undefined
+
+FPR 0.0% in all three. No discordant pairs, so McNemar has nothing to
+distinguish and is not reported.
+
+**Judge validation** (proposal commitment, 12.7.2026). Ragas faithfulness vs
+human labels on baseline: 58 scored, 6 below 1.0, 1 hallucination. The
+hallucinated answer scored 0.667; three faithful answers scored lower
+(IN-38 0.000, IN-16 0.500, IN-35 0.500) and one tied (IN-42 0.667). The
+metric registered it without distinguishing it — ranking by faithfulness
+would have surfaced three faithful answers before the unfaithful one.
+Direct evidence that automated scoring could not have replaced labelling.
+
+## 20.8.2026 — Report structure decisions
+
+Programme guidance (webinar slides) gives the expected structure:
+Introduction / Background / Methodology (specification and design) /
+Results and analysis / Evaluation-Critical evaluation / Conclusion.
+
+**Adopted, with modification.** Section 9 renamed Critical evaluation;
+Section 10 Limitations becomes 9.10 within it. Results stays as Results —
+moving the analysis into it would produce a 4,500-word section with no rule
+about which part owns a fact, and the rubric column covers both anyway.
+
+**Terminology fixed.** "Arm" for the three conditions, "configuration" for
+the settings as a whole. Only the verifier assignment varies between arms;
+everything else is held constant. This matches ARMS_CONFIG in the code.
+
+**Model pinning corrected.** Earlier drafts claimed all identifiers were
+dated snapshots. Checked against provider documentation: neither
+gemini-3.5-flash nor gpt-5.6-luna publishes a dated variant — OpenAI's
+snapshot list for Luna shows the same string three times. Only the Claude
+judge has one. The report now says identifiers are pinned to the most
+specific form each provider offers, and states the residual risk: a
+published identifier is not reassigned, but the model behind it may be
+updated, which is not verifiable from outside.
+
+**Latency stability checked** (not in the report as a figure). Across the
+three runs of each arm: baseline medians 2.29 / 2.52 / 2.60s, same_vendor
+3.84 / 4.16 / 4.01s, cross_vendor 3.47 / 8.40 / 4.17s. Cross-vendor's
+p95 ranged 8.5 to 29.6s. The arm calling two providers is exposed to the
+variability of both. The 16.8 runs (median generation ~16s, 24-28 retries)
+remain excluded.
+
+**Word count.** Body at ~13,400 against a limit of 7,000 + 10%. Principle
+adopted: make only changes that would be made irrespective of the limit —
+duplication, defects, and mechanism moved to appendices with the reasoning
+kept in the body. Compression of arguments is the last resort, not the
+first.
+
 ---
 
 ## OPEN ITEMS (running list — move up with a date when settled)
@@ -911,34 +1109,34 @@ too few for a stable Cohen's kappa. Documented deviation.
 *   [x] Ragas telemetry hang — RAGAS_DO_NOT_TRACK set in ragas_eval.py before
         import. Was 6+ min/row (~11h projected); now 35s for 116 evaluations.
         DNS failure on Ragas's usage-tracking host, not a judge/API problem.
+*   [x] Variance/stability runs — six sweeps, two per arm, run 17.8.2026
+        under comparable API conditions. Outcome stability 99.1 / 95.4 / 99.1;
+        draft stability 86-89%. The 16.8 attempt was abandoned (median
+        generation ~16s, 24-28 retries) and those two runs are excluded.
+        Ragas NOT re-run on the repeats: that would measure judge variance,
+        which is a different question and one the report does not report.       
+*   [x] Human labelling — complete (18.8.2026). 67 distinct texts, 65 faithful,
+        2 intrinsic, 0 extrinsic.
+*   [x] Reviewer pack sent and returned. 20/20 agreement; kappa undefined
+        (kappa paradox — both raters used a single category).
+*   [x] Cohen's kappa — attempted and found undefined; reported as such
+        rather than implemented in labelling.py.
+*   [x] Judge-validation check — done (19.8.2026), reported as Results 8.9.
+*   [x] Tier comparisons (Luna vs Terra) — DROPPED. Verifier selection is
+        reported as future work; holding it constant was the design decision
+        that isolates the verification step.
+*   [x] Compound queries — LEFT AS PROBES. Not adopted into the query set:
+        the set was fixed before any result was recorded, and adding to it
+        afterwards would have compromised that.
+*   [x] figures.py — NOT BUILT. The findings are few and tabular; six tables
+        in Results carry them. No figure would add to what the tables show.
 
-### Open — needs a decision
-
-*   [ ] **Tier comparisons (Luna vs Terra AND same_vendor's Gemini tier):
-        keep or drop?** Both or neither — no principled basis for holding one
-        arm to a comparative-adequacy standard and not the other. Adequacy
-        evidence already exists for both verifiers from full-sweep
-        performance. LEANING DROP; if kept, both must be done, roughly
-        doubling that scope. Decide before the report's Future Work section.
-*   [ ] **Compound queries: adopt or leave as probes?** UNBLOCKED — both
-        vendors accepted declining clauses as supported in the pre-test, so
-        no False-Positive risk. Adoption would need a second-reviewer
-        plausibility check, as the 108 had.
 
 ### Open — work still to do
 
-*   [ ] **HUMAN LABELLING — the critical path.** 67 units built and blinded;
-        20-unit reviewer sample drawn. Deliberately delayed several days to
-        allow recall decay (see blindness limitation, 9.8.2026).
-*   [ ] **Send the reviewer their CSV + Labelling Guide v3.** Their clock runs
-        independently of the delay; no reason to hold this.
-*   [ ] Cohen's kappa — not yet implemented in labelling.py; pending returned
-        reviewer labels.
-*   [ ] Judge-validation check: Ragas faithfulness vs human labels on the
-        Baseline arm (NOTES 12.7.2026). Pending labels.
-*   [ ] figures.py — pending labels.
 *   [ ] Per-query cost: measure real $/query. Token counts are logged per node
-        (tokens_a_*, tokens_b_*); rates applied in analysis, not stored.
+        (tokens_a_*, tokens_b_*); rates can be applied at any time, not stored.
+        Decided to report in token because of the frequent price changes.       
 *   [ ] node_a.py: distinguish 429 (quota — short backoff) from 503 (capacity
         — longer, more patient backoff). Current ~45s total is too short for
         a demand spike (hit 26.7.2026). Not triggered in any completed sweep.
@@ -958,29 +1156,13 @@ too few for a stable Cohen's kappa. Documented deviation.
         quantified from existing sweep data (101/108 baseline-vs-cross_vendor
         drafts identical) — recorded as a limitation, n=1, not investigated
         further. No dedicated re-test run planned.
+*   [~] Naive-baseline check (consumer Gemini, one concatenated document, no
+        instruction). Considered as an illustrative comparison and NOT run.
+        It would demonstrate the value of prompt specification rather than of
+        verification, which is not the question. The baseline being
+        well-configured rather than naive is recorded as a limitation
+        instead, with the reasoning stated.
 
-### Write-up cluster (baseline framing) — one task, five parts
-
-*   [ ] Naive check: consumer Gemini + ONE concatenated doc + NO instruction.
-        Only this configuration is what the problem statement describes.
-        Illustrative only; not a comparison. Do at write-up, not before.
-*   [ ] Distinguish the four conditions (naive one-doc / naive 24-file /
-        NotebookLM purpose-built RAG / AI Studio developer GUI). 2-3
-        sentences: all are quick to set up, but only the first is the
-        deployment the research addresses — not a claim about which performs
-        worst.
-*   [ ] Why the pipeline and not those tools: the dual-pass design needs a
-        DEFINED passage set for both nodes; long-context provides none, so the
-        architecture is unimplementable there. Plus comparability across arms,
-        failure attribution, reproducibility.
-*   [ ] Anticipated objection: "you chose the weakest configuration to beat."
-        Answer: the naive configuration is the deployment the RQ is ABOUT, not
-        a competitor; and it is NOT the baseline arm — the baseline is
-        single-pass through the same pipeline with the full specification,
-        i.e. the DEMANDING comparison.
-*   [ ] Limitation: the baseline is well-configured, not naive; corpus is
-        atomic single-topic files, not a monolithic handbook. If the naive
-        check grounds well, SOFTEN the premise rather than defend it.
 
 ### Write-up — other
 

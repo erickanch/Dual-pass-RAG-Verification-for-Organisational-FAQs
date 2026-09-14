@@ -1,6 +1,6 @@
 # Project Structure — msc-rag
 
-Updated to reflect the finalised design:
+The finalised design:
 - THREE arms (baseline / same_vendor / cross_vendor), selected via `ACTIVE_ARM`,
   not two hard-coded run scripts.
 - The three-vendor Ragas evaluation subsystem (Claude judge) has its own home.
@@ -17,7 +17,7 @@ msc-rag/
 ├── .gitignore
 ├── pyproject.toml            # declared dependencies + Python 3.12 pin + pytest discovery config
 ├── uv.lock                   # exact resolved dependency graph — COMMIT (reproducibility)
-├── requirements.txt          # TODO pip-installable export for non-uv readers (Week 14)
+├── requirements.txt          # TODO pip-installable export for non-uv readers.
 ├── README.md                 # setup guide + how to run (see README)
 ├── NOTES.md                  # methodology journal: decisions + reasons, dated
 ├── PROJECT_STRUCTURE.md      # this file
@@ -65,9 +65,15 @@ msc-rag/
 │                             #    and the hashes let labelling.py dedupe across arms.
 │
 ├── web/                      # ── WEB APP (BUILT LAST) ───────────────────────
-│   └── main.py               # TODO FastAPI app. Thin layer over controller.py.
+│   └── main.py               # DONE FastAPI app. Thin layer over controller.py.
 │                             #    Separated from the pipeline so evaluation never
 │                             #    depends on the web server.
+│                             #    calls answer_query() and does no routing or
+│                             #    verification of its own, so the demonstration
+│                             #    shows the code path the evaluation used.
+│                             #    Details panel exposes claim verdicts, retrieved
+│                             #    passages, outcome and token counts. Arm fixed by
+│                             #    ACTIVE_ARM before start, not selectable in the UI.
 │
 ├── data/                     # ── INPUTS ─────────────────────────────────────
 │   ├── corpus/               # DONE 24 synthetic FAQ source documents.
@@ -86,13 +92,12 @@ msc-rag/
 │   │                         #    scratch_*.py probes (28.7.2026: adversarial,
 │   │                         #    compound) and the Node B pre-test (27.7.2026),
 │   │                         #    rather than a dedicated script. 
-│   │                         #    The tier comparison (Luna vs Terra, and symmetrically 
-│   │                         #    the same_vendor tier) is an OPEN DECISION leaning
-│   │                         #    DROP: verifier adequacy is already evidenced by 
+│   │                         #    DROPPED: verifier adequacy is already evidenced by 
 │   │                         #    full-sweep performance (0 verifier_malformed across
-│   │                         #    57+ live calls per arm). Kept as a row so the open
-│   │                         #    obligation stays visible. Consider to delete when 
-│   │                         #    the decision is recorded.
+│   │                         #    57+ live calls per arm). 
+│   │                         #    The tier comparison (Luna vs Terra, and symmetrically 
+│   │                         #    the same_vendor tier) is reported as future work.
+│   │                         #    Kept it to record the decision. 
 │   └── results/              # DONE Raw outputs, timestamped, NEVER overwritten:
 │                             #      {arm}_{ts}.jsonl        pipeline record
 │                             #      ragas_{arm}_{ts}.jsonl  scoring record
@@ -121,7 +126,7 @@ msc-rag/
 │   │                         #    Sets RAGAS_DO_NOT_TRACK before import — the
 │   │                         #    telemetry call otherwise hangs on DNS timeout
 │   │                         #    (NOTES 8.8.2026). Judge-validation check vs human
-│   │                         #    labels on Baseline still PENDING labels.
+│   │                         #    labels on Baseline is done.
 │   ├── labelling.py          # DONE HITL SUPPORT. `build` writes a blinded CSV
 │   │                         #    (query + answer + passages only; arm, outcome and
 │   │                         #    verifier verdict withheld), seeded-shuffled, with
@@ -130,9 +135,20 @@ msc-rag/
 │   │                         #    cover 174 records (107 labels saved). `sample`
 │   │                         #    draws the 2nd-reviewer subset (20% or 20 minimum);
 │   │                         #    `read` validates and expands labels back to all
-│   │                         #    matching records. Cohen's kappa NOT yet implemented
-│   │                         #    — pending returned reviewer labels.
-│   └── figures.py            # TODO matplotlib figures for the report.
+│   │                         #    matching records. Cohen's kappa NOT implemented:
+│   │                         #    with both raters assigning a single category it is  
+│   │                         #    undefined, and percentage agreement is reported
+│   │                         #    instead.
+│   ├── analyse.py            # DONE FINAL ANALYSIS. Joins labels to outcomes via
+│   │                         #    labelling_mapping.json, builds the confusion
+│   │                         #    matrix per arm, computes SCR/FNR/FPR with Wilson
+│   │                         #    intervals and the paired baseline-vs-cross_vendor
+│   │                         #    comparison. The matrix uses the FINAL labelled
+│   │                         #    draft per query; intermediate rewrite drafts are
+│   │                         #    reported separately.
+│   └── figures.py            # NOT BUILT. The findings are few and tabular; six
+│                             #    tables in Results carry them. No figure would
+│                             #    add to what the tables show.
 │
 ├── tests/                    # ── TESTS AND DIAGNOSTICS ──────────────────────
 │   ├── test_metrics.py       # DONE UNIT TESTS. Synthetic data, hand-verified
@@ -185,7 +201,7 @@ stay explicit: `uv run python tests/smoke_test.py`.
 
 - **src/** is the *system*: retrieve -> generate -> verify -> route.
 - **experiments/** *runs* the system across the query set, once per arm.
-- **analysis/** *measures* what the runs produced — Ragas, labels, stats, figures.
+- **analysis/** *measures* what the runs produced — Ragas, labels, stats and the final analysis.
 - **web/** is a thin UI over the system, deliberately separate so evaluation
   never depends on the web server.
 
@@ -199,16 +215,17 @@ Each fact lives in exactly ONE of the three.
 
 ## Build order (dependency-driven)
 
-1. DONE **corpus + questions.json**
-2. DONE **retrieval.py** + index (recall 100% at k=3/5/8/10; k=5 chosen)
-3. DONE **prompts.py, node_a.py, node_b.py, controller.py**
-4. DONE **run_experiment.py** -> all three arms swept, 108/108 each, 0 errors
-5. DONE **ragas_eval.py** -> all three arms scored
-6. DONE **labelling.py** -> 67 units generated, blinded, deduplicated
-7. NEXT **human labelling** (67 units; 20 to 2nd reviewer) — the critical path
-8. THEN **figures.py** (needs labels), Cohen's kappa, judge-validation check
-9. THEN the **report**
-10. LAST **web/main.py** + demo video
+1.  DONE **corpus + questions.json**
+2.  DONE **retrieval.py** + index (recall 100% at k=3/5/8/10; k=5 chosen)
+3.  DONE **prompts.py, node_a.py, node_b.py, controller.py**
+4.  DONE **run_experiment.py** -> all three arms swept, 108/108 each, 0 errors
+5.  DONE **ragas_eval.py** -> all three arms scored
+6.  DONE **labelling.py** -> 67 units generated, blinded, deduplicated
+7.  DONE **human labelling** (67 units; 20 to 2nd reviewer) — the critical path
+8.  DONE **analyse.py** — matrices, rates, paired comparison, judge validation
+9.  DONE **web/main.py**
+10. NEXT the **report** + demo video
+11. LAST **requirements.txt**
 
 `analysis/metrics.py` and `stats.py` are the exception — they can be written and
 unit-tested against synthetic confusion matrices at ANY point, with no pipeline
