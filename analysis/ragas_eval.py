@@ -225,6 +225,15 @@ def score(rows: list[dict]) -> "pandas.DataFrame":
 
 def run(results_path: str | Path) -> Path:
     results_path = Path(results_path)
+
+    # The scores file is named after the run it scores, not the scoring time,
+    # so scoring the same run again would replace its committed scores. Stop
+    # before any API call.
+    stamp_path = Path(RESULTS_DIR) / f"ragas_{results_path.stem}.jsonl"
+    if stamp_path.exists():
+        raise SystemExit(f"{stamp_path} already exists and would be "
+                         f"overwritten. Move it aside first.")
+
     run_meta, rows, excluded = build_scoring_rows(results_path)
 
     print(f"Scoring {results_path.name}")
@@ -255,8 +264,7 @@ def run(results_path: str | Path) -> Path:
             "answer_relevancy": float(scored["answer_relevancy"]),
         })
 
-    stamp_path = Path(RESULTS_DIR) / f"ragas_{results_path.stem}.jsonl"
-    with stamp_path.open("w", encoding="utf-8") as f:
+    with stamp_path.open("x", encoding="utf-8") as f:   # "x": never overwrite
         meta = scoring_metadata(scored_results_file=str(results_path))
         meta["scorable_count"] = len(rows)
         meta["excluded_counts"] = excluded

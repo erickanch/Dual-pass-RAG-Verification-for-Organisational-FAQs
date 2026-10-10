@@ -4,9 +4,11 @@ Unit tests for analysis/metrics.py and analysis/stats.py.
 These run on SYNTHETIC data with hand-computed expected values — no corpus,
 no pipeline, no API keys. The point is not coverage but VERIFICATION: every
 expected number below was computed independently (Wilson from its algebraic
-definition; McNemar from the binomial; Wilcoxon from a worked example) and
-is asserted against the library's answer. If a library changes behaviour,
-these fail loudly rather than shifting a reported result silently.
+definition; McNemar from the binomial; Wilcoxon from worked examples,
+including the tied-score case of the reported comparisons; the nearest-rank
+percentile from its rank formula) and is asserted against the code's answer.
+If a library changes behaviour, these fail loudly rather than shifting a
+reported result silently.
 
 Run:  uv run pytest tests/test_metrics.py -v
 """
@@ -21,8 +23,11 @@ from analysis.metrics import (
     false_negative_rate,
     false_positive_rate,
     hallucination_reached_user,
+    nearest_rank_percentile,
     paired_safety_outcomes,
+    recorded_latency_s,
     strict_compliance_rate,
+    total_tokens,
 )
 from analysis.stats import mcnemar_test, wilcoxon_test
 from src.constants import (
@@ -293,6 +298,72 @@ def test_wilcoxon_all_identical_raises():
 def test_wilcoxon_unpaired_lengths_raise():
     with pytest.raises(ValueError, match="unpaired lengths"):
         wilcoxon_test([0.1, 0.2], [0.1])
+
+
+# ===========================================================================
+# Wilcoxon on tied scores — the shape of the reported comparisons
+#
+#   57 pairs, of which 55 are identical. Identical pairs are dropped,
+#   leaving n = 2 differences. Under the null each is equally likely to be
+#   positive or negative: 4 sign patterns, W+ in {0, 1, 2, 3}, each 1/4.
+#   Both differences here are positive, so W = min(W+, W-) = 0 and
+#     two-sided p = 2 * P(W+ <= 0) = 2 * 1/4 = 0.5
+#   With n = 1: 2 sign patterns, two-sided p = 2 * 1/2 = 1.0
+#   The normal approximation would give about 0.18 and 0.32 instead.
+# ===========================================================================
+
+def test_wilcoxon_exact_with_tied_pairs():
+    a = [1.0] * 57
+    b = [1.0] * 55 + [0.5, 0.667]
+    res = wilcoxon_test(a, b)
+    assert res.detail["n_nonzero_diffs"] == 2
+    assert res.statistic == pytest.approx(0.0, abs=TOL)
+    assert res.p_value == pytest.approx(0.5, abs=1e-9)
+
+    one = [1.0] * 56 + [0.667]
+    assert wilcoxon_test(a, one).p_value == pytest.approx(1.0, abs=1e-9)
+
+
+# ===========================================================================
+# Cost measures
+# ===========================================================================
+
+def test_nearest_rank_percentile():
+    """
+    Rank = ceil(q/100 * n), and the value is always an observed one:
+      n = 20,  q = 95  -> rank 19
+      n = 20,  q = 50  -> rank 10 (the lower middle value, not the median 10.5)
+      n = 108, q = 95  -> rank ceil(102.6) = 103
+    """
+    values = list(range(20, 0, -1))          # 20..1, deliberately unsorted
+    assert nearest_rank_percentile(values, 95) == 19
+    assert nearest_rank_percentile(values, 50) == 10
+    assert nearest_rank_percentile(values, 100) == 20
+    assert nearest_rank_percentile(list(range(1, 109)), 95) == 103
+
+
+def test_nearest_rank_percentile_rejects_bad_input():
+    with pytest.raises(ValueError):
+        nearest_rank_percentile([], 95)
+    with pytest.raises(ValueError):
+        nearest_rank_percentile([1.0, 2.0], 0)
+
+
+def test_recorded_latency_counts_successful_calls_only():
+    """Generation 2.0 + verification 1.5 + 1.0 + rewrite 3.0 = 7.5 s.
+    Retrieval and wall-clock times (which include retries) are excluded."""
+    record = {
+        "t_retrieval_s": 0.05,
+        "t_generation_s": 2.0, "t_generation_wall_s": 8.0,
+        "t_verification_s": [1.5, 1.0], "t_verification_wall_s": [1.5, 6.0],
+        "t_rewrite_s": [3.0], "t_rewrite_wall_s": [9.0],
+        "tokens_prompt_total": 900, "tokens_completion_total": 100,
+    }
+    assert recorded_latency_s(record) == pytest.approx(7.5, abs=TOL)
+    assert total_tokens(record) == 1000
+
+    baseline = {"t_generation_s": 2.29, "t_verification_s": [], "t_rewrite_s": []}
+    assert recorded_latency_s(baseline) == pytest.approx(2.29, abs=TOL)
 
 
 # ===========================================================================

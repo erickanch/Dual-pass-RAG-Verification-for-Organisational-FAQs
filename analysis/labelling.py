@@ -102,9 +102,22 @@ def _passages_for(chunk_ids: list[str]) -> str:
 
 
 def _find_results_files() -> list[Path]:
-    """All pipeline result files (not ragas_* scoring files)."""
+    """All pipeline result files (not ragas_* scoring files). The folder must
+    hold only the runs to be labelled when build() runs: it now also holds
+    the repeat runs, which were never labelled."""
     return sorted(p for p in Path(RESULTS_DIR).glob("*.jsonl")
                   if not p.name.startswith("ragas_"))
+
+
+def _refuse_if_labelled(path: Path) -> None:
+    """Never overwrite a sheet that already holds labels: they are the
+    archived labelling record, and rebuilding cannot recreate them."""
+    if not path.exists():
+        return
+    with path.open(encoding="utf-8") as f:
+        if any((row.get("label") or "").strip() for row in csv.DictReader(f)):
+            raise SystemExit(f"{path} already holds labels and would be "
+                             f"overwritten. Move it aside first.")
 
 
 def _collect_units() -> tuple[list[dict], list[dict]]:
@@ -154,6 +167,8 @@ def _collect_units() -> tuple[list[dict], list[dict]]:
 def build() -> tuple[Path, Path]:
     """Write the blinded labelling CSV and the separate mapping file."""
     from src.config import QUESTIONS_FILE
+
+    _refuse_if_labelled(Path(RESULTS_DIR) / "labelling_sheet.csv")
 
     questions = {q["id"]: q["text"] for q in
                  json.loads(Path(QUESTIONS_FILE).read_text())["queries"]}
@@ -216,10 +231,14 @@ def sample() -> Path:
     chosen = rng.sample(rows, n)
 
     out = Path(RESULTS_DIR) / "labelling_sheet_reviewer.csv"
+    _refuse_if_labelled(out)
     with out.open("w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=rows[0].keys())
         w.writeheader()
-        w.writerows(chosen)
+        # Blank label and notes, so the reviewer never sees the researcher's
+        # judgement, even if the sample is drawn after labelling.
+        w.writerows({**r, **{k: "" for k in ("label", "notes") if k in r}}
+                    for r in chosen)
 
     print(f"Wrote {out}")
     print(f"  {n}/{len(rows)} units ({n/len(rows):.0%}) — "

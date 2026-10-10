@@ -1,8 +1,10 @@
 """
-Confusion matrix and the three headline rates, each with a Wilson interval.
+Confusion matrix and the three headline rates, each with a Wilson interval,
+plus the per-query cost measures (recorded latency, tokens) and the
+nearest-rank percentile used to report them.
 
-Reads labelled records; writes nothing. All statistical TESTS live in
-stats.py — this module only describes.
+Reads records; writes nothing. All statistical TESTS live in stats.py —
+this module only describes.
 
 The labeller supplies a judgment of the text (four labels); the controller
 supplies what the system did (five outcomes). This module performs the
@@ -18,6 +20,7 @@ approximation does not:
 
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass
 from typing import Iterable, Mapping, Sequence
 
@@ -175,7 +178,8 @@ def false_positive_rate(cm: ConfusionMatrix, alpha: float = ALPHA) -> Rate:
 def hallucination_reached_user(record: Mapping) -> bool:
     """
     True if a hallucinated answer was displayed. This is the per-query
-    safety outcome that the paired Baseline-vs-Cross-Vendor test compares.
+    safety outcome that the paired McNemar comparisons use (all three pairs
+    of arms).
 
     Excluded outcomes raise: they must be filtered before pairing, or the
     two arms would be compared on different query sets.
@@ -209,3 +213,38 @@ def paired_safety_outcomes(
 
     return ([hallucination_reached_user(by_id_a[q]) for q in usable],
             [hallucination_reached_user(by_id_b[q]) for q in usable])
+
+
+# ---------------------------------------------------------------------------
+# Cost — per-query latency and tokens, and the percentile used to report them
+# ---------------------------------------------------------------------------
+
+def recorded_latency_s(record: Mapping) -> float:
+    """
+    Recorded latency for one query: the SUCCESSFUL generation, verification
+    and rewrite calls, summed. Retrieval, failed attempts and retry waits are
+    excluded (the *_wall_s fields carry those). This is the latency in the
+    cost and run-to-run stability results.
+    """
+    return ((record.get("t_generation_s") or 0.0)
+            + sum(record.get("t_verification_s") or [])
+            + sum(record.get("t_rewrite_s") or []))
+
+
+def total_tokens(record: Mapping) -> int:
+    """Prompt plus completion tokens for one query, both nodes together."""
+    return record["tokens_prompt_total"] + record["tokens_completion_total"]
+
+
+def nearest_rank_percentile(values: Sequence[float], q: float) -> float:
+    """
+    The q-th percentile by the nearest-rank method: the ceil(q/100 * n)-th
+    smallest value. Always an observed value, never an interpolation.
+    """
+    if not values:
+        raise ValueError("no values")
+    if not 0 < q <= 100:
+        raise ValueError(f"q must be in (0, 100], got {q}")
+    ordered = sorted(values)
+    rank = math.ceil(q * len(ordered) / 100)
+    return ordered[rank - 1]

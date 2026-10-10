@@ -3,9 +3,13 @@ Paired significance tests: McNemar (binary) and Wilcoxon (continuous).
 
 Both compare the SAME queries under two arms, which is why they are paired
 tests. Per the proposal, estimation (rates with Wilson intervals, in
-metrics.py) is PRIMARY; these tests are secondary — with ~100 paired
-queries only large differences are reliably detectable, and a
-non-significant result is not evidence of no effect.
+metrics.py) is PRIMARY; these tests are secondary — with the 57 paired
+queries in each reported comparison only large differences are reliably
+detectable, and a non-significant result is not evidence of no effect.
+
+Both report EXACT p-values (McNemar unless exact=False is passed). With so
+few discordant pairs or differing scores, large-sample approximations would
+misstate them.
 """
 
 from __future__ import annotations
@@ -48,8 +52,10 @@ def mcnemar_test(arm_a: Sequence[bool], arm_b: Sequence[bool],
     disagree. Agreements carry no information about which arm is better,
     which is exactly why the test is appropriate here.
 
-        b = a True,  b False   (harmed by arm B)
-        c = a False, b True    (helped by arm B)
+    With paired_safety_outcomes, True means a hallucination reached the user:
+
+        a True,  b False   discordant_a_only  (arm B avoided arm A's failure)
+        a False, b True    discordant_b_only  (arm B failed where arm A did not)
 
     exact=True uses the binomial test, correct at the small discordant
     counts this study will produce. The chi-square approximation is
@@ -96,9 +102,16 @@ def wilcoxon_test(scores_a: Sequence[float], scores_b: Sequence[float],
     that pile up near 1.0.
 
     Pairs where both scores are identical contribute nothing and are
-    dropped by scipy's default ('wilcox'); if ALL pairs are identical the
-    test is undefined and this raises rather than returning a meaningless
-    p-value.
+    dropped (scipy's default zero_method, 'wilcox'); if ALL pairs are
+    identical the test is undefined and this raises rather than returning a
+    meaningless p-value.
+
+    The p-value is EXACT, from the signed-rank distribution of the pairs that
+    differ. scipy's default method would use the normal approximation here,
+    because most pairs are identical: with one or two differing pairs it
+    gives about 0.32 and 0.18, where the exact values are 1.0 and 0.5.
+    Exact handling of identical pairs needs SciPy 1.15 or later;
+    tests/test_metrics.py fails loudly on an older version.
     """
     if len(scores_a) != len(scores_b):
         raise ValueError(f"unpaired lengths: {len(scores_a)} vs {len(scores_b)}")
@@ -110,10 +123,10 @@ def wilcoxon_test(scores_a: Sequence[float], scores_b: Sequence[float],
     if n_nonzero == 0:
         raise ValueError("all pairs identical; Wilcoxon is undefined")
 
-    res = wilcoxon(scores_a, scores_b)
+    res = wilcoxon(scores_a, scores_b, method="exact")
 
     return TestResult(
-        name="Wilcoxon signed-rank (paired continuous)",
+        name="Wilcoxon signed-rank (paired continuous, exact)",
         statistic=float(res.statistic),
         p_value=float(res.pvalue),
         significant=bool(res.pvalue < alpha),
