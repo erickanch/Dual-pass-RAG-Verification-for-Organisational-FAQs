@@ -3,6 +3,9 @@
 Rule for this file: decisions and their reasons, dated. README says *how*,
 PROJECT_STRUCTURE says *where*, this file says *why*.
 
+Entries are contemporaneous and are not revised; where they differ from
+the final report, the report is authoritative.
+
 ## 11.7.2026
 
 **Environment & Dependency Decisions (settled during setup)**
