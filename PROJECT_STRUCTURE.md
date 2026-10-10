@@ -17,7 +17,7 @@ msc-rag/
 ├── .gitignore
 ├── pyproject.toml            # declared dependencies + Python 3.12 pin + pytest discovery config
 ├── uv.lock                   # exact resolved dependency graph — COMMIT (reproducibility)
-├── requirements.txt          # TODO pip-installable export for non-uv readers.
+├── requirements.txt          # DONE pip-installable export for non-uv readers.
 ├── README.md                 # setup guide + how to run (see README)
 ├── NOTES.md                  # methodology journal: decisions + reasons, dated
 ├── PROJECT_STRUCTURE.md      # this file
@@ -30,14 +30,15 @@ msc-rag/
 │   │                         #    tests can import it without API keys.
 │   │                         #    config.py re-exports from here.
 │   ├── config.py             # DONE Single source of truth for parameters.
-│   │                         #    Includes ARM SELECTION: ACTIVE_ARM (from .env)
+│   │                         #    Includes ARM SELECTION: ACTIVE_ARM (default set
+│   │                         #    here; optional override at launch or in .env)
 │   │                         #    resolves NODE_B_ENABLED + ACTIVE_NODE_B_MODEL
 │   │                         #    per arm. same_vendor sets Node B = NODE_A_MODEL
 │   │                         #    by reference (not a copied string); cross_vendor
 │   │                         #    guard requires distinct vendors.
 │   ├── prompts.py            # DONE VERSIONED PROMPTS. Node A gen (8 rules), Node B
 │   │                         #    verify, rewrite prompt, fallback message. Tied to
-│   │                         #    PROMPT_VERSION (v1). FROZEN 27.7.2026 after four
+│   │                         #    PROMPT_VERSION (v1). FROZEN 27.7.2026 after
 │   │                         #    defect-driven revisions; see NOTES for the
 │   │                         #    calibration rule governing further changes.
 │   ├── retrieval.py          # DONE INGESTION + RETRIEVAL. Chunk corpus -> embed
@@ -104,6 +105,9 @@ msc-rag/
 │                             #      labelling_sheet.csv     blinded, 67 units
 │                             #      labelling_sheet_reviewer.csv  20-unit sample
 │                             #      labelling_mapping.json  unit_id -> arm/query
+│                             #    The folder also holds each arm's two repeat runs
+│                             #    and two abandoned baseline runs; analyse.py names
+│                             #    which runs it reads.
 │                             #    Pipeline and scoring records are SEPARATE files
 │                             #    joined by query_id: generation and scoring are
 │                             #    distinct events, and the pipeline record is never
@@ -112,10 +116,12 @@ msc-rag/
 ├── analysis/                 # ── MEASURING THE RUNS (offline) ───────────────
 │   ├── metrics.py            # DONE Confusion matrix from FOUR labels x block/pass;
 │   │                         #    SCR, FNR, FPR each with 95% Wilson intervals;
-│   │                         #    paired_safety_outcomes() feeds stats.py.
-│   ├── stats.py              # DONE McNemar exact (paired binary, baseline vs
-│   │                         #    cross_vendor) + Wilcoxon signed-rank (paired
-│   │                         #    Ragas faithfulness).
+│   │                         #    paired_safety_outcomes() feeds stats.py. Also the
+│   │                         #    cost measures: recorded latency, tokens and the
+│   │                         #    nearest-rank percentile.
+│   ├── stats.py              # DONE McNemar (paired binary) + Wilcoxon signed-rank
+│   │                         #    (paired Ragas faithfulness), both exact, applied
+│   │                         #    to all three pairs of arms.
 │   ├── ragas_eval.py         # DONE RAGAS SCORING. Claude judge + local embeddings.
 │   │                         #    Faithfulness + answer relevance. Writes its OWN
 │   │                         #    scoring_metadata() (judge, ragas version, which
@@ -126,7 +132,7 @@ msc-rag/
 │   │                         #    Sets RAGAS_DO_NOT_TRACK before import — the
 │   │                         #    telemetry call otherwise hangs on DNS timeout
 │   │                         #    (NOTES 8.8.2026). Judge-validation check vs human
-│   │                         #    labels on Baseline is done.
+│   │                         #    labels across all three arms is done.
 │   ├── labelling.py          # DONE HITL SUPPORT. `build` writes a blinded CSV
 │   │                         #    (query + answer + passages only; arm, outcome and
 │   │                         #    verifier verdict withheld), seeded-shuffled, with
@@ -146,7 +152,7 @@ msc-rag/
 │   │                         #    comparison. The matrix uses the FINAL labelled
 │   │                         #    draft per query; intermediate rewrite drafts are
 │   │                         #    reported separately.
-│   └── figures.py            # NOT BUILT. The findings are few and tabular; six
+│   └── figures.py            # NOT BUILT. The findings are few and tabular; the
 │                             #    tables in Results carry them. No figure would
 │                             #    add to what the tables show.
 │
@@ -155,7 +161,7 @@ msc-rag/
 │   │                         #    expected values. Free, fast, no API keys.
 │   │                         #    This is what bare `pytest` runs.
 │   ├── smoke_test.py         # DONE Full-stack import/connectivity check.
-│   │                         #    Use live APIs (costs money).
+│   │                         #    Uses live APIs (costs money).
 │   │                         #    Run explicitly: uv run python tests/smoke_test.py
 │   ├── test_ragas.py         # DONE Three-vendor Ragas end-to-end proof.
 │   │                         #    Use live APIs (costs money).
@@ -224,8 +230,8 @@ Each fact lives in exactly ONE of the three.
 7.  DONE **human labelling** (67 units; 20 to 2nd reviewer) — the critical path
 8.  DONE **analyse.py** — matrices, rates, paired comparison, judge validation
 9.  DONE **web/main.py**
-10. NEXT the **report** + demo video
-11. LAST **requirements.txt**
+10. DONE the **report** + demo video
+11. DONE **requirements.txt**
 
 `analysis/metrics.py` and `stats.py` are the exception — they can be written and
 unit-tested against synthetic confusion matrices at ANY point, with no pipeline

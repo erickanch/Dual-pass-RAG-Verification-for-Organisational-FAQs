@@ -28,7 +28,8 @@ Create `.env` in the project root (never committed):
 GOOGLE_API_KEY=...
 OPENAI_API_KEY=...
 ANTHROPIC_API_KEY=...
-ACTIVE_ARM=cross_vendor          # baseline | same_vendor | cross_vendor
+# optional; overrides the default in src/config.py
+# ACTIVE_ARM=cross_vendor          # baseline | same_vendor | cross_vendor
 ```
 
 Verify the environment:
@@ -72,23 +73,24 @@ Runs all 108 queries through the pipeline and writes
 `{arm}_{timestamp}.jsonl` — a metadata header plus one record per query,
 flushed as it goes. About five minutes per sweep under normal API latency.
 
-If a sweep halts, `--resume` retries only the infrastructure failures
-(`generation_failed`, `verifier_malformed`) and preserves genuine results:
+If a sweep halts, `--resume` continues the most recent results file for the
+active arm. It retries only the infrastructure failures (`generation_failed`,
+`verifier_malformed`) and preserves genuine results:
 
 ```bash
-uv run python -m experiments.run_experiment --resume experiments/results/cross_vendor_20260808_040232.jsonl
+uv run python -m experiments.run_experiment --resume
 ```
 
 ### 3. Score with Ragas
 
 ```bash
-uv run python -m analysis.ragas_eval experiments/results/cross_vendor_20260808_040232.jsonl
+uv run python -m analysis.ragas_eval experiments/results/<arm>_<timestamp>.jsonl
 ```
 
-Writes `ragas_{arm}_{timestamp}.jsonl` — the exact question, answer and
-passages scored, with faithfulness and answer relevance. Joined to the
-pipeline record by `query_id`. The judge is a third vendor, distinct from
-both nodes; the configuration refuses to start otherwise.
+Writes `ragas_{arm}_{timestamp}.jsonl` (named after the run it scores)— the exact
+question, answer and passages scored, with faithfulness and answer relevance. 
+Joined to the pipeline record by `query_id`. The judge is a third vendor, distinct
+from both nodes; the configuration refuses to start otherwise.
 
 Scores only answers shown to a user. Withheld answers make no factual claim
 and are counted separately as a refusal rate.
@@ -121,9 +123,9 @@ uv run python -m analysis.analyse
 ```
 
 Joins labels to outcomes, builds the confusion matrix per arm, and computes
-SCR, FNR and FPR with Wilson intervals, plus the paired baseline-versus-
-cross-vendor comparison. Reports the rewrite chains separately, since a
-hallucination caught inside the loop does not appear in the matrix.
+SCR, FNR and FPR with Wilson intervals, plus the paired comparisons across
+arms. Reports the rewrite chains separately, since a hallucination caught
+inside the loop does not appear in the matrix.
 
 ### 6. Web interface
 
@@ -165,7 +167,9 @@ selectable in the interface, matching the evaluation setup.
 The three sweeps behind the reported figures are committed in
 `experiments/results/`, with their Ragas scoring files and the completed
 labelling sheet. `analysis/analyse.py` regenerates every number in the
-results section from them without re-running the pipeline.
+results section from them without re-running the pipeline. The one
+exception is the retrieval pre-test at depths 3, 8 and 10, which needs the
+ChromaDB index built in step 1.
 
 Each arm was also run twice more to check output stability; those runs are
-committed and reported separately.
+committed and `analysis/analyse.py` uses them for the stability results.

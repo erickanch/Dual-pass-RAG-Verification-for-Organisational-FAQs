@@ -169,10 +169,19 @@ VALID_ARMS = (ARM_BASELINE, ARM_SAME_VENDOR, ARM_CROSS_VENDOR)
 
 # --- Arm selection ---------------------------------------------------------
 #
-# ACTIVE_ARM chooses which configuration is live for a run. Set it in .env
-# (ACTIVE_ARM=cross_vendor) so a run's arm is recorded outside the code, or
-# leave it to default. run_experiment.py reads the DERIVED values below —
-# never NODE_B_MODEL directly — so the same runner serves all three arms.
+# ACTIVE_ARM chooses which configuration is live for a run. It is set in
+# this file, on the line below. The default is cross_vendor. To run another
+# arm, replace ARM_CROSS_VENDOR with ARM_BASELINE or ARM_SAME_VENDOR and
+# restart. This change only requires a setting in this file, not the code.
+#
+# This project keeps ACTIVE_ARM out of .env. For secutiry, .env only holds 
+# the API keys, so it never needs to be opened to switch arms.
+# For convenience, every experimental setting stays in this file. If ACTIVE_ARM
+# is set in the environment, at launch or in .env (as in the README's run commands),
+# that value takes precedence.
+# 
+# run_experiment.py reads the DERIVED values below — never NODE_B_MODEL directly —
+# so the same runner serves all three arms.
 
 ACTIVE_ARM = os.getenv("ACTIVE_ARM", ARM_CROSS_VENDOR)
 
