@@ -17,7 +17,7 @@ assignment varies between arms; every other setting is held constant.
 Requirements: Python 3.12 (pinned), [`uv`](https://docs.astral.sh/uv/).
 
 ```bash
-git clone <repo-url>
+git clone <repo-url> msc-rag
 cd msc-rag
 uv sync
 ```
