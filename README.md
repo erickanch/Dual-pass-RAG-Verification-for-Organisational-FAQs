@@ -1,4 +1,4 @@
-# msc-rag — Dual-Pass RAG Verification
+# Dual-Pass RAG Verification for Organisational FAQs
 
 MSc project prototype: a RAG chatbot whose answers are verified
 claim-by-claim by an independent second model before display, with a
